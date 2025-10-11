@@ -39,15 +39,17 @@ export default function ProgressStepper({
                 >
                   {/* Bağlantı çizgisi - SADECE son adım değilse göster */}
                   {stepIdx !== steps.length - 1 && (
-                    <div className="absolute left-1/2 top-8 h-1 w-full -z-10">
-                      <div className="h-full w-full bg-gray-200 rounded-full ml-8">
+                    <div className="absolute left-[calc(50%+2rem)] top-8 h-1 w-[calc(100%-4rem)] -z-10">
+                      {/* Arka plan çizgisi - her zaman görünür (gri) */}
+                      <div className="h-full w-full bg-gray-300 rounded-full relative">
+                        {/* Dolum çizgisi - sadece tamamlanan adımlarda (mavi) */}
                         <motion.div
                           initial={{ width: '0%' }}
                           animate={{ 
                             width: isCompleted ? '100%' : '0%'
                           }}
                           transition={{ duration: 0.6, ease: 'easeInOut' }}
-                          className="h-full bg-gradient-to-r from-primary via-primary to-primary/90 rounded-full shadow-sm"
+                          className="absolute top-0 left-0 h-full bg-gradient-to-r from-primary via-primary to-primary/90 rounded-full shadow-sm"
                         />
                       </div>
                     </div>
