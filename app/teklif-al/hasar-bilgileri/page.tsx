@@ -204,9 +204,6 @@ export default function HasarBilgileriPage() {
                 >
                   <defs>
                     <style type="text/css">{`
-                      .st0 {
-                        fill: #FFFFFF;
-                      }
                       .st1 {
                         stroke: #000000;
                         stroke-width: 0.75;
@@ -241,6 +238,9 @@ export default function HasarBilgileriPage() {
                       .car-part {
                         transition: all 0.3s ease;
                         cursor: pointer;
+                        stroke: #000000;
+                        stroke-width: 0.75;
+                        stroke-miterlimit: 10;
                       }
                       .car-part:hover {
                         opacity: 0.8;
@@ -252,8 +252,8 @@ export default function HasarBilgileriPage() {
                     {CAR_PARTS.map(part => (
                       <path
                         key={part.id}
-                        className={`car-part ${part.id} st0`}
-                        fill={getPartFill(part.id)}
+                        className={`car-part ${part.id}`}
+                        style={{ fill: getPartFill(part.id) }}
                         onClick={() => {
                           const currentStatus = partStatus[part.id]
                           const nextStatus: PartStatus = 
