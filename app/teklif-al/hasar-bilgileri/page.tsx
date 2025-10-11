@@ -75,7 +75,7 @@ export default function HasarBilgileriPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary/5 py-8 sm:py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary/5 py-4 sm:py-6">
       <div className="container mx-auto max-w-7xl px-4">
         <ProgressStepper steps={steps} currentStep={2} />
 
@@ -83,27 +83,27 @@ export default function HasarBilgileriPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm p-4 sm:p-6 md:p-8 shadow-2xl border border-gray-100"
+          className="overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm p-4 sm:p-6 shadow-2xl border border-gray-100"
         >
-          <div className="mb-6 sm:mb-8 text-center">
-            <h1 className="mb-2 sm:mb-3 text-2xl sm:text-3xl md:text-4xl font-bold text-secondary">
+          <div className="mb-4 sm:mb-6 text-center">
+            <h1 className="mb-2 text-2xl sm:text-3xl font-bold text-secondary">
               Hasar Bilgileri
             </h1>
-            <p className="text-base sm:text-lg text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Aracınızın her parçasının durumunu belirtin
             </p>
           </div>
 
           {/* Grid - 2 columns on large screens, 1 on mobile */}
-          <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
             {/* Left Panel: Part Selection */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2 }}
-              className="space-y-3 sm:space-y-4 rounded-lg bg-gray-50 p-4 sm:p-6 border border-gray-200"
+              className="space-y-2 sm:space-y-3 rounded-lg bg-gray-50 p-3 sm:p-4 border border-gray-200"
             >
-              <h3 className="text-lg sm:text-xl font-bold text-secondary mb-3 sm:mb-4">Parça Durumları</h3>
+              <h3 className="text-base sm:text-lg font-bold text-secondary mb-2 sm:mb-3">Parça Durumları</h3>
               {CAR_PARTS.map((part) => (
                 <div key={part.id} className="flex flex-col space-y-2">
                   <label className="text-sm sm:text-base font-medium text-gray-700">
@@ -137,10 +137,10 @@ export default function HasarBilgileriPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-4 sm:p-6 border border-gray-200"
+              className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-3 sm:p-4 border border-gray-200"
             >
               {/* Color Legend */}
-              <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4 sm:mb-6 w-full max-w-xs">
+              <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-3 sm:mb-4 w-full max-w-xs">
                 <div className="flex items-center space-x-2">
                   <span className="block h-3 w-3 sm:h-4 sm:w-4 rounded-full border border-gray-300 bg-white"></span>
                   <span className="text-xs sm:text-sm font-medium text-gray-700">Orijinal</span>
@@ -503,7 +503,7 @@ export default function HasarBilgileriPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-between gap-4"
+            className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-between gap-3"
           >
             <Button
               type="button"

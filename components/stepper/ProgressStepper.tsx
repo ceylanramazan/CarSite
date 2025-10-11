@@ -18,9 +18,9 @@ export default function ProgressStepper({
   currentStep,
 }: ProgressStepperProps) {
   return (
-    <nav aria-label="Progress" className="mb-8 sm:mb-10">
+    <nav aria-label="Progress" className="mb-6 sm:mb-8">
       <div className="mx-auto max-w-4xl px-4">
-        <ol className="flex items-start justify-between relative">
+        <ol className="flex items-center justify-between relative">
           {steps.map((step, stepIdx) => {
             const isCompleted = currentStep > step.id
             const isCurrent = currentStep === step.id
@@ -33,7 +33,7 @@ export default function ProgressStepper({
               >
                 {/* Bağlantı çizgisi */}
                 {stepIdx !== steps.length - 1 && (
-                  <div className="absolute left-[50%] right-[-50%] top-[20px] sm:top-[24px] h-[2px] sm:h-[3px] -z-10">
+                  <div className="absolute left-1/2 right-0 top-[20px] sm:top-[24px] -translate-y-1/2 h-[3px] w-full z-0">
                     <div 
                       className={cn(
                         "h-full w-full",
