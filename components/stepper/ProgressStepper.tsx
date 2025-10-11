@@ -2,6 +2,7 @@
 
 import { CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { motion } from 'framer-motion'
 
 interface Step {
   id: number
@@ -19,56 +20,75 @@ export default function ProgressStepper({
   currentStep,
 }: ProgressStepperProps) {
   return (
-    <nav aria-label="Progress" className="mb-8">
-      <ol className="flex items-center justify-between">
-        {steps.map((step, stepIdx) => (
-          <li
-            key={step.id}
-            className={cn(
-              'relative flex flex-col items-center',
-              stepIdx !== steps.length - 1 ? 'flex-1' : ''
-            )}
-          >
-            {/* Line */}
-            {stepIdx !== steps.length - 1 && (
-              <div
-                className={cn(
-                  'absolute left-1/2 top-4 h-0.5 w-full',
-                  currentStep > step.id ? 'bg-primary' : 'bg-gray-300'
-                )}
-                aria-hidden="true"
-              />
-            )}
-
-            {/* Circle */}
-            <div className="relative z-10">
-              {currentStep > step.id ? (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-                  <CheckCircle2 className="h-5 w-5 text-white" />
-                </div>
-              ) : currentStep === step.id ? (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-primary bg-white">
-                  <div className="h-3 w-3 rounded-full bg-primary" />
-                </div>
-              ) : (
-                <div className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
-                  <div className="h-2 w-2 rounded-full bg-gray-300" />
-                </div>
-              )}
-            </div>
-
-            {/* Label */}
-            <span
+    <nav aria-label="Progress" className="mb-12">
+      <div className="mx-auto max-w-3xl rounded-2xl bg-white/80 backdrop-blur-sm p-6 shadow-lg border border-gray-100">
+        <ol className="flex items-center justify-between">
+          {steps.map((step, stepIdx) => (
+            <li
+              key={step.id}
               className={cn(
-                'mt-2 text-xs font-medium sm:text-sm',
-                currentStep >= step.id ? 'text-primary' : 'text-gray-500'
+                'relative flex flex-col items-center',
+                stepIdx !== steps.length - 1 ? 'flex-1' : ''
               )}
             >
-              {step.name}
-            </span>
-          </li>
-        ))}
-      </ol>
+              {/* Line */}
+              {stepIdx !== steps.length - 1 && (
+                <div className="absolute left-1/2 top-6 h-1 w-full -translate-y-1/2">
+                  <div className="h-full w-full bg-gray-200 rounded-full">
+                    <motion.div
+                      initial={{ width: '0%' }}
+                      animate={{ 
+                        width: currentStep > step.id ? '100%' : '0%' 
+                      }}
+                      transition={{ duration: 0.5, ease: 'easeInOut' }}
+                      className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Circle */}
+              <div className="relative z-10">
+                {currentStep > step.id ? (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 200 }}
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 shadow-lg"
+                  >
+                    <CheckCircle2 className="h-7 w-7 text-white" />
+                  </motion.div>
+                ) : currentStep === step.id ? (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 200 }}
+                    className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-primary bg-white shadow-lg"
+                  >
+                    <div className="h-5 w-5 rounded-full bg-primary animate-pulse" />
+                  </motion.div>
+                ) : (
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
+                    <div className="h-3 w-3 rounded-full bg-gray-300" />
+                  </div>
+                )}
+              </div>
+
+              {/* Label */}
+              <span
+                className={cn(
+                  'mt-3 text-center text-xs font-semibold sm:text-sm',
+                  currentStep >= step.id 
+                    ? 'text-primary' 
+                    : 'text-gray-500'
+                )}
+              >
+                {step.name}
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
     </nav>
   )
 }
