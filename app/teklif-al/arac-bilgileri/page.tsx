@@ -11,6 +11,8 @@ import { Label } from '@/components/ui/label'
 import { Select } from '@/components/ui/select'
 import ProgressStepper from '@/components/stepper/ProgressStepper'
 import { BRANDS, FUEL_TYPES, GEARBOX_TYPES, CITIES } from '@/lib/constants'
+import { motion } from 'framer-motion'
+import { Car, Calendar, Gauge, Fuel, Settings, MapPin, Hash } from 'lucide-react'
 import type { VehicleDTO } from '@/types'
 
 const steps = [
@@ -42,22 +44,37 @@ export default function AracBilgileriPage() {
   const years = Array.from({ length: 35 }, (_, i) => currentYear - i)
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-12">
-      <ProgressStepper steps={steps} currentStep={1} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary/5 py-12">
+      <div className="container mx-auto max-w-4xl px-4">
+        <ProgressStepper steps={steps} currentStep={1} />
 
-      <div className="rounded-lg bg-white p-8 shadow-lg">
-        <h1 className="mb-2 text-3xl font-bold text-secondary">
-          Araç Bilgileri
-        </h1>
-        <p className="mb-8 text-gray-600">
-          Aracınızın temel bilgilerini giriniz
-        </p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm p-8 shadow-2xl border border-gray-100"
+        >
+          <div className="mb-8 text-center">
+            <h1 className="mb-3 text-4xl font-bold text-secondary">
+              Araç Bilgileri
+            </h1>
+            <p className="text-lg text-gray-600">
+              Aracınızın temel bilgilerini giriniz
+            </p>
+          </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
           {/* Marka */}
-          <div>
-            <Label htmlFor="brand">Marka *</Label>
-            <Select id="brand" {...register('brand')}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+          >
+            <Label htmlFor="brand" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+              <Car className="mr-2 h-5 w-5 text-primary" />
+              Marka *
+            </Label>
+            <Select id="brand" {...register('brand')} className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20">
               <option value="">Marka Seçiniz</option>
               {BRANDS.map((brand) => (
                 <option key={brand} value={brand}>
@@ -66,30 +83,58 @@ export default function AracBilgileriPage() {
               ))}
             </Select>
             {errors.brand && (
-              <p className="mt-1 text-sm text-red-500">{errors.brand.message}</p>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 text-sm text-red-500 flex items-center"
+              >
+                ⚠️ {errors.brand.message}
+              </motion.p>
             )}
-          </div>
+          </motion.div>
 
           {/* Model */}
-          <div>
-            <Label htmlFor="model">Model *</Label>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.15 }}
+          >
+            <Label htmlFor="model" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+              <Car className="mr-2 h-5 w-5 text-primary" />
+              Model *
+            </Label>
             <Input
               id="model"
               placeholder="Örn: Astra"
               {...register('model')}
+              className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
             {errors.model && (
-              <p className="mt-1 text-sm text-red-500">{errors.model.message}</p>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 text-sm text-red-500 flex items-center"
+              >
+                ⚠️ {errors.model.message}
+              </motion.p>
             )}
-          </div>
+          </motion.div>
 
           {/* Yıl & Kilometre */}
           <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="year">Yıl *</Label>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Label htmlFor="year" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                <Calendar className="mr-2 h-5 w-5 text-primary" />
+                Yıl *
+              </Label>
               <Select
                 id="year"
                 {...register('year', { valueAsNumber: true })}
+                className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
               >
                 <option value="">Yıl Seçiniz</option>
                 {years.map((year) => (
@@ -99,29 +144,56 @@ export default function AracBilgileriPage() {
                 ))}
               </Select>
               {errors.year && (
-                <p className="mt-1 text-sm text-red-500">{errors.year.message}</p>
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-500 flex items-center"
+                >
+                  ⚠️ {errors.year.message}
+                </motion.p>
               )}
-            </div>
+            </motion.div>
 
-            <div>
-              <Label htmlFor="km">Kilometre *</Label>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.25 }}
+            >
+              <Label htmlFor="km" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                <Gauge className="mr-2 h-5 w-5 text-primary" />
+                Kilometre *
+              </Label>
               <Input
                 id="km"
                 type="number"
                 placeholder="Örn: 42000"
                 {...register('km', { valueAsNumber: true })}
+                className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
               {errors.km && (
-                <p className="mt-1 text-sm text-red-500">{errors.km.message}</p>
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-500 flex items-center"
+                >
+                  ⚠️ {errors.km.message}
+                </motion.p>
               )}
-            </div>
+            </motion.div>
           </div>
 
           {/* Yakıt & Vites */}
           <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <Label htmlFor="fuel_type">Yakıt Tipi *</Label>
-              <Select id="fuel_type" {...register('fuel_type')}>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              <Label htmlFor="fuel_type" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                <Fuel className="mr-2 h-5 w-5 text-primary" />
+                Yakıt Tipi *
+              </Label>
+              <Select id="fuel_type" {...register('fuel_type')} className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20">
                 <option value="">Yakıt Tipi Seçiniz</option>
                 {FUEL_TYPES.map((fuel) => (
                   <option key={fuel} value={fuel}>
@@ -130,15 +202,26 @@ export default function AracBilgileriPage() {
                 ))}
               </Select>
               {errors.fuel_type && (
-                <p className="mt-1 text-sm text-red-500">
-                  {errors.fuel_type.message}
-                </p>
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-500 flex items-center"
+                >
+                  ⚠️ {errors.fuel_type.message}
+                </motion.p>
               )}
-            </div>
+            </motion.div>
 
-            <div>
-              <Label htmlFor="gearbox">Vites *</Label>
-              <Select id="gearbox" {...register('gearbox')}>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.35 }}
+            >
+              <Label htmlFor="gearbox" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                <Settings className="mr-2 h-5 w-5 text-primary" />
+                Vites *
+              </Label>
+              <Select id="gearbox" {...register('gearbox')} className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20">
                 <option value="">Vites Tipi Seçiniz</option>
                 {GEARBOX_TYPES.map((gearbox) => (
                   <option key={gearbox} value={gearbox}>
@@ -147,17 +230,28 @@ export default function AracBilgileriPage() {
                 ))}
               </Select>
               {errors.gearbox && (
-                <p className="mt-1 text-sm text-red-500">
-                  {errors.gearbox.message}
-                </p>
+                <motion.p 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-500 flex items-center"
+                >
+                  ⚠️ {errors.gearbox.message}
+                </motion.p>
               )}
-            </div>
+            </motion.div>
           </div>
 
           {/* Şehir */}
-          <div>
-            <Label htmlFor="city">Şehir *</Label>
-            <Select id="city" {...register('city')}>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <Label htmlFor="city" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+              <MapPin className="mr-2 h-5 w-5 text-primary" />
+              Şehir *
+            </Label>
+            <Select id="city" {...register('city')} className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20">
               <option value="">Şehir Seçiniz</option>
               {CITIES.map((city) => (
                 <option key={city} value={city}>
@@ -166,27 +260,47 @@ export default function AracBilgileriPage() {
               ))}
             </Select>
             {errors.city && (
-              <p className="mt-1 text-sm text-red-500">{errors.city.message}</p>
+              <motion.p 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-2 text-sm text-red-500 flex items-center"
+              >
+                ⚠️ {errors.city.message}
+              </motion.p>
             )}
-          </div>
+          </motion.div>
 
           {/* Plaka (Opsiyonel) */}
-          <div>
-            <Label htmlFor="plate">Plaka (Opsiyonel)</Label>
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.45 }}
+          >
+            <Label htmlFor="plate" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+              <Hash className="mr-2 h-5 w-5 text-primary" />
+              Plaka (Opsiyonel)
+            </Label>
             <Input
               id="plate"
               placeholder="Örn: 34ABC123"
               {...register('plate')}
+              className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
-          </div>
+          </motion.div>
 
           {/* Submit Button */}
-          <div className="flex justify-end pt-4">
-            <Button type="submit" size="lg">
-              Devam Et
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="flex justify-end pt-6"
+          >
+            <Button type="submit" size="lg" className="h-12 px-8 text-base font-semibold shadow-lg hover:shadow-xl transition-all">
+              Devam Et →
             </Button>
-          </div>
+          </motion.div>
         </form>
+        </motion.div>
       </div>
     </div>
   )
