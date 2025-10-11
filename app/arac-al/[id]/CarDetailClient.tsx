@@ -11,6 +11,8 @@ import {
   ArrowLeft,
   Phone,
   MessageCircle,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react'
 import type { CarBuyDTO } from '@/types'
 
@@ -31,6 +33,14 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
     // Form gönderme işlemi
     console.log('Form submitted:', formData)
     alert('Mesajınız başarıyla gönderildi!')
+  }
+
+  const nextImage = () => {
+    setCurrentImage((prev) => (prev + 1) % allImages.length)
+  }
+
+  const prevImage = () => {
+    setCurrentImage((prev) => (prev - 1 + allImages.length) % allImages.length)
   }
 
   return (
@@ -56,18 +66,65 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Left Side - Images & Description */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Main Image */}
+            {/* Main Image with Navigation */}
             <Card className="overflow-hidden">
-              <div className="aspect-video bg-gray-100 relative">
+              <div className="aspect-video bg-gray-100 relative group">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={allImages[currentImage]}
                   alt={`${car.brand} ${car.model}`}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-full text-sm font-medium">
+                
+                {/* Car ID Badge */}
+                <div className="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-full text-sm font-medium shadow-md">
                   #{car.id}
                 </div>
+
+                {/* Image Counter */}
+                <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1.5 rounded-full text-sm font-medium">
+                  {currentImage + 1} / {allImages.length}
+                </div>
+
+                {/* Previous Button */}
+                {allImages.length > 1 && (
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="h-6 w-6 text-gray-800" />
+                  </button>
+                )}
+
+                {/* Next Button */}
+                {allImages.length > 1 && (
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="h-6 w-6 text-gray-800" />
+                  </button>
+                )}
+
+                {/* Dots Navigation */}
+                {allImages.length > 1 && (
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                    {allImages.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setCurrentImage(idx)}
+                        className={`transition-all rounded-full ${
+                          currentImage === idx
+                            ? 'bg-white w-8 h-2'
+                            : 'bg-white/60 hover:bg-white/80 w-2 h-2'
+                        }`}
+                        aria-label={`Go to image ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
             </Card>
 
