@@ -1,178 +1,297 @@
 'use client'
 
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Card, CardContent } from '@/components/ui/card'
 import {
-  MapPin,
-  Fuel,
-  Settings,
-  Calendar,
-  CheckCircle,
   ArrowLeft,
+  Phone,
+  MessageCircle,
 } from 'lucide-react'
-import { motion } from 'framer-motion'
 import type { CarBuyDTO } from '@/types'
 
 export function CarDetailClient({ car }: { car: CarBuyDTO }) {
   const router = useRouter()
+  const [currentImage, setCurrentImage] = useState(0)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  })
+
+  const allImages = car.images || [car.thumbnail]
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Form gönderme işlemi
+    console.log('Form submitted:', formData)
+    alert('Mesajınız başarıyla gönderildi!')
+  }
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <Button
-        variant="ghost"
-        className="mb-6"
-        onClick={() => router.push('/arac-al')}
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" />
-        Geri
-      </Button>
-
-      <div className="grid gap-8 lg:grid-cols-3">
-        {/* Left - Images & Details */}
-        <div className="lg:col-span-2">
-          {/* Main Image */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-6"
+    <div className="min-h-screen bg-gray-50">
+      {/* Header with back button and title */}
+      <div className="bg-white border-b">
+        <div className="container mx-auto px-4 py-4">
+          <Button
+            variant="ghost"
+            className="mb-2"
+            onClick={() => router.push('/arac-al')}
           >
-            <div className="aspect-video overflow-hidden rounded-lg bg-gray-100">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={car.thumbnail}
-                alt={`${car.brand} ${car.model}`}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </motion.div>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Geri
+          </Button>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+            {car.brand.toUpperCase()} {car.year} {car.model.toUpperCase()}
+          </h1>
+        </div>
+      </div>
 
-          {/* Additional Images */}
-          {car.images && car.images.length > 1 && (
-            <div className="mb-6 grid grid-cols-3 gap-4">
-              {car.images.slice(1).map((image, idx) => (
-                <div
-                  key={idx}
-                  className="aspect-video overflow-hidden rounded-lg bg-gray-100"
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={image}
-                    alt={`${car.brand} ${car.model} - ${idx + 2}`}
-                    className="h-full w-full object-cover"
-                  />
+      <div className="container mx-auto px-4 py-6">
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Left Side - Images & Description */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Main Image */}
+            <Card className="overflow-hidden">
+              <div className="aspect-video bg-gray-100 relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={allImages[currentImage]}
+                  alt={`${car.brand} ${car.model}`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-full text-sm font-medium">
+                  #{car.id}
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            </Card>
 
-          {/* Description */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Açıklama</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">
-                {car.description || 'Açıklama bulunmamaktadır.'}
-              </p>
-            </CardContent>
-          </Card>
+            {/* Thumbnail Images */}
+            {allImages.length > 1 && (
+              <div className="grid grid-cols-6 gap-2">
+                {allImages.map((image, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentImage(idx)}
+                    className={`aspect-video rounded-lg overflow-hidden border-2 transition-all ${
+                      currentImage === idx
+                        ? 'border-primary'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={image}
+                      alt={`Thumbnail ${idx + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
 
-          {/* Features */}
-          {car.features && car.features.length > 0 && (
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Özellikler</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="grid gap-2 sm:grid-cols-2">
-                  {car.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-gray-700">
-                      <CheckCircle className="mr-2 h-4 w-4 text-accent" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+            {/* Divider */}
+            <div className="border-t-2 border-gray-200 my-6" />
+
+            {/* Description Section */}
+            <Card>
+              <CardContent className="p-6">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">Açıklama</h2>
+                
+                {/* Price */}
+                <div className="mb-6">
+                  <div className="text-sm text-gray-600 mb-1">Fiyat</div>
+                  <div className="text-3xl font-bold text-primary">
+                    {car.price.toLocaleString()} ₺
+                  </div>
+                </div>
+
+                {/* Specifications Grid */}
+                <div className="grid md:grid-cols-2 gap-x-8 gap-y-4 mb-6">
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Marka</span>
+                    <span className="font-semibold">{car.brand}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Model</span>
+                    <span className="font-semibold">{car.model}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Yıl</span>
+                    <span className="font-semibold">{car.year}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Yakıt</span>
+                    <span className="font-semibold">{car.fuel_type}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Vites</span>
+                    <span className="font-semibold">{car.gearbox}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">KM</span>
+                    <span className="font-semibold">{car.km.toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-gray-200">
+                    <span className="text-gray-600 font-medium">Şehir</span>
+                    <span className="font-semibold">{car.city}</span>
+                  </div>
+                </div>
+
+                {/* Description Text */}
+                {car.description && (
+                  <div className="mt-6">
+                    <p className="text-gray-700 leading-relaxed">
+                      {car.description}
+                    </p>
+                  </div>
+                )}
+
+                {/* Features */}
+                {car.features && car.features.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="font-semibold text-lg mb-3">Özellikler</h3>
+                    <div className="grid md:grid-cols-2 gap-2">
+                      {car.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center text-sm text-gray-700">
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
+                          {feature}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </CardContent>
             </Card>
-          )}
-        </div>
+          </div>
 
-        {/* Right - Summary & Purchase */}
-        <div className="lg:col-span-1">
-          <Card className="sticky top-20">
-            <CardHeader>
-              <CardTitle className="text-2xl">
-                {car.brand} {car.model}
-              </CardTitle>
-              <div className="text-3xl font-bold text-primary">
-                ₺{car.price.toLocaleString()}
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Specifications */}
-              <div className="space-y-3 border-b pb-6">
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center text-gray-600">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Yıl
-                  </span>
-                  <span className="font-medium">{car.year}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center text-gray-600">
-                    <Settings className="mr-2 h-4 w-4" />
-                    Kilometre
-                  </span>
-                  <span className="font-medium">
-                    {car.km.toLocaleString()} km
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center text-gray-600">
-                    <Fuel className="mr-2 h-4 w-4" />
-                    Yakıt
-                  </span>
-                  <span className="font-medium">{car.fuel_type}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center text-gray-600">
-                    <Settings className="mr-2 h-4 w-4" />
-                    Vites
-                  </span>
-                  <span className="font-medium">{car.gearbox}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="flex items-center text-gray-600">
-                    <MapPin className="mr-2 h-4 w-4" />
-                    Şehir
-                  </span>
-                  <span className="font-medium">{car.city}</span>
-                </div>
-              </div>
+          {/* Right Side - Contact Information & Form */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-4 space-y-4">
+              {/* Contact Buttons */}
+              <Card>
+                <CardContent className="p-4">
+                  <h3 className="text-lg font-bold mb-4 text-gray-900">İletişim Bilgileri</h3>
+                  
+                  {/* Phone Button */}
+                  <a href="tel:+905521896803">
+                    <Button className="w-full mb-3 bg-primary hover:bg-primary/90 text-white h-12">
+                      <Phone className="mr-2 h-5 w-5" />
+                      0 (552) 189 68 03
+                    </Button>
+                  </a>
 
-              {/* Purchase Button */}
-              <Button
-                className="w-full"
-                size="lg"
-                onClick={() =>
-                  router.push(`/arac-al/satin-al/${car.id}`)
-                }
-              >
-                Satın Al
-              </Button>
+                  {/* WhatsApp Button */}
+                  <a href="https://wa.me/905521896803" target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full bg-green-500 hover:bg-green-600 text-white h-12">
+                      <MessageCircle className="mr-2 h-5 w-5" />
+                      Whatsapp
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
 
-              {/* Info */}
-              <div className="rounded-lg bg-gray-50 p-4 text-sm text-gray-600">
-                <p>
-                  <strong>Not:</strong> Aracı satın almak için formu
-                  doldurmanız gerekmektedir. Ekibimiz en kısa sürede sizinle
-                  iletişime geçecektir.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+              {/* Contact Form */}
+              <Card>
+                <CardContent className="p-4">
+                  <h3 className="text-lg font-bold mb-2 text-gray-900">Sizi Arayalım</h3>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Bilgilerinizi bırakın sizi arayalım.
+                  </p>
+
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    {/* Name */}
+                    <div>
+                      <Label htmlFor="name" className="text-sm font-medium">
+                        Ad & Soyad <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="name"
+                        placeholder="Ad ve soyadınızı girin..."
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                        className="mt-1"
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                      <Label htmlFor="email" className="text-sm font-medium">
+                        E-Posta <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="E-Postanızı girin..."
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                        className="mt-1"
+                      />
+                    </div>
+
+                    {/* Phone */}
+                    <div>
+                      <Label htmlFor="phone" className="text-sm font-medium">
+                        Telefon <span className="text-red-500">*</span>
+                      </Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="Telefon numaranızı girin..."
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        required
+                        className="mt-1"
+                      />
+                    </div>
+
+                    {/* Message */}
+                    <div>
+                      <Label htmlFor="message" className="text-sm font-medium">
+                        Mesaj <span className="text-red-500">*</span>
+                      </Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Mesajınızı yazın..."
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        required
+                        rows={4}
+                        className="mt-1"
+                      />
+                    </div>
+
+                    {/* reCAPTCHA Placeholder */}
+                    <div className="bg-gray-100 border border-gray-300 rounded p-3 flex items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="w-6 h-6 border-2 border-gray-400 rounded mr-2"></div>
+                        <span className="text-sm text-gray-600">Ben robot değilim</span>
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        <div>reCAPTCHA</div>
+                        <div className="text-[10px]">Gizlilik - Şartlar</div>
+                      </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <Button
+                      type="submit"
+                      className="w-full bg-primary hover:bg-primary/90 h-12 font-semibold"
+                    >
+                      Gönder
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>
