@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -18,6 +18,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Loader2,
+  X,
+  ZoomIn,
 } from 'lucide-react'
 import type { CarBuyDTO } from '@/types'
 
@@ -43,6 +45,8 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
   const [currentImage, setCurrentImage] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
 
   const {
@@ -119,6 +123,37 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
     setCurrentImage((prev) => (prev - 1 + allImages.length) % allImages.length)
   }
 
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index)
+    setIsLightboxOpen(true)
+  }
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false)
+  }
+
+  const nextLightboxImage = () => {
+    setLightboxIndex((prev) => (prev + 1) % allImages.length)
+  }
+
+  const prevLightboxImage = () => {
+    setLightboxIndex((prev) => (prev - 1 + allImages.length) % allImages.length)
+  }
+
+  // Keyboard navigation for lightbox
+  useEffect(() => {
+    if (!isLightboxOpen) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox()
+      if (e.key === 'ArrowLeft') prevLightboxImage()
+      if (e.key === 'ArrowRight') nextLightboxImage()
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isLightboxOpen, lightboxIndex])
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header with back button and title */}
@@ -144,29 +179,39 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
           <div className="lg:col-span-2 space-y-6">
             {/* Main Image with Navigation */}
             <Card className="overflow-hidden">
-              <div className="aspect-video bg-gray-100 relative group">
+              <div className="aspect-video bg-gray-100 relative group cursor-pointer" onClick={() => openLightbox(currentImage)}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={allImages[currentImage]}
                   alt={`${car.brand} ${car.model}`}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
                 
+                {/* Zoom Icon */}
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                  <div className="bg-white/90 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <ZoomIn className="h-8 w-8 text-gray-800" />
+                  </div>
+                </div>
+
                 {/* Car ID Badge */}
-                <div className="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-full text-sm font-medium shadow-md">
+                <div className="absolute top-4 left-4 bg-white px-3 py-1.5 rounded-full text-sm font-medium shadow-md z-10">
                   #{car.id}
                 </div>
 
                 {/* Image Counter */}
-                <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1.5 rounded-full text-sm font-medium">
+                <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1.5 rounded-full text-sm font-medium z-10">
                   {currentImage + 1} / {allImages.length}
                 </div>
 
                 {/* Previous Button */}
                 {allImages.length > 1 && (
                   <button
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      prevImage()
+                    }}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100 z-10"
                     aria-label="Previous image"
                   >
                     <ChevronLeft className="h-6 w-6 text-gray-800" />
@@ -176,8 +221,11 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                 {/* Next Button */}
                 {allImages.length > 1 && (
                   <button
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      nextImage()
+                    }}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100 z-10"
                     aria-label="Next image"
                   >
                     <ChevronRight className="h-6 w-6 text-gray-800" />
@@ -448,6 +496,96 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
           </div>
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      {isLightboxOpen && (
+        <div
+          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+          onClick={closeLightbox}
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors z-20"
+            aria-label="Close lightbox"
+          >
+            <X className="h-6 w-6 text-white" />
+          </button>
+
+          {/* Image Counter */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/60 text-white px-4 py-2 rounded-full text-sm font-medium z-20">
+            {lightboxIndex + 1} / {allImages.length}
+          </div>
+
+          {/* Previous Button */}
+          {allImages.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                prevLightboxImage()
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors z-20"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="h-8 w-8 text-white" />
+            </button>
+          )}
+
+          {/* Next Button */}
+          {allImages.length > 1 && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                nextLightboxImage()
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 p-4 rounded-full transition-colors z-20"
+              aria-label="Next image"
+            >
+              <ChevronRight className="h-8 w-8 text-white" />
+            </button>
+          )}
+
+          {/* Main Image */}
+          <div
+            className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={allImages[lightboxIndex]}
+              alt={`${car.brand} ${car.model} - Image ${lightboxIndex + 1}`}
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+            />
+          </div>
+
+          {/* Thumbnails */}
+          {allImages.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 bg-black/60 p-3 rounded-lg max-w-full overflow-x-auto">
+              {allImages.map((image, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setLightboxIndex(idx)
+                  }}
+                  className={`flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-all ${
+                    lightboxIndex === idx
+                      ? 'border-primary scale-110'
+                      : 'border-white/30 hover:border-white/60'
+                  }`}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={image}
+                    alt={`Thumbnail ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
