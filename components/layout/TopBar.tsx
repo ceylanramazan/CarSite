@@ -25,7 +25,6 @@ export default function TopBar() {
 
           {/* Right: Social Media */}
           <div className="flex items-center space-x-3">
-            <span className="text-sm text-gray-400 mr-2">Bizi Takip Edin:</span>
             <a 
               href="#" 
               target="_blank"
