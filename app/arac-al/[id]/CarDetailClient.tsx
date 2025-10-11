@@ -21,9 +21,10 @@ import {
 } from 'lucide-react'
 import type { CarBuyDTO } from '@/types'
 
-// Google reCAPTCHA v2 Site Key (Test key - always passes)
+// Google reCAPTCHA v2 Site Key
 // For production, get your own keys from: https://www.google.com/recaptcha/admin
-const RECAPTCHA_SITE_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+// Current: Using localhost test key (works without warnings)
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '6LfC6DIqAAAAAF8cGOOR_r0qLFucRmxUmCVOH-cL'
 
 // Form validation schema
 const contactFormSchema = z.object({
@@ -405,14 +406,24 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                     </div>
 
                     {/* Google reCAPTCHA v2 */}
-                    <div className="flex justify-center">
-                      <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={RECAPTCHA_SITE_KEY}
-                        onChange={onRecaptchaChange}
-                        theme="light"
-                        size="normal"
-                      />
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium text-gray-700">
+                        Güvenlik Doğrulaması <span className="text-red-500">*</span>
+                      </Label>
+                      <div className="flex justify-center bg-gray-50 rounded-lg p-4 border border-gray-200">
+                        <ReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={RECAPTCHA_SITE_KEY}
+                          onChange={onRecaptchaChange}
+                          theme="light"
+                          size="normal"
+                        />
+                      </div>
+                      {!recaptchaToken && (
+                        <p className="text-xs text-gray-500 text-center">
+                          Lütfen robot olmadığınızı doğrulayın
+                        </p>
+                      )}
                     </div>
 
                     {/* Submit Button */}
