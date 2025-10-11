@@ -48,6 +48,16 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
+  
+  // Drag/Swipe state for main image
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [currentX, setCurrentX] = useState(0)
+  
+  // Drag/Swipe state for lightbox
+  const [isLightboxDragging, setIsLightboxDragging] = useState(false)
+  const [lightboxStartX, setLightboxStartX] = useState(0)
+  const [lightboxCurrentX, setLightboxCurrentX] = useState(0)
 
   const {
     register,
@@ -140,6 +150,128 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
     setLightboxIndex((prev) => (prev - 1 + allImages.length) % allImages.length)
   }
 
+  // Drag/Swipe handlers
+  const handleDragStart = (clientX: number) => {
+    setIsDragging(true)
+    setStartX(clientX)
+    setCurrentX(clientX)
+  }
+
+  const handleDragMove = (clientX: number) => {
+    if (!isDragging) return
+    setCurrentX(clientX)
+  }
+
+  const handleDragEnd = () => {
+    if (!isDragging) return
+    
+    const diff = currentX - startX
+    const threshold = 50 // Minimum drag distance in pixels
+    
+    if (Math.abs(diff) > threshold) {
+      // Dragged enough, change image
+      if (diff > 0) {
+        prevImage() // Dragged right, go to previous
+      } else {
+        nextImage() // Dragged left, go to next
+      }
+    } else if (Math.abs(diff) < 5) {
+      // Almost no movement, treat as click
+      openLightbox(currentImage)
+    }
+    
+    setIsDragging(false)
+    setStartX(0)
+    setCurrentX(0)
+  }
+
+  // Mouse events
+  const handleMouseDown = (e: React.MouseEvent) => {
+    handleDragStart(e.clientX)
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    handleDragMove(e.clientX)
+  }
+
+  const handleMouseUp = () => {
+    handleDragEnd()
+  }
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      handleDragEnd()
+    }
+  }
+
+  // Touch events
+  const handleTouchStart = (e: React.TouchEvent) => {
+    handleDragStart(e.touches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    handleDragMove(e.touches[0].clientX)
+  }
+
+  const handleTouchEnd = () => {
+    handleDragEnd()
+  }
+
+  // Lightbox drag/swipe handlers
+  const handleLightboxDragStart = (clientX: number) => {
+    setIsLightboxDragging(true)
+    setLightboxStartX(clientX)
+    setLightboxCurrentX(clientX)
+  }
+
+  const handleLightboxDragMove = (clientX: number) => {
+    if (!isLightboxDragging) return
+    setLightboxCurrentX(clientX)
+  }
+
+  const handleLightboxDragEnd = () => {
+    if (!isLightboxDragging) return
+    
+    const diff = lightboxCurrentX - lightboxStartX
+    const threshold = 50
+    
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        prevLightboxImage()
+      } else {
+        nextLightboxImage()
+      }
+    }
+    
+    setIsLightboxDragging(false)
+    setLightboxStartX(0)
+    setLightboxCurrentX(0)
+  }
+
+  const handleLightboxMouseDown = (e: React.MouseEvent) => {
+    handleLightboxDragStart(e.clientX)
+  }
+
+  const handleLightboxMouseMove = (e: React.MouseEvent) => {
+    handleLightboxDragMove(e.clientX)
+  }
+
+  const handleLightboxMouseUp = () => {
+    handleLightboxDragEnd()
+  }
+
+  const handleLightboxTouchStart = (e: React.TouchEvent) => {
+    handleLightboxDragStart(e.touches[0].clientX)
+  }
+
+  const handleLightboxTouchMove = (e: React.TouchEvent) => {
+    handleLightboxDragMove(e.touches[0].clientX)
+  }
+
+  const handleLightboxTouchEnd = () => {
+    handleLightboxDragEnd()
+  }
+
   // Keyboard navigation for lightbox
   useEffect(() => {
     if (!isLightboxOpen) return
@@ -179,16 +311,26 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
           <div className="lg:col-span-2 space-y-6">
             {/* Main Image with Navigation */}
             <Card className="overflow-hidden">
-              <div className="aspect-video bg-gray-100 relative group cursor-pointer" onClick={() => openLightbox(currentImage)}>
+              <div 
+                className="aspect-video bg-gray-100 relative group cursor-pointer select-none"
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={allImages[currentImage]}
                   alt={`${car.brand} ${car.model}`}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover pointer-events-none"
+                  draggable="false"
                 />
                 
                 {/* Zoom Icon */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center pointer-events-none">
                   <div className="bg-white/90 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <ZoomIn className="h-8 w-8 text-gray-800" />
                   </div>
@@ -547,14 +689,21 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
 
           {/* Main Image */}
           <div
-            className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center"
+            className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing select-none"
             onClick={(e) => e.stopPropagation()}
+            onMouseDown={handleLightboxMouseDown}
+            onMouseMove={handleLightboxMouseMove}
+            onMouseUp={handleLightboxMouseUp}
+            onTouchStart={handleLightboxTouchStart}
+            onTouchMove={handleLightboxTouchMove}
+            onTouchEnd={handleLightboxTouchEnd}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={allImages[lightboxIndex]}
               alt={`${car.brand} ${car.model} - Image ${lightboxIndex + 1}`}
-              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+              className="max-w-full max-h-full object-contain rounded-lg shadow-2xl pointer-events-none"
+              draggable="false"
             />
           </div>
 
