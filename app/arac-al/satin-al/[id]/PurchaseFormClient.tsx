@@ -54,7 +54,7 @@ export function PurchaseFormClient({ car }: { car: CarBuyDTO }) {
       }
 
       await submitPurchase(payload)
-      router.push('/CarSite/arac-al/basarili')
+      router.push('/arac-al/basarili')
     } catch (err: any) {
       setError(
         err.response?.data?.message ||
@@ -197,7 +197,7 @@ export function PurchaseFormClient({ car }: { car: CarBuyDTO }) {
                       className="cursor-pointer text-sm"
                     >
                       <Link
-                        href="/CarSite/kvkk"
+                        href="/kvkk"
                         className="text-primary underline"
                         target="_blank"
                       >
@@ -224,7 +224,7 @@ export function PurchaseFormClient({ car }: { car: CarBuyDTO }) {
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => router.push(`/CarSite/arac-al/${car.id}`)}
+                    onClick={() => router.push(`/arac-al/${car.id}`)}
                     disabled={isSubmitting}
                   >
                     İptal

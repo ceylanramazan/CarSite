@@ -9,12 +9,12 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navigation = [
-    { name: 'Anasayfa', href: '/CarSite' },
-    { name: 'Araç Al', href: '/CarSite/arac-al' },
-    { name: 'Araç Sat', href: '/CarSite/teklif-al/arac-bilgileri' },
-    { name: 'Hakkımızda', href: '/CarSite/hakkimizda' },
-    { name: 'Blog', href: '/CarSite/blog' },
-    { name: 'İletişim', href: '/CarSite/iletisim' },
+    { name: 'Anasayfa', href: '/' },
+    { name: 'Araç Al', href: '/arac-al' },
+    { name: 'Araç Sat', href: '/teklif-al/arac-bilgileri' },
+    { name: 'Hakkımızda', href: '/hakkimizda' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'İletişim', href: '/iletisim' },
   ]
 
   return (
@@ -22,7 +22,7 @@ export default function Header() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link href="/CarSite" className="flex items-center space-x-2">
+          <Link href="/" className="flex items-center space-x-2">
             <Car className="h-8 w-8 text-primary" />
             <span className="text-xl font-bold text-secondary">CarSite</span>
           </Link>
@@ -42,10 +42,10 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden items-center space-x-4 md:flex">
-            <Link href="/CarSite/teklif-al/arac-bilgileri">
+            <Link href="/teklif-al/arac-bilgileri">
               <Button variant="outline">Araç Sat</Button>
             </Link>
-            <Link href="/CarSite/arac-al">
+            <Link href="/arac-al">
               <Button>Araç Al</Button>
             </Link>
           </div>
@@ -79,12 +79,12 @@ export default function Header() {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4">
-                <Link href="/CarSite/teklif-al/arac-bilgileri">
+                <Link href="/teklif-al/arac-bilgileri">
                   <Button variant="outline" className="w-full">
                     Araç Sat
                   </Button>
                 </Link>
-                <Link href="/CarSite/arac-al">
+                <Link href="/arac-al">
                   <Button className="w-full">Araç Al</Button>
                 </Link>
               </div>

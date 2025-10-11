@@ -10,7 +10,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Logo & About */}
           <div className="space-y-4">
-            <Link href="/CarSite" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2">
               <Car className="h-8 w-8 text-primary" />
               <span className="text-xl font-bold">CarSite</span>
             </Link>
@@ -26,7 +26,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/CarSite/arac-al"
+                  href="/arac-al"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   Araç Al
@@ -34,7 +34,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/CarSite/teklif-al/arac-bilgileri"
+                  href="/teklif-al/arac-bilgileri"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   Araç Sat
@@ -42,7 +42,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/CarSite/hakkimizda"
+                  href="/hakkimizda"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   Hakkımızda
@@ -50,7 +50,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/CarSite/blog"
+                  href="/blog"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   Blog
@@ -65,7 +65,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/CarSite/kvkk"
+                  href="/kvkk"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   KVKK
@@ -73,7 +73,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/CarSite/gizlilik"
+                  href="/gizlilik"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   Gizlilik Politikası
@@ -81,7 +81,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/CarSite/iletisim"
+                  href="/iletisim"
                   className="text-sm text-gray-300 hover:text-primary"
                 >
                   İletişim

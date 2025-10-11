@@ -175,7 +175,7 @@ export default function AracAlPage() {
                           <span>{car.city}</span>
                         </div>
                       </div>
-                      <Link href={`/CarSite/arac-al/${car.id}`}>
+                      <Link href={`/arac-al/${car.id}`}>
                         <Button className="w-full">Detaylı Gör</Button>
                       </Link>
                     </CardContent>

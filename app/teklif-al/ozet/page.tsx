@@ -10,10 +10,10 @@ import { submitOffer } from '@/lib/apiClient'
 import { Loader2 } from 'lucide-react'
 
 const steps = [
-  { id: 1, name: 'Araç Bilgileri', href: '/CarSite/teklif-al/arac-bilgileri' },
-  { id: 2, name: 'Hasar Bilgileri', href: '/CarSite/teklif-al/hasar-bilgileri' },
-  { id: 3, name: 'İletişim', href: '/CarSite/teklif-al/iletisim' },
-  { id: 4, name: 'Özet', href: '/CarSite/teklif-al/ozet' },
+  { id: 1, name: 'Araç Bilgileri', href: '/teklif-al/arac-bilgileri' },
+  { id: 2, name: 'Hasar Bilgileri', href: '/teklif-al/hasar-bilgileri' },
+  { id: 3, name: 'İletişim', href: '/teklif-al/iletisim' },
+  { id: 4, name: 'Özet', href: '/teklif-al/ozet' },
 ]
 
 export default function OzetPage() {
@@ -39,7 +39,7 @@ export default function OzetPage() {
       }
 
       await submitOffer(payload)
-      router.push('/CarSite/teklif-al/basarili')
+      router.push('/teklif-al/basarili')
     } catch (err: any) {
       setError(
         err.response?.data?.message ||
@@ -61,7 +61,7 @@ export default function OzetPage() {
             <Button
               className="mt-4"
               onClick={() =>
-                router.push('/CarSite/teklif-al/arac-bilgileri')
+                router.push('/teklif-al/arac-bilgileri')
               }
             >
               Başa Dön
@@ -94,7 +94,7 @@ export default function OzetPage() {
                   variant="outline"
                   size="sm"
                   onClick={() =>
-                    router.push('/CarSite/teklif-al/arac-bilgileri')
+                    router.push('/teklif-al/arac-bilgileri')
                   }
                 >
                   Düzenle
@@ -160,7 +160,7 @@ export default function OzetPage() {
                   variant="outline"
                   size="sm"
                   onClick={() =>
-                    router.push('/CarSite/teklif-al/hasar-bilgileri')
+                    router.push('/teklif-al/hasar-bilgileri')
                   }
                 >
                   Düzenle
@@ -204,7 +204,7 @@ export default function OzetPage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => router.push('/CarSite/teklif-al/iletisim')}
+                  onClick={() => router.push('/teklif-al/iletisim')}
                 >
                   Düzenle
                 </Button>
@@ -247,7 +247,7 @@ export default function OzetPage() {
             <Button
               type="button"
               variant="outline"
-              onClick={() => router.push('/CarSite/teklif-al/iletisim')}
+              onClick={() => router.push('/teklif-al/iletisim')}
               disabled={isSubmitting}
             >
               Geri

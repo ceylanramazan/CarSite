@@ -91,7 +91,7 @@ export default function BlogPage() {
                 <User className="mr-1 h-4 w-4" />
                 {post.author}
               </div>
-              <Link href={`/CarSite/blog/${post.slug}`}>
+              <Link href={`/blog/${post.slug}`}>
                 <Button variant="outline" className="w-full">
                   Devamını Oku
                   <ArrowRight className="ml-2 h-4 w-4" />

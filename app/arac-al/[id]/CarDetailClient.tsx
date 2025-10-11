@@ -22,7 +22,7 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
       <Button
         variant="ghost"
         className="mb-6"
-        onClick={() => router.push('/CarSite/arac-al')}
+        onClick={() => router.push('/arac-al')}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Geri
@@ -157,7 +157,7 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                 className="w-full"
                 size="lg"
                 onClick={() =>
-                  router.push(`/CarSite/arac-al/satin-al/${car.id}`)
+                  router.push(`/arac-al/satin-al/${car.id}`)
                 }
               >
                 Satın Al

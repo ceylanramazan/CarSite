@@ -14,10 +14,10 @@ import { BRANDS, FUEL_TYPES, GEARBOX_TYPES, CITIES } from '@/lib/constants'
 import type { VehicleDTO } from '@/types'
 
 const steps = [
-  { id: 1, name: 'Araç Bilgileri', href: '/CarSite/teklif-al/arac-bilgileri' },
-  { id: 2, name: 'Hasar Bilgileri', href: '/CarSite/teklif-al/hasar-bilgileri' },
-  { id: 3, name: 'İletişim', href: '/CarSite/teklif-al/iletisim' },
-  { id: 4, name: 'Özet', href: '/CarSite/teklif-al/ozet' },
+  { id: 1, name: 'Araç Bilgileri', href: '/teklif-al/arac-bilgileri' },
+  { id: 2, name: 'Hasar Bilgileri', href: '/teklif-al/hasar-bilgileri' },
+  { id: 3, name: 'İletişim', href: '/teklif-al/iletisim' },
+  { id: 4, name: 'Özet', href: '/teklif-al/ozet' },
 ]
 
 export default function AracBilgileriPage() {
@@ -35,7 +35,7 @@ export default function AracBilgileriPage() {
 
   const onSubmit = (data: VehicleDTO) => {
     updateFormData({ vehicle: data })
-    router.push('/CarSite/teklif-al/hasar-bilgileri')
+    router.push('/teklif-al/hasar-bilgileri')
   }
 
   const currentYear = new Date().getFullYear()

@@ -23,7 +23,7 @@ export default function CTA() {
             Aracınızı satmak veya yeni bir araç almak için bugün başlayın
           </p>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Link href="/CarSite/teklif-al/arac-bilgileri">
+            <Link href="/teklif-al/arac-bilgileri">
               <Button
                 size="lg"
                 variant="outline"
@@ -33,7 +33,7 @@ export default function CTA() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link href="/CarSite/arac-al">
+            <Link href="/arac-al">
               <Button
                 size="lg"
                 className="w-full border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary sm:w-auto"

@@ -16,10 +16,10 @@ import type { ContactDTO } from '@/types'
 import Link from 'next/link'
 
 const steps = [
-  { id: 1, name: 'Araç Bilgileri', href: '/CarSite/teklif-al/arac-bilgileri' },
-  { id: 2, name: 'Hasar Bilgileri', href: '/CarSite/teklif-al/hasar-bilgileri' },
-  { id: 3, name: 'İletişim', href: '/CarSite/teklif-al/iletisim' },
-  { id: 4, name: 'Özet', href: '/CarSite/teklif-al/ozet' },
+  { id: 1, name: 'Araç Bilgileri', href: '/teklif-al/arac-bilgileri' },
+  { id: 2, name: 'Hasar Bilgileri', href: '/teklif-al/hasar-bilgileri' },
+  { id: 3, name: 'İletişim', href: '/teklif-al/iletisim' },
+  { id: 4, name: 'Özet', href: '/teklif-al/ozet' },
 ]
 
 export default function IletisimPage() {
@@ -38,7 +38,7 @@ export default function IletisimPage() {
 
   const onSubmit = (data: ContactDTO) => {
     updateFormData({ contact: data })
-    router.push('/CarSite/teklif-al/ozet')
+    router.push('/teklif-al/ozet')
   }
 
   return (
@@ -132,7 +132,7 @@ export default function IletisimPage() {
               />
               <Label htmlFor="kvkk" className="cursor-pointer text-sm">
                 <Link
-                  href="/CarSite/kvkk"
+                  href="/kvkk"
                   className="text-primary underline"
                   target="_blank"
                 >
@@ -152,7 +152,7 @@ export default function IletisimPage() {
               type="button"
               variant="outline"
               onClick={() =>
-                router.push('/CarSite/teklif-al/hasar-bilgileri')
+                router.push('/teklif-al/hasar-bilgileri')
               }
             >
               Geri

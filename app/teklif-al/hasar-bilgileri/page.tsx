@@ -15,10 +15,10 @@ import { COMMON_PARTS } from '@/lib/constants'
 import type { DamageDTO } from '@/types'
 
 const steps = [
-  { id: 1, name: 'Araç Bilgileri', href: '/CarSite/teklif-al/arac-bilgileri' },
-  { id: 2, name: 'Hasar Bilgileri', href: '/CarSite/teklif-al/hasar-bilgileri' },
-  { id: 3, name: 'İletişim', href: '/CarSite/teklif-al/iletisim' },
-  { id: 4, name: 'Özet', href: '/CarSite/teklif-al/ozet' },
+  { id: 1, name: 'Araç Bilgileri', href: '/teklif-al/arac-bilgileri' },
+  { id: 2, name: 'Hasar Bilgileri', href: '/teklif-al/hasar-bilgileri' },
+  { id: 3, name: 'İletişim', href: '/teklif-al/iletisim' },
+  { id: 4, name: 'Özet', href: '/teklif-al/ozet' },
 ]
 
 export default function HasarBilgileriPage() {
@@ -45,7 +45,7 @@ export default function HasarBilgileriPage() {
     updateFormData({
       damage: { ...data, changed_parts: hasDamage ? selectedParts : [] },
     })
-    router.push('/CarSite/teklif-al/iletisim')
+    router.push('/teklif-al/iletisim')
   }
 
   const handlePartToggle = (part: string) => {
@@ -128,7 +128,7 @@ export default function HasarBilgileriPage() {
             <Button
               type="button"
               variant="outline"
-              onClick={() => router.push('/CarSite/teklif-al/arac-bilgileri')}
+              onClick={() => router.push('/teklif-al/arac-bilgileri')}
             >
               Geri
             </Button>

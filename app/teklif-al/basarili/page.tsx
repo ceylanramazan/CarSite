@@ -45,10 +45,10 @@ export default function BasariliPage() {
             </div>
 
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <Link href="/CarSite">
+              <Link href="/">
                 <Button size="lg">Anasayfaya Dön</Button>
               </Link>
-              <Link href="/CarSite/arac-al">
+              <Link href="/arac-al">
                 <Button size="lg" variant="outline">
                   Araçları İncele
                 </Button>

@@ -28,13 +28,13 @@ export default function Hero() {
             </p>
 
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link href="/CarSite/teklif-al/arac-bilgileri">
+              <Link href="/teklif-al/arac-bilgileri">
                 <Button size="lg" className="w-full sm:w-auto">
                   Aracını Sat
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
-              <Link href="/CarSite/arac-al">
+              <Link href="/arac-al">
                 <Button
                   size="lg"
                   variant="outline"

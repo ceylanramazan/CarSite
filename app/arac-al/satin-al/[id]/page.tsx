@@ -24,7 +24,7 @@ export default function SatinAlPage({
         <Card>
           <CardContent className="py-12 text-center">
             <p className="text-lg text-gray-600">Araç bulunamadı.</p>
-            <Link href="/CarSite/arac-al">
+            <Link href="/arac-al">
               <Button className="mt-4">Geri Dön</Button>
             </Link>
           </CardContent>
