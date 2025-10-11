@@ -29,19 +29,18 @@ export default function Hero() {
 
             <div className="mt-8 sm:mt-10 flex flex-col gap-3 sm:gap-4 sm:flex-row sm:justify-center lg:justify-start">
               <Link href="/teklif-al/arac-bilgileri" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full h-12 sm:h-auto text-base font-semibold">
+                <Button className="w-full sm:w-auto px-6 sm:px-8 py-3 text-base font-semibold">
                   Aracını Sat
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/arac-al" className="w-full sm:w-auto">
                 <Button
-                  size="lg"
                   variant="outline"
-                  className="w-full h-12 sm:h-auto text-base font-semibold border-white bg-white/10 text-white hover:bg-white hover:text-secondary"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 text-base font-semibold border-white bg-white/10 text-white hover:bg-white hover:text-secondary"
                 >
                   Araç Al
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </div>
