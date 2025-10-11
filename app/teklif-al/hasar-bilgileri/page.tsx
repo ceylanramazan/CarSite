@@ -32,21 +32,6 @@ const CAR_PARTS = [
 
 type PartStatus = 'O' | 'LB' | 'B' | 'D'
 
-// SVG path data for each car part
-const SVG_PATHS: Record<string, string> = {
-  'SagArkaKapi': "M243.69,241.41c-4.57-19.97-11.12-40.1-17.15-59.74l-36.62-0.5c-0.21,5.59-3.73,62.12-61.99,72.6 c0.1,15.33,0.22,30.67,0.21,46c0,0.32,0,0.64,0,0.96h76.44c2.41-38.85,5.76-77.61,10.71-116.25c0.48-0.09,0.96-0.17,1.44-0.26 c1.56,4.6,3.28,9.15,4.67,13.81c10.01,33.52,17.05,67.69,18.58,102.71h10.01C250.56,281,248.22,261.17,243.69,241.41z",
-  'SagOnKapi': "M239.97,300.74c0.2,4.57,0.32,9.15,0.32,13.74c0.06,36.54-10.22,60.71-33.58,87.28 c-1.04,1.18-2.25,2.2-4.08,3.11c1.15-37.17-0.36-67.09,1.94-104.13h-76.44c0,0.36,0,0.72,0,1.08 c-0.04,39.29-0.17,78.58-0.26,117.87c0,1.97,0,3.94,0,6.34c1.54,0.23,2.35,0.45,3.15,0.45c22.15,0.02,44.31,0.1,66.46-0.11 c1.87-0.02,4.43-1.57,5.46-3.19c7.21-11.35,14.35-22.76,21-34.44c5.25-9.22,10.74-18.48,14.45-28.35c7.4-19.65,11-39.6,11.59-59.66 H239.97z",
-  'SagArkaCamurluk': "M212.94,181.71l-23.01,0c0,0-0.63,61.34-62.48,72.15c0-9.19,0-17.39,0-26.57 c19.43-5.13,33.86-24.01,30.47-49.63c-1.33-10.06-6.33-18.93-13.68-26.21c-10.35-10.26-23.19-12.81-37.33-11.7 c0.25-2.4,0.45-4.33,0.7-6.80c8.82,2.04,17.15,4.29,25.6,5.84c8.53,1.56,16.68,5.73,25.84,3.49c7.91-1.93,15.93-3.68,24-4.62 c7.09-0.83,11.41-3.42,11.68-11.12c0.07-2.13,0.92-4.23,1.47-6.33c1.92-7.33,5.43-14.78-3.23-21.52c6.27-0.82,8.64,1.11,9.32,5.65 c0.62,4.11,1.13,8.31,2.4,12.24c7.32,22.72,16.68,42.43,24.16,65.1l-14.36,0.05",
-  'SolOnKapi': "M430.28,301.04c2.36,37.05,3.77,74.07,4.82,111.23c-1.53-1.36-3.18-2.59-4.56-4.09 c-28.05-30.53-40.68-66.31-38.24-107.15h-9.22c0.5,19.27,3.53,38.31,10.32,56.96c8.52,23.4,22.64,43.78,35.74,64.68 c1.83,2.93,3.96,3.91,7.33,3.89c20.99-0.13,41.98-0.05,62.97-0.07c1.58,0,3.16-0.23,4.9-0.36v-125.1H430.28z",
-  'SolArkaKapi': "M443.22,182.93l-24.36,0.08c-0.06-0.43-0.11-0.87-0.17-1.3c5.47,40.07,9.09,79.88,11.61,119.64h74.04v-48.19 C442.5,242.35,443.22,182.93,443.22,182.93z",
-  'SolArkaCamurluk': "M498.58,137.09c-8.53,1.56-16.68,5.73-25.84,3.49c-7.91-1.93-15.93-3.68-24-4.62 c-7.09-0.83-11.41-3.42-11.68-11.12c-0.07-2.13-0.92-4.23-1.47-6.33c-1.92-7.33-5.43-14.78,3.23-21.52 c-6.27-0.82-8.64,1.11-9.32,5.65c-0.62,4.11-1.13,8.31-2.4,12.24c-7.32,22.72-14.68,45.43-22.16,68.1l12.36,0.05l0.5,0 c0.24-0.34,0.54-0.76,0.9-1.3c0.06,0.43,0.11,0.87,0.17,1.3l24.36-0.08c0,0-0.72,59.42,61.12,70.23c0-9.19,0-18.39,0-27.57 c-19.43-5.13-33.86-24.01-30.47-49.63c1.33-10.06,6.33-18.93,13.68-26.21c10.35-10.26,23.19-12.81,37.33-11.7 c-0.25-2.4-0.45-4.33-0.7-6.80C515.35,133.3,507.03,135.54,498.58,137.09z",
-  'Kaput': "M222.98,399.77c5.12,3.76,11.37,4.42,12.4,11.59c0.25,1.74,3.29,3.94,5.38,4.4 c10.86,2.36,21.76,5.43,32.77,6.01c22.61,1.19,45.33,1.9,67.92,0.98c15.66-0.64,31.22-4.25,46.79-6.69 c4.4-0.69,6.58-3.56,8.76-7.69c1.88-3.56,6.88-5.46,10.52-8.1c0,12.32,0.29,23.76-0.06,35.18c-0.71,22.97-0.77,46.02-2.93,68.86 c-3.14,33.24-20.68,53.65-53.25,61.98c-25.44,6.51-51.38,7.43-76.93-0.46c-29.08-8.99-47.22-31.66-48.61-62.18 c-1.53-33.44-2.03-66.93-2.97-100.39C222.75,402.46,222.86,401.66,222.98,399.77z",
-  'Tavan': "M379.52,354.19c-42.83,6.8-85.11,5.3-127.72,0.29c6.74-38.78,9.5-77.79,0.01-116.84c42.56,0,85,0,127.97,0 C370.09,276.67,372.71,315.59,379.52,354.19z",
-  'Bagaj': "M398.52,196.75c-4.3-2.49-7.59-4.72-11.15-6.39c-4.86-2.28-9.83-5.58-14.91-5.91 c-24.07-1.56-48.19-2.93-72.29-3.02c-14.57-0.05-29.18,2.15-43.71,3.84c-3.6,0.42-7.09,2.58-10.42,4.34 c-3.76,1.99-7.28,4.44-11.81,7.24c-0.73-3.9-1.81-6.9-1.77-9.89c0.27-17.81,0.73-35.62,1.34-53.43c0.06-1.7,1.22-3.73,2.5-4.97 c11.6-11.21,26.08-16.89,41.37-20.70c18.32-4.57,36.92-6.96,55.78-4.72c22.95,2.72,44.59,9.06,62.13,25.16 c1.59,1.46,2.87,4.07,2.96,6.20c0.74,17.46,1.24,34.94,1.59,52.41C400.2,189.92,399.18,192.95,398.52,196.75z",
-  'SagOnCamurluk': "M176.87,550.32c0-6.78,1.69-13.95-0.35-19.8c-4.27-12.21-5.8-25.62-14.15-36.28 c-0.75-0.96-1.22-2.41-1.21-3.64c0.18-23.61-10.82-39.33-33.19-47.3c0-5.21,0-10.48,0-16.23c23.87,0,47.53,0,71.19,0 C201.2,447.1,184.47,540.08,176.87,550.32z",
-  'SolOnCamurluk': "M504.43,427.08c0,5.7,0,11,0,16.58c-16.32,4.79-28.76,15.47-30.69,31.94c-1.86,15.78-10.52,28.59-13.81,43.55 c-1.67,7.59-5.64,14.73-4.98,22.93c0.19,2.31,0.42,4.62,0.63,6.93c-0.46,0.13-0.91,0.27-1.37,0.40c-1.83-6.13-4-12.18-5.44-18.40 c-7.90-34.08-12.49-68.68-15.94-103.94C456.56,427.08,480.25,427.08,504.43,427.08z",
-}
-
 export default function HasarBilgileriPage() {
   const router = useRouter()
   const { formData, updateFormData } = useOfferForm()
@@ -80,6 +65,15 @@ export default function HasarBilgileriPage() {
     router.push('/teklif-al/ekspertiz-bilgileri')
   }
 
+  const handleSvgPartClick = (partId: string) => {
+    const currentStatus = partStatus[partId] || 'O'
+    const nextStatus: PartStatus = 
+      currentStatus === 'O' ? 'LB' :
+      currentStatus === 'LB' ? 'B' :
+      currentStatus === 'B' ? 'D' : 'O'
+    handlePartStatusChange(partId, nextStatus)
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary/5 py-8 sm:py-12">
       <div className="container mx-auto max-w-7xl px-4">
@@ -100,108 +94,74 @@ export default function HasarBilgileriPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Sol Taraf - Parça Listesi */}
-            <div className="space-y-3 sm:space-y-4">
-              {CAR_PARTS.map((part, index) => (
-                <motion.div
-                  key={part.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex flex-col sm:flex-row sm:items-center gap-3 p-3 sm:p-4 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
-                >
-                  <div className="sm:w-1/3 font-medium text-gray-700 text-sm sm:text-base">
+          {/* Grid - 2 columns on large screens, 1 on mobile */}
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
+            {/* Left Panel: Part Selection */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="space-y-3 sm:space-y-4 rounded-lg bg-gray-50 p-4 sm:p-6 border border-gray-200"
+            >
+              <h3 className="text-lg sm:text-xl font-bold text-secondary mb-3 sm:mb-4">Parça Durumları</h3>
+              {CAR_PARTS.map((part) => (
+                <div key={part.id} className="flex flex-col space-y-2">
+                  <label className="text-sm sm:text-base font-medium text-gray-700">
                     {part.label}
+                  </label>
+                  <div className="grid grid-cols-4 gap-2">
+                    {(['O', 'LB', 'B', 'D'] as PartStatus[]).map((status) => (
+                      <button
+                        key={status}
+                        type="button"
+                        onClick={() => handlePartStatusChange(part.id, status)}
+                        className={`py-2 px-2 sm:px-3 rounded-md text-xs sm:text-sm font-medium cursor-pointer transition-all ${
+                          partStatus[part.id] === status
+                            ? 'bg-primary text-white shadow-md'
+                            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100'
+                        }`}
+                      >
+                        {status === 'O' && 'Orijinal'}
+                        {status === 'LB' && 'Lokal'}
+                        {status === 'B' && 'Boyalı'}
+                        {status === 'D' && 'Değişen'}
+                      </button>
+                    ))}
                   </div>
-                  <div className="flex gap-2 sm:w-2/3">
-                    <label className={`flex-1 btn btn-sm rounded px-3 py-2 text-center cursor-pointer transition-all ${partStatus[part.id] === 'O' ? 'bg-primary text-white' : 'bg-white border border-gray-300 text-gray-700 hover:border-primary'}`}>
-                      <input
-                        type="radio"
-                        name={part.id}
-                        value="O"
-                        checked={partStatus[part.id] === 'O'}
-                        onChange={() => handlePartStatusChange(part.id, 'O')}
-                        className="sr-only"
-                      />
-                      <span className="text-xs sm:text-sm font-medium">Orijinal</span>
-                    </label>
-                    <label className={`flex-1 btn btn-sm rounded px-3 py-2 text-center cursor-pointer transition-all ${partStatus[part.id] === 'LB' ? 'bg-primary text-white' : 'bg-white border border-gray-300 text-gray-700 hover:border-primary'}`}>
-                      <input
-                        type="radio"
-                        name={part.id}
-                        value="LB"
-                        checked={partStatus[part.id] === 'LB'}
-                        onChange={() => handlePartStatusChange(part.id, 'LB')}
-                        className="sr-only"
-                      />
-                      <span className="text-xs sm:text-sm font-medium">Lokal</span>
-                    </label>
-                    <label className={`flex-1 btn btn-sm rounded px-3 py-2 text-center cursor-pointer transition-all ${partStatus[part.id] === 'B' ? 'bg-primary text-white' : 'bg-white border border-gray-300 text-gray-700 hover:border-primary'}`}>
-                      <input
-                        type="radio"
-                        name={part.id}
-                        value="B"
-                        checked={partStatus[part.id] === 'B'}
-                        onChange={() => handlePartStatusChange(part.id, 'B')}
-                        className="sr-only"
-                      />
-                      <span className="text-xs sm:text-sm font-medium">Boyalı</span>
-                    </label>
-                    <label className={`flex-1 btn btn-sm rounded px-3 py-2 text-center cursor-pointer transition-all ${partStatus[part.id] === 'D' ? 'bg-primary text-white' : 'bg-white border border-gray-300 text-gray-700 hover:border-primary'}`}>
-                      <input
-                        type="radio"
-                        name={part.id}
-                        value="D"
-                        checked={partStatus[part.id] === 'D'}
-                        onChange={() => handlePartStatusChange(part.id, 'D')}
-                        className="sr-only"
-                      />
-                      <span className="text-xs sm:text-sm font-medium">Değişen</span>
-                    </label>
-                  </div>
-                </motion.div>
+                </div>
               ))}
-            </div>
+            </motion.div>
 
-            {/* Sağ Taraf - SVG Araç Görseli */}
+            {/* Right Panel: SVG Car Visualization */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
-              className="sticky top-4"
+              className="flex flex-col items-center justify-center rounded-lg bg-gray-50 p-4 sm:p-6 border border-gray-200"
             >
-              {/* Renk Açıklaması */}
-              <div className="mb-4 p-4 bg-gray-50 rounded-lg">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded border border-gray-300 bg-white"></span>
-                    <span className="text-sm font-medium text-gray-700">Orijinal</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded border border-gray-300" style={{ backgroundColor: '#4caf50' }}></span>
-                    <span className="text-sm font-medium text-gray-700">Lokal Boya</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded border border-gray-300" style={{ backgroundColor: '#ffd800' }}></span>
-                    <span className="text-sm font-medium text-gray-700">Boyalı</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded border border-gray-300" style={{ backgroundColor: '#d71920' }}></span>
-                    <span className="text-sm font-medium text-gray-700">Değişen</span>
-                  </div>
+              {/* Color Legend */}
+              <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4 sm:mb-6 w-full max-w-xs">
+                <div className="flex items-center space-x-2">
+                  <span className="block h-3 w-3 sm:h-4 sm:w-4 rounded-full border border-gray-300 bg-white"></span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">Orijinal</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="block h-3 w-3 sm:h-4 sm:w-4 rounded-full bg-[#4caf50]"></span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">Lokal Boya</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="block h-3 w-3 sm:h-4 sm:w-4 rounded-full bg-[#ffd800]"></span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">Boyalı</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="block h-3 w-3 sm:h-4 sm:w-4 rounded-full bg-[#d71920]"></span>
+                  <span className="text-xs sm:text-sm font-medium text-gray-700">Değişen</span>
                 </div>
               </div>
 
-              {/* SVG Araç */}
-              <div className="bg-gray-50 rounded-lg p-4">
-                <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 616.62 662.77"
-                  className="w-full h-auto drop-shadow-md"
-                  style={{ enableBackground: 'new 0 0 616.62 662.77' } as any}
-                >
+              {/* SVG Car - with all parts from Baremcars */}
+              <div className="bg-white rounded-lg p-3 sm:p-4 w-full">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 616.62 662.77" className="w-full h-auto drop-shadow-md">
                   <defs>
                     <style type="text/css">{`
                       .st1 {
@@ -236,7 +196,7 @@ export default function HasarBilgileriPage() {
                         stroke-miterlimit: 10;
                       }
                       .car-part {
-                        transition: all 0.3s ease;
+                        transition: all 0.2s ease;
                         cursor: pointer;
                         stroke: #000000;
                         stroke-width: 0.75;
@@ -244,29 +204,119 @@ export default function HasarBilgileriPage() {
                       }
                       .car-part:hover {
                         opacity: 0.8;
+                        filter: brightness(0.95);
                       }
                     `}</style>
                   </defs>
                   <g>
-                    {/* Clickable car parts */}
-                    {CAR_PARTS.map(part => (
+                    {/* Clickable Car Parts */}
+                    <path
+                      className="car-part SagArkaKapi"
+                      style={{ fill: getPartFill('SagArkaKapi') }}
+                      onClick={() => handleSvgPartClick('SagArkaKapi')}
+                      d="M243.69,241.41c-4.57-19.97-11.12-40.1-17.15-59.74l-36.62-0.5c-0.21,5.59-3.73,62.12-61.99,72.6
+                      c0.1,15.33,0.22,30.67,0.21,46c0,0.32,0,0.64,0,0.96h76.44c2.41-38.85,5.76-77.61,10.71-116.25c0.48-0.09,0.96-0.17,1.44-0.26
+                      c1.56,4.6,3.28,9.15,4.67,13.81c10.01,33.52,17.05,67.69,18.58,102.71h10.01C250.56,281,248.22,261.17,243.69,241.41z"
+                    />
+                    <path
+                      className="car-part SagOnKapi"
+                      style={{ fill: getPartFill('SagOnKapi') }}
+                      onClick={() => handleSvgPartClick('SagOnKapi')}
+                      d="M239.97,300.74c0.2,4.57,0.32,9.15,0.32,13.74c0.06,36.54-10.22,60.71-33.58,87.28
+                      c-1.04,1.18-2.25,2.2-4.08,3.11c1.15-37.17-0.36-67.09,1.94-104.13h-76.44c0,0.36,0,0.72,0,1.08
+                      c-0.04,39.29-0.17,78.58-0.26,117.87c0,1.97,0,3.94,0,6.34c1.54,0.23,2.35,0.45,3.15,0.45c22.15,0.02,44.31,0.1,66.46-0.11
+                      c1.87-0.02,4.43-1.57,5.46-3.19c7.21-11.35,14.35-22.76,21-34.44c5.25-9.22,10.74-18.48,14.45-28.35c7.4-19.65,11-39.6,11.59-59.66
+                      H239.97z"
+                    />
+                    <path
+                      className="car-part SagArkaCamurluk"
+                      style={{ fill: getPartFill('SagArkaCamurluk') }}
+                      onClick={() => handleSvgPartClick('SagArkaCamurluk')}
+                      d="M212.94,181.71l-23.01,0c0,0-0.63,61.34-62.48,72.15c0-9.19,0-17.39,0-26.57
+                      c19.43-5.13,33.86-24.01,30.47-49.63c-1.33-10.06-6.33-18.93-13.68-26.21c-10.35-10.26-23.19-12.81-37.33-11.7
+                      c0.25-2.4,0.45-4.33,0.7-6.8c8.82,2.04,17.15,4.29,25.6,5.84c8.53,1.56,16.68,5.73,25.84,3.49c7.91-1.93,15.93-3.68,24-4.62
+                      c7.09-0.83,11.41-3.42,11.68-11.12c0.07-2.13,0.92-4.23,1.47-6.33c1.92-7.33,5.43-14.78-3.23-21.52c6.27-0.82,8.64,1.11,9.32,5.65
+                      c0.62,4.11,1.13,8.31,2.4,12.24c7.32,22.72,16.68,42.43,24.16,65.1l-14.36,0.05"
+                    />
+                    <path
+                      className="car-part SolOnKapi"
+                      style={{ fill: getPartFill('SolOnKapi') }}
+                      onClick={() => handleSvgPartClick('SolOnKapi')}
+                      d="M430.28,301.04c2.36,37.05,3.77,74.07,4.82,111.23c-1.53-1.36-3.18-2.59-4.56-4.09
+                      c-28.05-30.53-40.68-66.31-38.24-107.15h-9.22c0.5,19.27,3.53,38.31,10.32,56.96c8.52,23.4,22.64,43.78,35.74,64.68
+                      c1.83,2.93,3.96,3.91,7.33,3.89c20.99-0.13,41.98-0.05,62.97-0.07c1.58,0,3.16-0.23,4.9-0.36v-125.1H430.28z"
+                    />
+                    <g>
                       <path
-                        key={part.id}
-                        className={`car-part ${part.id}`}
-                        style={{ fill: getPartFill(part.id) }}
-                        onClick={() => {
-                          const currentStatus = partStatus[part.id]
-                          const nextStatus: PartStatus = 
-                            currentStatus === 'O' ? 'LB' : 
-                            currentStatus === 'LB' ? 'B' : 
-                            currentStatus === 'B' ? 'D' : 'O'
-                          handlePartStatusChange(part.id, nextStatus)
-                        }}
-                        d={SVG_PATHS[part.id]}
+                        className="car-part SolArkaKapi"
+                        style={{ fill: getPartFill('SolArkaKapi') }}
+                        onClick={() => handleSvgPartClick('SolArkaKapi')}
+                        d="M443.22,182.93l-24.36,0.08c-0.06-0.43-0.11-0.87-0.17-1.3c5.47,40.07,9.09,79.88,11.61,119.64h74.04v-48.19
+                        C442.5,242.35,443.22,182.93,443.22,182.93z"
                       />
-                    ))}
+                      <path
+                        className="st4"
+                        d="M404.93,182.96C404.93,182.96,404.93,182.96,404.93,182.96c-1.77,5.36-3.54,10.72-5.33,16.07
+                        c-7.01,20.99-12.07,42.4-14.64,64.38c-1.48,12.71-2.22,25.37-1.87,37.93h9.19c0.11-1.97,0.25-3.95,0.43-5.94
+                        c2.93-31.68,8.47-62.87,17.96-93.28c1.84-5.89,4.02-11.67,6.07-17.49c0.15-0.41,0.44-0.78,1.04-1.63l-0.50,0L404.93,182.96z"
+                      />
+                    </g>
+                    <path
+                      className="car-part SolArkaCamurluk"
+                      style={{ fill: getPartFill('SolArkaCamurluk') }}
+                      onClick={() => handleSvgPartClick('SolArkaCamurluk')}
+                      d="M498.58,137.09c-8.53,1.56-16.68,5.73-25.84,3.49c-7.91-1.93-15.93-3.68-24-4.62
+                      c-7.09-0.83-11.41-3.42-11.68-11.12c-0.07-2.13-0.92-4.23-1.47-6.33c-1.92-7.33-5.43-14.78,3.23-21.52
+                      c-6.27-0.82-8.64,1.11-9.32,5.65c-0.62,4.11-1.13,8.31-2.4,12.24c-7.32,22.72-14.68,45.43-22.16,68.1l12.36,0.05l0.5,0
+                      c0.24-0.34,0.54-0.76,0.9-1.3c0.06,0.43,0.11,0.87,0.17,1.3l24.36-0.08c0,0-0.72,59.42,61.12,70.23c0-9.19,0-18.39,0-27.57
+                      c-19.43-5.13-33.86-24.01-30.47-49.63c1.33-10.06,6.33-18.93,13.68-26.21c10.35-10.26,23.19-12.81,37.33-11.7
+                      c-0.25-2.4-0.45-4.33-0.7-6.80C515.35,133.3,507.03,135.54,498.58,137.09z"
+                    />
+                    <path
+                      className="car-part st2 Kaput"
+                      style={{ fill: getPartFill('Kaput') }}
+                      onClick={() => handleSvgPartClick('Kaput')}
+                      d="M222.98,399.77c5.12,3.76,11.37,4.42,12.4,11.59c0.25,1.74,3.29,3.94,5.38,4.4
+                      c10.86,2.36,21.76,5.43,32.77,6.01c22.61,1.19,45.33,1.9,67.92,0.98c15.66-0.64,31.22-4.25,46.79-6.69
+                      c4.4-0.69,6.58-3.56,8.76-7.69c1.88-3.56,6.88-5.46,10.52-8.1c0,12.32,0.29,23.76-0.06,35.18c-0.71,22.97-0.77,46.02-2.93,68.86
+                      c-3.14,33.24-20.68,53.65-53.25,61.98c-25.44,6.51-51.38,7.43-76.93-0.46c-29.08-8.99-47.22-31.66-48.61-62.18
+                      c-1.53-33.44-2.03-66.93-2.97-100.39C222.75,402.46,222.86,401.66,222.98,399.77z"
+                    />
+                    <path
+                      className="car-part st3 Tavan"
+                      style={{ fill: getPartFill('Tavan') }}
+                      onClick={() => handleSvgPartClick('Tavan')}
+                      d="M379.52,354.19c-42.83,6.8-85.11,5.3-127.72,0.29c6.74-38.78,9.5-77.79,0.01-116.84c42.56,0,85,0,127.97,0
+                      C370.09,276.67,372.71,315.59,379.52,354.19z"
+                    />
+                    <path
+                      className="car-part st2 Bagaj"
+                      style={{ fill: getPartFill('Bagaj') }}
+                      onClick={() => handleSvgPartClick('Bagaj')}
+                      d="M398.52,196.75c-4.3-2.49-7.59-4.72-11.15-6.39c-4.86-2.28-9.83-5.58-14.91-5.91
+                      c-24.07-1.56-48.19-2.93-72.29-3.02c-14.57-0.05-29.18,2.15-43.71,3.84c-3.6,0.42-7.09,2.58-10.42,4.34
+                      c-3.76,1.99-7.28,4.44-11.81,7.24c-0.73-3.9-1.81-6.9-1.77-9.89c0.27-17.81,0.73-35.62,1.34-53.43c0.06-1.70,1.22-3.73,2.5-4.97
+                      c11.6-11.21,26.08-16.89,41.37-20.70c18.32-4.57,36.92-6.96,55.78-4.72c22.95,2.72,44.59,9.06,62.13,25.16
+                      c1.59,1.46,2.87,4.07,2.96,6.20c0.74,17.46,1.24,34.94,1.59,52.41C400.2,189.92,399.18,192.95,398.52,196.75z"
+                    />
+                    <path
+                      className="car-part SagOnCamurluk"
+                      style={{ fill: getPartFill('SagOnCamurluk') }}
+                      onClick={() => handleSvgPartClick('SagOnCamurluk')}
+                      d="M176.87,550.32c0-6.78,1.69-13.95-0.35-19.8c-4.27-12.21-5.8-25.62-14.15-36.28
+                      c-0.75-0.96-1.22-2.41-1.21-3.64c0.18-23.61-10.82-39.33-33.19-47.3c0-5.21,0-10.48,0-16.23c23.87,0,47.53,0,71.19,0
+                      C201.2,447.1,184.47,540.08,176.87,550.32z"
+                    />
+                    <path
+                      className="car-part SolOnCamurluk"
+                      style={{ fill: getPartFill('SolOnCamurluk') }}
+                      onClick={() => handleSvgPartClick('SolOnCamurluk')}
+                      d="M504.43,427.08c0,5.7,0,11,0,16.58c-16.32,4.79-28.76,15.47-30.69,31.94c-1.86,15.78-10.52,28.59-13.81,43.55
+                      c-1.67,7.59-5.64,14.73-4.98,22.93c0.19,2.31,0.42,4.62,0.63,6.93c-0.46,0.13-0.91,0.27-1.37,0.40c-1.83-6.13-4-12.18-5.44-18.40
+                      c-7.90-34.08-12.49-68.68-15.94-103.94C456.56,427.08,480.25,427.08,504.43,427.08z"
+                    />
 
-                    {/* Additional non-clickable details */}
+                    {/* Additional non-clickable details from the original Baremcars SVG */}
                     <path className="st1" d="M505.09,224.27c-19.13-4.55-30.7-22.07-29.61-43.01c0.97-18.64,16.42-36.43,34.33-39.06
                       c5.63-0.83,11.41-0.66,17.42-0.97c-0.26-2.26-0.46-4.87-0.86-7.44c-1.83-11.65-3.45-23.35-5.7-34.92
                       c-1.41-7.25-6.38-11.2-13.08-11.68c-5.48-0.4-10.98-0.56-16.44-1.13c-7.14-0.74-13.45,0.81-19.13,5.4
@@ -338,8 +388,8 @@ export default function HasarBilgileriPage() {
                       c3.48,1.31,5.26,3.72,4.71,7.74c-1.52,11.2-2.76,22.43-4.35,33.62C380.18,234.73,376.65,236.71,370.9,236.57z M223.93,394.12
                       c3.58-6.75,7.72-13.22,11.08-20.08c11.32-23.12,15.81-47.85,16.4-73.39c0.75-32.57-4.66-64.24-14.37-95.24
                       c-2.54-8.12-2.57-8.12,5.92-11.71c1.63,12.75,2.9,25.32,4.93,37.78c1.94,11.93,5.86,23.64,6.77,35.6
-                      c1.23,16.19,0.76,32.55,0.33,48.82c-0.23,8.6-1.94,17.16-2.93,25.74c-1.9,16.38-9.61,31.02-13.95,46.67
-                      c-1.42,5.11-2.96,10.18-4.67,16.07c-3.17-1.89-6.63-3.7-9.70-6.01C223.07,397.89,223.3,395.31,223.93,394.12z M280.59,603.91
+                      c1.23,16.19,0.76,32.55,0.33,48.82c-0.23,8.6-1.94,17.16-2.93,25.74c-1.90,16.38-9.61,31.02-13.95,46.67
+                      c-1.42,5.11-2.96,10.18-4.67,16.07c-3.17-1.89-6.63-3.70-9.70-6.01C223.07,397.89,223.3,395.31,223.93,394.12z M280.59,603.91
                       c-17.35,0-34.1,0.03-50.85-0.02c-3.39-0.01-4.72-2.5-4.77-5.32c-0.17-9.64-0.18-19.28-0.01-28.92c0.06-3.7,2.16-5.6,6.14-5.55
                       c10.14,0.13,20.33-0.56,30.41,0.28c5.96,0.5,11.76,3.2,17.54,5.17c0.78,0.27,1.46,2.09,1.47,3.2
                       C280.63,582.88,280.59,593.01,280.59,603.91z M350.33,603.61c-22.21,0-44.46,0-67.31,0c0-10.92,0-21.52,0-32.94
@@ -350,16 +400,16 @@ export default function HasarBilgileriPage() {
                       c-1.53-33.44-2.03-66.93-2.97-100.39c-0.02-0.8,0.09-1.6,0.21-3.48c5.12,3.76,11.37,4.42,12.4,11.59c0.25,1.74,3.29,3.94,5.38,4.4
                       c10.86,2.36,21.76,5.43,32.77,6.01c22.61,1.19,45.33,1.9,67.92,0.98c15.66-0.64,31.22-4.25,46.79-6.69
                       c4.4-0.69,6.58-3.56,8.76-7.69c1.88-3.56,6.88-5.46,10.52-8.1C407.52,412.58,407.82,424.02,407.46,435.44z M405.4,400.33
-                      c-2.85,1.28-5.42,3.16-8.39,4.94c-0.51-0.9-1.02-1.53-1.23-2.24c-4.43-14.6-9.23-29.1-13.1-43.85c-2.39-9.12-3.76-18.57-4.91-27.96
+                      c-2.85,1.28-5.42,3.16-8.39,4.94c-0.51-0.9-1.02-1.53-1.23-2.24c-4.43-14.6-9.23-29.1-13.10-43.85c-2.39-9.12-3.76-18.57-4.91-27.96
                       c-2.61-21.36-3.38-42.81-1.22-64.26c0.81-8.07,2.66-16.03,3.98-24.06c2.62-15.87,5.19-31.75,7.79-47.63
                       c0.11-0.64,0.23-1.28,0.39-2.15c0.75,0.28,1.38,0.43,1.94,0.72c7.43,3.81,7.36,3.8,4.86,11.86
                       c-11.61,37.4-17.15,75.54-12.92,114.68c2.62,24.26,9.7,47.15,22.96,67.88c0.89,1.39,1.74,2.84,2.39,4.35
                       C409.33,395.88,409.28,398.58,405.4,400.33z M459.92,555.1c-2.24-9.07-3.25-18.2,0.62-27.68c4.08,11.77,8.16,23.55,12.38,35.74
                       C464.09,564.09,461.78,562.63,459.92,555.1z M476.23,510.4c9.77,18.28,28.51,27.53,49.28,24.55c5.82-0.83,6.39-0.17,5.18,5.69
-                      c-3.1,14.98-10.97,25.5-26.75,28.6c-2.98,0.59-5.26,0.37-8.03-2.02c-2.36-2.04-6.7-2.16-10.22-2.43c-8.25-0.62-7.65,1.49-10.88-8.3
+                      c-3.10,14.98-10.97,25.5-26.75,28.6c-2.98,0.59-5.26,0.37-8.03-2.02c-2.36-2.04-6.7-2.16-10.22-2.43c-8.25-0.62-7.65,1.49-10.88-8.3
                       c-3.18-9.62-6.3-19.28-9.9-28.75c-4.2-11.07,1.35-19.7,6.12-29.84C473.08,502.86,474.32,506.81,476.23,510.4z M504.43,443.66
                       c-16.32,4.79-28.76,15.47-30.69,31.94c-1.86,15.78-10.52,28.59-13.81,43.55c-1.67,7.59-5.64,14.73-4.98,22.93
-                      c0.19,2.31,0.42,4.62,0.63,6.93c-0.46,0.13-0.91,0.27-1.37,0.4c-1.83-6.13-4-12.18-5.44-18.4c-7.9-34.08-12.49-68.68-15.94-103.94
+                      c0.19,2.31,0.42,4.62,0.63,6.93c-0.46,0.13-0.91,0.27-1.37,0.40c-1.83-6.13-4-12.18-5.44-18.40c-7.90-34.08-12.49-68.68-15.94-103.94
                       c23.74,0,47.43,0,71.6,0C504.43,432.78,504.43,438.07,504.43,443.66z M533.27,433.46c0,9.34,0.42,8.13-7.93,8.17
                       c-4,0.02-8.03-0.31-11.98,0.11c-4.66,0.49-5.53-1.48-5.52-5.69c0.14-33.64,0.08-67.28,0.08-100.92c0-11.44,0-22.88,0-34.31
                       c-1.21,0-2.4,0-3.58,0c0,0.19,0,0.39,0,0.58c0,41.46,0,83,0,124.75c-1.74,0.13-3.32,0.35-4.9,0.36
@@ -406,18 +456,9 @@ export default function HasarBilgileriPage() {
                       c-1.29,3.96-3.18,5.91-7.78,5.81c-5.07-0.11-10.72-1.27-14.56,4.21c-0.67,0.96-3.79,0.6-5.67,0.26
                       c-15.4-2.79-23.2-13.07-26.76-27.45c-0.2-0.80-0.12-1.69-0.4-2.46c-1.63-4.46,0.3-5.3,4.32-4.62c9.57,1.61,18.91,0.59,27.86-3.21
                       c13.44-5.71,21.77-15.95,26.06-29.71C160.27,500.74,160.63,499.69,161.26,497.74z" />
-                    <path className="st0" d="M388.71,193.14c0.75,0.28,1.38,0.43,1.94,0.72c7.43,3.81,7.36,3.80,4.86,11.86
-                      c-11.61,37.4-17.15,75.54-12.92,114.68c2.62,24.26,9.7,47.15,22.96,67.88c0.89,1.39,1.74,2.84,2.39,4.35
-                      c1.4,3.25,1.36,5.95-2.53,7.70c-2.85,1.28-5.42,3.16-8.39,4.94c-0.51-0.90-1.02-1.53-1.23-2.24c-4.43-14.6-9.23-29.1-13.10-43.85
-                      c-2.39-9.12-3.76-18.57-4.91-27.96c-2.61-21.36-3.38-42.81-1.22-64.26c0.81-8.07,2.66-16.03,3.98-24.06
-                      c2.62-15.87,5.19-31.75,7.79-47.63C388.42,194.64,388.55,194,388.71,193.14z" />
                     <path className="st4" d="M237.78,121.27c2.80-2.92,5.35-6.16,8.46-8.71c11.57-9.51,25.22-14.67,39.61-17.98
                       c18.85-4.33,37.96-4.97,56.97-1.88c17.2,2.80,32.66,10.08,45.77,21.79c2.23,1.99,3.88,4.65,5.50,7.06
                       C342.05,90.63,290.43,94.07,237.78,121.27z" />
-                    <path className="st0" d="M242.96,193.71c1.63,12.75,2.9,25.32,4.93,37.78c1.94,11.93,5.86,23.64,6.77,35.60
-                      c1.23,16.19,0.76,32.55,0.33,48.82c-0.23,8.6-1.94,17.16-2.93,25.74c-1.90,16.38-9.61,31.02-13.95,46.67
-                      c-1.41,5.11-2.96,10.18-4.67,16.07c-3.17-1.89-6.63-3.70-9.70-6.01c-0.67-0.50-0.44-3.08,0.19-4.27c3.58-6.75,7.72-13.22,11.08-20.08
-                      c11.32-23.12,15.81-47.85,16.40-73.39c0.75-32.57-4.66-64.24-14.37-95.24C234.49,197.29,234.46,197.30,242.96,193.71z" />
                     <path className="st4" d="M172.94,527.19c0.44,1.68,1.29,3.38,1.24,5.05c-0.21,7.28-0.19,14.63-1.21,21.82
                       c-0.95,6.75-4.34,11.35-13.39,9.01c4.08-12.01,8.15-23.96,12.21-35.92C172.17,527.15,172.56,527.17,172.94,527.19z" />
                     <path className="st4" d="M472.93,563.16c-8.84,0.93-11.15-0.54-13.01-8.06c-2.24-9.07-3.25-18.2,0.62-27.68
@@ -426,44 +467,57 @@ export default function HasarBilgileriPage() {
                       c-1.29,6.41-2.82,12.78-4.26,19.16C191.94,127.66,191.56,127.66,191.17,127.66z" />
                     <path className="st4" d="M440.37,127.53c-1.15-4.81-2.34-9.61-3.45-14.43c-2.27-9.86,2.84-14.63,13.36-11.54
                       c-2.93,8.72-5.86,17.42-8.79,26.12C441.12,127.62,440.75,127.57,440.37,127.53z" />
+
+                    {/* Wheels - Front Left */}
                     <path className="st0" d="M547.63,184.52c-0.08,15.92-12.99,28.66-29,28.62c-15.73-0.04-28.97-13.3-28.92-28.96
                       c0.05-15.58,13.47-29.02,29-29.06C534.58,155.09,547.70,168.43,547.63,184.52z M493.12,184.04c-0.06,14.07,11.54,25.94,25.48,26.05
                       c13.84,0.11,25.84-11.74,25.97-25.65c0.13-13.88-11.64-25.87-25.58-26.05C505.14,158.21,493.19,170.06,493.12,184.04z" />
+                    {/* Wheels - Front Right */}
                     <path className="st0" d="M142.73,184.28c-0.03,16.13-12.65,28.85-28.65,28.87c-16.06,0.02-29.26-13.25-29.06-29.21
                       c0.20-15.70,13.54-28.88,29.17-28.81C129.88,155.20,142.75,168.35,142.73,184.28z M88.43,184.22c0.01,14.23,11.49,25.84,25.55,25.87
                       c13.97,0.03,25.64-11.71,25.66-25.82c0.02-14.15-11.62-25.91-25.62-25.89C99.96,158.41,88.42,170.06,88.43,184.22z" />
+                    {/* Wheels - Rear Left */}
                     <path className="st0" d="M547.62,488.23c-0.06,15.89-12.99,28.70-28.96,28.68c-15.70-0.01-28.96-13.27-28.95-28.94
                       c0.01-15.60,13.34-28.95,28.96-28.99C534.72,458.94,547.68,472.03,547.62,488.23z M544.57,488.11
                       c0.07-13.89-11.75-25.86-25.63-25.96c-13.93-0.10-25.76,11.67-25.82,25.69c-0.06,14.05,11.54,25.83,25.55,25.95
                       C532.49,513.91,544.50,502,544.57,488.11z" />
+                    {/* Wheels - Rear Right - This was missing in some cases */}
+                    <path className="st0" d="M113.79,477.89c4.01,0.25,6.27,2.31,6.58,6.16c0.29,3.51-3.07,6.94-6.54,6.55c-3.66-0.41-6.28-2.48-6.21-6.41
+                      C107.70,480.35,110.12,478.30,113.79,477.89z" />
+
+                    {/* Additional visual details, lines, etc. */}
+                    <path className="st6" d="M216.32,181.8l-26.38-0.09c0,0,0.75,61.19-62.91,71.88" />
+                    <polyline className="st6" points="196.58,426.37 202.63,426.57 127.07,427.07" />
+                    <polyline className="st6" points="499.45,426.73 505.5,426.93 429.94,427.43" />
+                    <line className="st6" x1="241.45" y1="301.21" x2="127.03" y2="301.21" />
+                    <path className="st6" d="M417.29,183.01l25.94-0.08c0,0-0.74,59.9,61.84,70.36" />
+                    <line className="st6" x1="505.11" y1="301.21" x2="393.65" y2="301.21" />
                   </g>
                 </svg>
               </div>
             </motion.div>
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Submit Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row justify-between gap-3 pt-6 mt-6 border-t border-gray-200"
+            className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-between gap-4"
           >
             <Button
               type="button"
               variant="outline"
-              size="lg"
-              onClick={() => router.push('/teklif-al/arac-bilgileri')}
-              className="h-12 px-8 text-base font-semibold"
+              onClick={() => router.back()}
+              className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3"
             >
-              ← Geri
+              Geri
             </Button>
-            <Button 
-              onClick={onSubmit} 
-              size="lg" 
-              className="h-12 px-8 text-base font-semibold shadow-lg hover:shadow-xl transition-all"
+            <Button
+              onClick={onSubmit}
+              className="w-full sm:w-auto px-6 sm:px-8 py-2 sm:py-3"
             >
-              Devam Et →
+              Devam Et
             </Button>
           </motion.div>
         </motion.div>
