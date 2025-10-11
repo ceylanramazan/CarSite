@@ -20,9 +20,9 @@ export default function ProgressStepper({
   currentStep,
 }: ProgressStepperProps) {
   return (
-    <nav aria-label="Progress" className="mb-12">
-      <div className="mx-auto max-w-3xl rounded-2xl bg-white/80 backdrop-blur-sm p-6 shadow-lg border border-gray-100">
-        <ol className="flex items-center justify-between">
+    <nav aria-label="Progress" className="mb-8">
+      <div className="mx-auto max-w-4xl px-4">
+        <ol className="flex items-center justify-center">
           {steps.map((step, stepIdx) => (
             <li
               key={step.id}
@@ -31,10 +31,10 @@ export default function ProgressStepper({
                 stepIdx !== steps.length - 1 ? 'flex-1' : ''
               )}
             >
-              {/* Line */}
-              {stepIdx !== steps.length - 1 && (
-                <div className="absolute left-1/2 top-6 h-1 w-full -translate-y-1/2">
-                  <div className="h-full w-full bg-gray-200 rounded-full">
+              {/* Line - sadece son adım değilse göster */}
+              {stepIdx < steps.length - 1 && (
+                <div className="absolute left-1/2 top-6 h-1 w-full">
+                  <div className="h-full w-full bg-gray-200/50 rounded-full">
                     <motion.div
                       initial={{ width: '0%' }}
                       animate={{ 
@@ -77,7 +77,7 @@ export default function ProgressStepper({
               {/* Label */}
               <span
                 className={cn(
-                  'mt-3 text-center text-xs font-semibold sm:text-sm',
+                  'mt-3 text-center text-sm font-semibold sm:text-base',
                   currentStep >= step.id 
                     ? 'text-primary' 
                     : 'text-gray-500'

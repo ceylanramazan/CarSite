@@ -18,22 +18,24 @@ export default function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <Car className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-secondary">CarSite</span>
+          <Link href="/" className="flex items-center space-x-3 group">
+            <div className="rounded-xl bg-primary/10 p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
+              <Car className="h-8 w-8 text-primary" />
+            </div>
+            <span className="text-2xl font-bold text-secondary">CarSite</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center space-x-8 md:flex">
+          <div className="hidden items-center space-x-1 md:flex">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-sm font-medium text-gray-700 transition-colors hover:text-primary"
+                className="rounded-lg px-4 py-2 text-base font-semibold text-gray-700 transition-all hover:bg-primary/10 hover:text-primary"
               >
                 {item.name}
               </Link>
@@ -41,12 +43,12 @@ export default function Header() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden items-center space-x-4 md:flex">
+          <div className="hidden items-center space-x-3 md:flex">
             <Link href="/teklif-al/arac-bilgileri">
-              <Button variant="outline">Araç Sat</Button>
+              <Button variant="outline" size="lg" className="font-semibold">Araç Sat</Button>
             </Link>
             <Link href="/arac-al">
-              <Button>Araç Al</Button>
+              <Button size="lg" className="font-semibold shadow-lg hover:shadow-xl">Araç Al</Button>
             </Link>
           </div>
 
