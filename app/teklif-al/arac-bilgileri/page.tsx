@@ -18,8 +18,9 @@ import type { VehicleDTO } from '@/types'
 const steps = [
   { id: 1, name: 'Araç Bilgileri', href: '/teklif-al/arac-bilgileri' },
   { id: 2, name: 'Hasar Bilgileri', href: '/teklif-al/hasar-bilgileri' },
-  { id: 3, name: 'İletişim', href: '/teklif-al/iletisim' },
-  { id: 4, name: 'Özet', href: '/teklif-al/ozet' },
+  { id: 3, name: 'Ekspertiz Bilgileri', href: '/teklif-al/ekspertiz-bilgileri' },
+  { id: 4, name: 'İletişim', href: '/teklif-al/iletisim' },
+  { id: 5, name: 'Özet', href: '/teklif-al/ozet' },
 ]
 
 export default function AracBilgileriPage() {

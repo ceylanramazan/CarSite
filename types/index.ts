@@ -17,6 +17,16 @@ export interface DamageDTO {
   description?: string
 }
 
+export interface ExpertiseDTO {
+  has_expertise: boolean
+  expertise_company?: string
+  expertise_date?: string
+  expertise_score?: number
+  expertise_report?: string
+  tramer_check: boolean
+  maintenance_records: boolean
+}
+
 export interface ContactDTO {
   name: string
   phone: string
@@ -28,6 +38,7 @@ export interface ContactDTO {
 export interface OfferPayload {
   vehicle: VehicleDTO
   damage: DamageDTO
+  expertise: ExpertiseDTO
   contact: ContactDTO
 }
 
@@ -102,6 +113,7 @@ export interface BlogPost {
 export interface OfferFormData {
   vehicle?: VehicleDTO
   damage?: DamageDTO
+  expertise?: ExpertiseDTO
   contact?: ContactDTO
 }
 

@@ -20,6 +20,16 @@ export const damageSchema = z.object({
   description: z.string().optional(),
 })
 
+export const expertiseSchema = z.object({
+  has_expertise: z.boolean(),
+  expertise_company: z.string().optional(),
+  expertise_date: z.string().optional(),
+  expertise_score: z.number().min(0).max(100).optional(),
+  expertise_report: z.string().optional(),
+  tramer_check: z.boolean(),
+  maintenance_records: z.boolean(),
+})
+
 export const contactSchema = z.object({
   name: z.string().min(2, 'Ad soyad en az 2 karakter olmalıdır'),
   phone: z
