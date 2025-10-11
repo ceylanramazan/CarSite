@@ -20,76 +20,101 @@ export default function ProgressStepper({
   currentStep,
 }: ProgressStepperProps) {
   return (
-    <nav aria-label="Progress" className="mb-8">
+    <nav aria-label="Progress" className="mb-10">
       <div className="mx-auto max-w-4xl px-4">
-        <ol className="flex items-center justify-center">
-          {steps.map((step, stepIdx) => (
-            <li
-              key={step.id}
-              className={cn(
-                'relative flex flex-col items-center',
-                stepIdx !== steps.length - 1 ? 'flex-1' : ''
-              )}
-            >
-              {/* Line - sadece son adım değilse göster */}
-              {stepIdx < steps.length - 1 && (
-                <div className="absolute left-1/2 top-6 h-1 w-full">
-                  <div className="h-full w-full bg-gray-200/50 rounded-full">
-                    <motion.div
-                      initial={{ width: '0%' }}
-                      animate={{ 
-                        width: currentStep > step.id ? '100%' : '0%' 
-                      }}
-                      transition={{ duration: 0.5, ease: 'easeInOut' }}
-                      className="h-full bg-gradient-to-r from-primary to-primary/80 rounded-full"
-                    />
-                  </div>
-                </div>
-              )}
+        <div className="relative">
+          <ol className="flex items-start justify-between">
+            {steps.map((step, stepIdx) => {
+              const isCompleted = currentStep > step.id
+              const isCurrent = currentStep === step.id
+              const isPending = currentStep < step.id
 
-              {/* Circle */}
-              <div className="relative z-10">
-                {currentStep > step.id ? (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 200 }}
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 shadow-lg"
-                  >
-                    <CheckCircle2 className="h-7 w-7 text-white" />
-                  </motion.div>
-                ) : currentStep === step.id ? (
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ type: 'spring', stiffness: 200 }}
-                    className="flex h-12 w-12 items-center justify-center rounded-full border-4 border-primary bg-white shadow-lg"
-                  >
-                    <div className="h-5 w-5 rounded-full bg-primary animate-pulse" />
-                  </motion.div>
-                ) : (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-gray-300 bg-white">
-                    <div className="h-3 w-3 rounded-full bg-gray-300" />
-                  </div>
-                )}
-              </div>
+              return (
+                <li
+                  key={step.id}
+                  className={cn(
+                    'relative flex flex-col items-center',
+                    'w-full'
+                  )}
+                >
+                  {/* Bağlantı çizgisi - SADECE son adım değilse göster */}
+                  {stepIdx !== steps.length - 1 && (
+                    <div className="absolute left-1/2 top-8 h-1 w-full -z-10">
+                      <div className="h-full w-full bg-gray-200 rounded-full ml-8">
+                        <motion.div
+                          initial={{ width: '0%' }}
+                          animate={{ 
+                            width: isCompleted ? '100%' : '0%'
+                          }}
+                          transition={{ duration: 0.6, ease: 'easeInOut' }}
+                          className="h-full bg-gradient-to-r from-primary via-primary to-primary/90 rounded-full shadow-sm"
+                        />
+                      </div>
+                    </div>
+                  )}
 
-              {/* Label */}
-              <span
-                className={cn(
-                  'mt-3 text-center text-sm font-semibold sm:text-base',
-                  currentStep >= step.id 
-                    ? 'text-primary' 
-                    : 'text-gray-500'
-                )}
-              >
-                {step.name}
-              </span>
-            </li>
-          ))}
-        </ol>
+                  {/* Step Circle */}
+                  <div className="relative z-10 flex flex-col items-center">
+                    {isCompleted ? (
+                      <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ 
+                          type: 'spring', 
+                          stiffness: 200,
+                          damping: 15
+                        }}
+                        className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/80 shadow-lg ring-4 ring-primary/20"
+                      >
+                        <CheckCircle2 className="h-8 w-8 text-white" strokeWidth={2.5} />
+                      </motion.div>
+                    ) : isCurrent ? (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ 
+                          type: 'spring', 
+                          stiffness: 200,
+                          damping: 15
+                        }}
+                        className="relative flex h-16 w-16 items-center justify-center"
+                      >
+                        <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping" />
+                        <div className="relative flex h-16 w-16 items-center justify-center rounded-full border-4 border-primary bg-white shadow-xl">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-bold text-xl">
+                            {step.id}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-gray-300 bg-gray-50 shadow-sm">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-gray-500 font-semibold text-lg">
+                          {step.id}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Step Label */}
+                    <motion.span
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: stepIdx * 0.1 }}
+                      className={cn(
+                        'mt-4 text-center text-sm font-bold sm:text-base px-2',
+                        isCurrent && 'text-primary',
+                        isCompleted && 'text-primary',
+                        isPending && 'text-gray-500'
+                      )}
+                    >
+                      {step.name}
+                    </motion.span>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
+        </div>
       </div>
     </nav>
   )
 }
-
