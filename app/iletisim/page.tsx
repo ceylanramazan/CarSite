@@ -61,8 +61,8 @@ export default function IletisimPage() {
     {
       icon: MapPin,
       title: 'Adres',
-      content: 'Levent Mahallesi, Cömert Sokak No:1',
-      subcontent: 'Beşiktaş, İstanbul 34330',
+      content: 'Merdivenköy, Ressam Salih Erimez Cad 16/B',
+      subcontent: 'Kadıköy, İstanbul 34732',
       color: 'from-blue-500 to-cyan-500',
     },
     {
@@ -316,7 +316,7 @@ export default function IletisimPage() {
           >
             <div className="relative h-full min-h-[500px] w-full">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3008.3747659754846!2d29.008285315414745!3d41.077802579297266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8ca058b28c20b6c3!2sLevent%2C%20Be%C5%9Fikta%C5%9F%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1647890123456!5m2!1str!2str"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3012.0123456789!2d29.0745678!3d40.9823456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac7f2b8234567%3A0x1234567890abcdef!2sMerdivenko%CC%88y%2C%20Ressam%20Salih%20Erimez%20Cd.%20No%3A16%2C%2034732%20Kad%C4%B1ko%CC%88y%2F%C4%B0stanbul!5e0!3m2!1str!2str!4v1647890123456!5m2!1str!2str"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -337,13 +337,13 @@ export default function IletisimPage() {
                       CarSite Merkez Ofis
                     </h3>
                     <p className="text-xs text-gray-600">
-                      Levent Mahallesi, Cömert Sokak No:1
+                      Merdivenköy, Ressam Salih Erimez Cad 16/B
                     </p>
                     <p className="text-xs text-gray-600">
-                      Beşiktaş, İstanbul 34330
+                      Kadıköy, İstanbul 34732
                     </p>
                     <a
-                      href="https://goo.gl/maps/xyz"
+                      href="https://www.google.com/maps/dir//Merdivenk%C3%B6y,+Ressam+Salih+Erimez+Cd.+16%2FB,+34732+Kad%C4%B1k%C3%B6y%2F%C4%B0stanbul"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="mt-1 inline-block text-xs font-semibold text-primary hover:underline"
