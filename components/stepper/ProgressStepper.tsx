@@ -23,7 +23,7 @@ export default function ProgressStepper({
     <nav aria-label="Progress" className="mb-10">
       <div className="mx-auto max-w-4xl px-4">
         <div className="relative">
-          <ol className="flex items-start justify-between">
+          <ol className="flex items-center justify-between relative">
             {steps.map((step, stepIdx) => {
               const isCompleted = currentStep > step.id
               const isCurrent = currentStep === step.id
@@ -32,14 +32,11 @@ export default function ProgressStepper({
               return (
                 <li
                   key={step.id}
-                  className={cn(
-                    'relative flex flex-col items-center',
-                    'w-full'
-                  )}
+                  className="relative flex flex-1 flex-col items-center"
                 >
                   {/* Bağlantı çizgisi - SADECE son adım değilse göster */}
                   {stepIdx !== steps.length - 1 && (
-                    <div className="absolute left-[calc(50%+2rem)] top-8 h-1 w-[calc(100%-4rem)] -z-10">
+                    <div className="absolute left-[50%] right-[-50%] top-8 h-1 -z-10">
                       {/* Arka plan çizgisi - her zaman görünür (gri) */}
                       <div className="h-full w-full bg-gray-300 rounded-full relative">
                         {/* Dolum çizgisi - sadece tamamlanan adımlarda (mavi) */}
