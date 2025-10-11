@@ -20,22 +20,22 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex h-16 sm:h-18 md:h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="rounded-xl bg-primary/10 p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
-              <Car className="h-8 w-8 text-primary" />
+          <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
+            <div className="rounded-lg sm:rounded-xl bg-primary/10 p-1.5 sm:p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
+              <Car className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
             </div>
-            <span className="text-2xl font-bold text-secondary">CarSite</span>
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-secondary">CarSite</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden items-center space-x-1 md:flex">
+          <div className="hidden items-center space-x-1 lg:flex">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className="rounded-lg px-4 py-2 text-base font-semibold text-gray-700 transition-all hover:bg-primary/10 hover:text-primary"
+                className="rounded-lg px-3 lg:px-4 py-2 text-sm lg:text-base font-semibold text-gray-700 transition-all hover:bg-primary/10 hover:text-primary"
               >
                 {item.name}
               </Link>
@@ -43,7 +43,7 @@ export default function Header() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="hidden items-center space-x-3 md:flex">
+          <div className="hidden items-center space-x-2 lg:space-x-3 lg:flex">
             <Link href="/teklif-al/arac-bilgileri">
               <Button variant="outline" size="lg" className="font-semibold">Araç Sat</Button>
             </Link>
@@ -52,42 +52,45 @@ export default function Header() {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - bigger for touch */}
           <button
             type="button"
-            className="md:hidden"
+            className="lg:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Menu"
           >
             {mobileMenuOpen ? (
-              <X className="h-6 w-6" />
+              <X className="h-6 w-6 sm:h-7 sm:w-7 text-gray-700" />
             ) : (
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6 sm:h-7 sm:w-7 text-gray-700" />
             )}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Modern & Touch Friendly */}
         {mobileMenuOpen && (
-          <div className="border-t py-4 md:hidden">
-            <div className="flex flex-col space-y-4">
+          <div className="border-t border-gray-200 py-4 lg:hidden">
+            <div className="flex flex-col space-y-1">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-sm font-medium text-gray-700 hover:text-primary"
+                  className="rounded-lg px-4 py-3 text-base font-semibold text-gray-700 transition-all hover:bg-primary/10 hover:text-primary active:bg-primary/20"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="flex flex-col space-y-2 pt-4">
-                <Link href="/teklif-al/arac-bilgileri">
-                  <Button variant="outline" className="w-full">
+              <div className="flex flex-col space-y-3 pt-4 border-t border-gray-100 mt-2">
+                <Link href="/teklif-al/arac-bilgileri" onClick={() => setMobileMenuOpen(false)}>
+                  <Button variant="outline" size="lg" className="w-full h-12 text-base font-semibold">
                     Araç Sat
                   </Button>
                 </Link>
-                <Link href="/arac-al">
-                  <Button className="w-full">Araç Al</Button>
+                <Link href="/arac-al" onClick={() => setMobileMenuOpen(false)}>
+                  <Button size="lg" className="w-full h-12 text-base font-semibold shadow-lg">
+                    Araç Al
+                  </Button>
                 </Link>
               </div>
             </div>
