@@ -13,7 +13,8 @@ export interface VehicleDTO {
 
 export interface DamageDTO {
   has_damage: boolean
-  changed_parts?: string[]
+  changed_parts?: string[] // Deprecated - keeping for backward compatibility
+  part_status?: Record<string, 'O' | 'LB' | 'B' | 'D'> // O: Original, LB: Lokal Boya, B: Boyalı, D: Değişen
   description?: string
 }
 
