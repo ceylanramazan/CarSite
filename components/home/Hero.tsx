@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import QuickOfferForm from './QuickOfferForm'
 
 export default function Hero() {
   return (
@@ -64,21 +65,10 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Right Image */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative hidden lg:block"
-          >
-            <div className="aspect-square overflow-hidden rounded-2xl bg-white/10 backdrop-blur-sm">
-              <img
-                src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80"
-                alt="Car"
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </motion.div>
+          {/* Right Form */}
+          <div className="relative hidden lg:block">
+            <QuickOfferForm />
+          </div>
         </div>
       </div>
     </section>
