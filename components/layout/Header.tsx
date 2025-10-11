@@ -1,12 +1,14 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Menu, X, Car } from 'lucide-react'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
   const navigation = [
     { name: 'Anasayfa', href: '/' },
@@ -16,6 +18,13 @@ export default function Header() {
     { name: 'Blog', href: '/blog' },
     { name: 'İletişim', href: '/iletisim' },
   ]
+
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/'
+    }
+    return pathname.startsWith(href)
+  }
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100">
@@ -31,15 +40,40 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden items-center space-x-1 lg:flex">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="rounded-lg px-3 lg:px-4 py-2 text-sm lg:text-base font-semibold text-gray-700 transition-all hover:bg-primary/10 hover:text-primary"
-              >
-                {item.name}
-              </Link>
-            ))}
+            {navigation.map((item) => {
+              const active = isActive(item.href)
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`relative px-3 lg:px-4 py-2 text-sm lg:text-base font-semibold transition-all duration-300 group ${
+                    active
+                      ? 'text-primary'
+                      : 'text-gray-700 hover:text-primary'
+                  }`}
+                >
+                  {item.name}
+                  
+                  {/* Active indicator - bottom border */}
+                  <span
+                    className={`absolute bottom-0 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                      active
+                        ? 'w-full'
+                        : 'w-0 group-hover:w-full'
+                    }`}
+                  />
+                  
+                  {/* Hover background */}
+                  <span
+                    className={`absolute inset-0 rounded-lg transition-all duration-300 ${
+                      active
+                        ? 'bg-primary/10'
+                        : 'bg-transparent group-hover:bg-primary/5'
+                    }`}
+                  />
+                </Link>
+              )
+            })}
           </div>
 
           {/* CTA Buttons */}
@@ -71,16 +105,32 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="border-t border-gray-200 py-4 lg:hidden">
             <div className="flex flex-col space-y-1">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="rounded-lg px-4 py-3 text-base font-semibold text-gray-700 transition-all hover:bg-primary/10 hover:text-primary active:bg-primary/20"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigation.map((item) => {
+                const active = isActive(item.href)
+                return (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={`relative rounded-lg px-4 py-3 text-base font-semibold transition-all duration-300 group ${
+                      active
+                        ? 'text-primary bg-primary/10'
+                        : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
+                    } active:bg-primary/20`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                    
+                    {/* Active indicator - left border */}
+                    <span
+                      className={`absolute left-0 top-0 bottom-0 w-1 bg-primary transition-all duration-300 ${
+                        active
+                          ? 'opacity-100'
+                          : 'opacity-0 group-hover:opacity-50'
+                      }`}
+                    />
+                  </Link>
+                )
+              })}
               <div className="flex flex-col space-y-3 pt-4 border-t border-gray-100 mt-2">
                 <Link href="/teklif-al/arac-bilgileri" onClick={() => setMobileMenuOpen(false)}>
                   <Button variant="outline" size="lg" className="w-full h-12 text-base font-semibold">
