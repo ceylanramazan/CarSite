@@ -392,22 +392,53 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                     </div>
 
                     {/* reCAPTCHA */}
-                    <div className="bg-gray-100 border border-gray-300 rounded p-3">
-                      <label className="flex items-center cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={isRobotChecked}
-                          onChange={(e) => setIsRobotChecked(e.target.checked)}
-                          className="w-6 h-6 border-2 border-gray-400 rounded mr-3 cursor-pointer accent-primary"
-                        />
-                        <div className="flex-1 flex items-center justify-between">
-                          <span className="text-sm text-gray-700 font-medium">Ben robot değilim</span>
-                          <div className="text-xs text-gray-500 text-right">
-                            <div className="font-semibold">reCAPTCHA</div>
-                            <div className="text-[10px]">Gizlilik - Şartlar</div>
+                    <div className="bg-[#f9f9f9] border-2 border-gray-300 rounded-md p-4 shadow-sm">
+                      <div className="flex items-start gap-3">
+                        {/* Checkbox */}
+                        <div className="flex-shrink-0 pt-1">
+                          <label className="cursor-pointer block">
+                            <input
+                              type="checkbox"
+                              checked={isRobotChecked}
+                              onChange={(e) => setIsRobotChecked(e.target.checked)}
+                              className="w-6 h-6 cursor-pointer accent-primary border-2 border-gray-400 rounded"
+                            />
+                          </label>
+                        </div>
+
+                        {/* Text */}
+                        <div className="flex-1">
+                          <label
+                            htmlFor="robot-check"
+                            className="text-sm text-gray-800 font-normal cursor-pointer select-none"
+                            onClick={() => setIsRobotChecked(!isRobotChecked)}
+                          >
+                            Ben robot değilim
+                          </label>
+                        </div>
+
+                        {/* reCAPTCHA Logo */}
+                        <div className="flex-shrink-0 flex flex-col items-end">
+                          <div className="flex items-center gap-1 mb-1">
+                            {/* Google reCAPTCHA Logo SVG */}
+                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                              <path d="M16 3C8.82 3 3 8.82 3 16C3 23.18 8.82 29 16 29C23.18 29 29 23.18 29 16C29 8.82 23.18 3 16 3Z" fill="#4285F4"/>
+                              <path d="M20.5 16C20.5 18.485 18.485 20.5 16 20.5C13.515 20.5 11.5 18.485 11.5 16C11.5 13.515 13.515 11.5 16 11.5C17.205 11.5 18.305 11.965 19.135 12.73L17.74 14.125C17.325 13.735 16.69 13.5 16 13.5C14.62 13.5 13.5 14.62 13.5 16C13.5 17.38 14.62 18.5 16 18.5C17.275 18.5 18.32 17.565 18.485 16.35H16V14.5H20.455C20.485 14.665 20.5 14.83 20.5 15V16Z" fill="white"/>
+                              <path d="M23 9.5L20.5 12L19 10.5L21.5 8L23 9.5Z" fill="#EA4335"/>
+                              <path d="M23 22.5L21.5 24L20.5 20L19 21.5L23 22.5Z" fill="#FBBC04"/>
+                              <path d="M9 22.5L10.5 24L11.5 20L13 21.5L9 22.5Z" fill="#34A853"/>
+                            </svg>
+                          </div>
+                          <div className="flex flex-col items-end text-[10px] text-gray-500 leading-tight">
+                            <span className="font-medium">reCAPTCHA</span>
+                            <div className="flex gap-1">
+                              <a href="#" className="hover:underline text-blue-600">Gizlilik</a>
+                              <span>-</span>
+                              <a href="#" className="hover:underline text-blue-600">Şartlar</a>
+                            </div>
                           </div>
                         </div>
-                      </label>
+                      </div>
                     </div>
 
                     {/* Submit Button */}
