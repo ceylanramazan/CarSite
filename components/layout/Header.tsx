@@ -63,14 +63,6 @@ export default function Header() {
                     }`}
                   />
                   
-                  {/* Hover background */}
-                  <span
-                    className={`absolute inset-0 rounded-lg transition-all duration-300 ${
-                      active
-                        ? 'bg-primary/10'
-                        : 'bg-transparent group-hover:bg-primary/5'
-                    }`}
-                  />
                 </Link>
               )
             })}
@@ -113,8 +105,8 @@ export default function Header() {
                     href={item.href}
                     className={`relative rounded-lg px-4 py-3 text-base font-semibold transition-all duration-300 group ${
                       active
-                        ? 'text-primary bg-primary/10'
-                        : 'text-gray-700 hover:bg-primary/10 hover:text-primary'
+                        ? 'text-primary'
+                        : 'text-gray-700 hover:text-primary'
                     } active:bg-primary/20`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
