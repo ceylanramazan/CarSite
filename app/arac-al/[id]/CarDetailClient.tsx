@@ -2,6 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -13,26 +16,85 @@ import {
   MessageCircle,
   ChevronLeft,
   ChevronRight,
+  Loader2,
 } from 'lucide-react'
 import type { CarBuyDTO } from '@/types'
+
+// Form validation schema
+const contactFormSchema = z.object({
+  name: z.string().min(2, 'Ad ve soyad en az 2 karakter olmalıdır'),
+  email: z.string().email('Geçerli bir e-posta adresi giriniz'),
+  phone: z.string()
+    .min(10, 'Telefon numarası en az 10 karakter olmalıdır')
+    .regex(/^[0-9\s\+\-\(\)]+$/, 'Geçerli bir telefon numarası giriniz'),
+  message: z.string().min(10, 'Mesajınız en az 10 karakter olmalıdır'),
+})
+
+type ContactFormData = z.infer<typeof contactFormSchema>
 
 export function CarDetailClient({ car }: { car: CarBuyDTO }) {
   const router = useRouter()
   const [currentImage, setCurrentImage] = useState(0)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+  const [isRobotChecked, setIsRobotChecked] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
   })
 
   const allImages = car.images || [car.thumbnail]
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Form gönderme işlemi
-    console.log('Form submitted:', formData)
-    alert('Mesajınız başarıyla gönderildi!')
+  const onSubmit = async (data: ContactFormData) => {
+    if (!isRobotChecked) {
+      alert('Lütfen "Ben robot değilim" kutucuğunu işaretleyin')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      // Mail gönderme API'si (mock)
+      const emailData = {
+        to: 'developer.ramazanceylan@gmail.com',
+        subject: `Araç İlgisi - ${car.brand} ${car.model} (#${car.id})`,
+        from: data.email,
+        name: data.name,
+        phone: data.phone,
+        message: data.message,
+        carDetails: {
+          brand: car.brand,
+          model: car.model,
+          year: car.year,
+          price: car.price,
+          id: car.id,
+        },
+      }
+
+      // Simulated API call
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      console.log('Email sent:', emailData)
+
+      // Gerçek API call için:
+      // const response = await fetch('/api/send-email', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(emailData),
+      // })
+
+      alert('Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağız.')
+      reset()
+      setIsRobotChecked(false)
+    } catch (error) {
+      console.error('Email send error:', error)
+      alert('Bir hata oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const nextImage = () => {
@@ -261,7 +323,7 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                     Bilgilerinizi bırakın sizi arayalım.
                   </p>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                     {/* Name */}
                     <div>
                       <Label htmlFor="name" className="text-sm font-medium">
@@ -270,11 +332,12 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                       <Input
                         id="name"
                         placeholder="Ad ve soyadınızı girin..."
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        required
-                        className="mt-1"
+                        {...register('name')}
+                        className={`mt-1 ${errors.name ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       />
+                      {errors.name && (
+                        <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+                      )}
                     </div>
 
                     {/* Email */}
@@ -286,11 +349,12 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                         id="email"
                         type="email"
                         placeholder="E-Postanızı girin..."
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        required
-                        className="mt-1"
+                        {...register('email')}
+                        className={`mt-1 ${errors.email ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       />
+                      {errors.email && (
+                        <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                      )}
                     </div>
 
                     {/* Phone */}
@@ -302,11 +366,12 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                         id="phone"
                         type="tel"
                         placeholder="Telefon numaranızı girin..."
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        required
-                        className="mt-1"
+                        {...register('phone')}
+                        className={`mt-1 ${errors.phone ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       />
+                      {errors.phone && (
+                        <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
+                      )}
                     </div>
 
                     {/* Message */}
@@ -317,32 +382,48 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                       <Textarea
                         id="message"
                         placeholder="Mesajınızı yazın..."
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        required
+                        {...register('message')}
                         rows={4}
-                        className="mt-1"
+                        className={`mt-1 ${errors.message ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
                       />
+                      {errors.message && (
+                        <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
+                      )}
                     </div>
 
-                    {/* reCAPTCHA Placeholder */}
-                    <div className="bg-gray-100 border border-gray-300 rounded p-3 flex items-center justify-between">
-                      <div className="flex items-center">
-                        <div className="w-6 h-6 border-2 border-gray-400 rounded mr-2"></div>
-                        <span className="text-sm text-gray-600">Ben robot değilim</span>
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        <div>reCAPTCHA</div>
-                        <div className="text-[10px]">Gizlilik - Şartlar</div>
-                      </div>
+                    {/* reCAPTCHA */}
+                    <div className="bg-gray-100 border border-gray-300 rounded p-3">
+                      <label className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={isRobotChecked}
+                          onChange={(e) => setIsRobotChecked(e.target.checked)}
+                          className="w-6 h-6 border-2 border-gray-400 rounded mr-3 cursor-pointer accent-primary"
+                        />
+                        <div className="flex-1 flex items-center justify-between">
+                          <span className="text-sm text-gray-700 font-medium">Ben robot değilim</span>
+                          <div className="text-xs text-gray-500 text-right">
+                            <div className="font-semibold">reCAPTCHA</div>
+                            <div className="text-[10px]">Gizlilik - Şartlar</div>
+                          </div>
+                        </div>
+                      </label>
                     </div>
 
                     {/* Submit Button */}
                     <Button
                       type="submit"
+                      disabled={isSubmitting}
                       className="w-full bg-primary hover:bg-primary/90 h-12 font-semibold"
                     >
-                      Gönder
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                          Gönderiliyor...
+                        </>
+                      ) : (
+                        'Gönder'
+                      )}
                     </Button>
                   </form>
                 </CardContent>
