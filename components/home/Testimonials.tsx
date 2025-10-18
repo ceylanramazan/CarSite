@@ -170,27 +170,24 @@ export default function Testimonials() {
           {/* Google Rating */}
           <div className="flex items-center justify-center gap-4 mb-8">
             {/* Google Logo */}
-            <div className="flex items-center gap-2 bg-white px-4 py-3 rounded-lg shadow-md">
-              <div className="flex items-center gap-1">
-                <div className="w-6 h-6 bg-red-500 rounded-sm"></div>
-                <div className="w-6 h-6 bg-yellow-400 rounded-sm"></div>
-                <div className="w-6 h-6 bg-green-500 rounded-sm"></div>
-                <div className="w-6 h-6 bg-blue-500 rounded-sm"></div>
-              </div>
-              <div className="text-gray-700 font-medium text-sm">Google</div>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/google-logo.png" 
+                alt="Google" 
+                className="w-8 h-8 flex-shrink-0"
+              />
+              <div className="text-gray-700 font-medium">Google</div>
             </div>
             
             {/* Rating Display */}
-            <div className="bg-white px-6 py-4 rounded-lg shadow-md">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-yellow-500 mb-1">4.9</div>
-                <div className="flex items-center justify-center gap-1 mb-2">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <div className="text-sm text-gray-600">Tüm değerlendirmeler</div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-secondary mb-1">4.9</div>
+              <div className="flex items-center justify-center gap-1 mb-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
               </div>
+              <div className="text-sm text-gray-600">Tüm değerlendirmeler</div>
             </div>
           </div>
         </motion.div>
