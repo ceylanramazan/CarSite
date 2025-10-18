@@ -1,10 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Star, Quote, ChevronDown, ChevronUp } from 'lucide-react'
+import { Star, Quote, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 const testimonials = [
   {
@@ -106,18 +107,46 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
-  const [visibleCount, setVisibleCount] = useState(6)
-  const ITEMS_PER_PAGE = 6
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  
+  // Slider settings
+  const SLIDES_TO_SHOW = 3
+  const SLIDES_TO_SCROLL = 1
+  const AUTO_PLAY_INTERVAL = 5000
 
-  const visibleTestimonials = testimonials.slice(0, visibleCount)
-  const hasMore = visibleCount < testimonials.length
+  const totalSlides = Math.ceil(testimonials.length / SLIDES_TO_SHOW)
+  const maxSlide = totalSlides - 1
 
-  const loadMore = () => {
-    setVisibleCount(prev => Math.min(prev + ITEMS_PER_PAGE, testimonials.length))
+  // Auto play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return
+
+    const interval = setInterval(() => {
+      setCurrentSlide(prev => (prev >= maxSlide ? 0 : prev + 1))
+    }, AUTO_PLAY_INTERVAL)
+
+    return () => clearInterval(interval)
+  }, [isAutoPlaying, maxSlide])
+
+  const nextSlide = () => {
+    setCurrentSlide(prev => (prev >= maxSlide ? 0 : prev + 1))
+    setIsAutoPlaying(false)
   }
 
-  const showLess = () => {
-    setVisibleCount(6)
+  const prevSlide = () => {
+    setCurrentSlide(prev => (prev <= 0 ? maxSlide : prev - 1))
+    setIsAutoPlaying(false)
+  }
+
+  const goToSlide = (slideIndex: number) => {
+    setCurrentSlide(slideIndex)
+    setIsAutoPlaying(false)
+  }
+
+  const getCurrentTestimonials = () => {
+    const startIndex = currentSlide * SLIDES_TO_SHOW
+    return testimonials.slice(startIndex, startIndex + SLIDES_TO_SHOW)
   }
 
   return (
@@ -152,91 +181,122 @@ export default function Testimonials() {
           </div>
         </motion.div>
 
-        {/* Testimonials Grid */}
-        <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleTestimonials.map((testimonial, index) => (
+        {/* Testimonials Slider */}
+        <div className="relative">
+          {/* Slider Container */}
+          <div className="overflow-hidden">
             <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="flex transition-transform duration-500 ease-in-out"
+              animate={{
+                x: `-${currentSlide * 100}%`
+              }}
             >
-              <Card className="h-full bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                <CardContent className="p-6 sm:p-8">
-                  {/* Quote Icon */}
-                  <div className="mb-4">
-                    <Quote className="h-8 w-8 text-primary/20" />
+              {Array.from({ length: totalSlides }, (_, slideIndex) => (
+                <div key={slideIndex} className="w-full flex-shrink-0">
+                  <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    {testimonials
+                      .slice(slideIndex * SLIDES_TO_SHOW, (slideIndex + 1) * SLIDES_TO_SHOW)
+                      .map((testimonial, index) => (
+                        <motion.div
+                          key={testimonial.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: index * 0.1 }}
+                        >
+                          <Card className="h-full bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                            <CardContent className="p-6 sm:p-8">
+                              {/* Quote Icon */}
+                              <div className="mb-4">
+                                <Quote className="h-8 w-8 text-primary/20" />
+                              </div>
+                              
+                              {/* Rating */}
+                              <div className="flex items-center gap-1 mb-4">
+                                {[...Array(testimonial.rating)].map((_, i) => (
+                                  <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                                ))}
+                              </div>
+                              
+                              {/* Comment */}
+                              <p className="text-gray-700 leading-relaxed mb-6 text-sm sm:text-base">
+                                &ldquo;{testimonial.comment}&rdquo;
+                              </p>
+                              
+                              {/* Customer Info */}
+                              <div className="flex items-center gap-3">
+                                <img
+                                  src={testimonial.avatar}
+                                  alt={testimonial.name}
+                                  className="h-12 w-12 rounded-full object-cover"
+                                />
+                                <div>
+                                  <div className="font-semibold text-secondary text-sm sm:text-base">
+                                    {testimonial.name}
+                                  </div>
+                                  <div className="text-gray-500 text-xs sm:text-sm">
+                                    {testimonial.location}
+                                  </div>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      ))}
                   </div>
-                  
-                  {/* Rating */}
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  
-                  {/* Comment */}
-                  <p className="text-gray-700 leading-relaxed mb-6 text-sm sm:text-base">
-                    &ldquo;{testimonial.comment}&rdquo;
-                  </p>
-                  
-                  {/* Customer Info */}
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      className="h-12 w-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <div className="font-semibold text-secondary text-sm sm:text-base">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-gray-500 text-xs sm:text-sm">
-                        {testimonial.location}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+              ))}
             </motion.div>
+          </div>
+
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 hover:scale-110 z-10"
+            onMouseEnter={() => setIsAutoPlaying(false)}
+          >
+            <ChevronLeft className="h-6 w-6 text-primary" />
+          </button>
+          
+          <button
+            onClick={nextSlide}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white shadow-lg hover:shadow-xl rounded-full p-3 transition-all duration-300 hover:scale-110 z-10"
+            onMouseEnter={() => setIsAutoPlaying(false)}
+          >
+            <ChevronRight className="h-6 w-6 text-primary" />
+          </button>
+        </div>
+
+        {/* Dots Navigation */}
+        <div className="flex justify-center gap-2 mt-8">
+          {Array.from({ length: totalSlides }, (_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide
+                  ? 'bg-primary scale-125'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              onMouseEnter={() => setIsAutoPlaying(false)}
+            />
           ))}
         </div>
 
-        {/* Load More Button */}
-        {testimonials.length > 6 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-8 sm:mt-12 text-center"
-          >
-            {hasMore ? (
-              <Button
-                onClick={loadMore}
-                className="px-8 py-3 text-base font-semibold bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                <ChevronDown className="mr-2 h-5 w-5" />
-                Daha Fazla Yorum Yükle
-              </Button>
-            ) : (
-              <div className="space-y-4">
-                <Button
-                  onClick={showLess}
-                  variant="outline"
-                  className="px-8 py-3 text-base font-semibold border-primary text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300"
-                >
-                  <ChevronUp className="mr-2 h-5 w-5" />
-                  Daha Az Göster
-                </Button>
-                <p className="text-sm text-gray-600">
-                  Tüm {testimonials.length} yorumu görüntülüyorsunuz
-                </p>
-              </div>
-            )}
-          </motion.div>
-        )}
+        {/* View All Testimonials Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-8 sm:mt-12 text-center"
+        >
+          <Link href="/testimonials">
+            <Button className="px-8 py-3 text-base font-semibold bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <ExternalLink className="mr-2 h-5 w-5" />
+              Tüm Yorumları Görüntüle
+            </Button>
+          </Link>
+        </motion.div>
 
         {/* Stats */}
         <motion.div
