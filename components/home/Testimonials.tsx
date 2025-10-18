@@ -1,8 +1,10 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Star, Quote } from 'lucide-react'
+import { Star, Quote, ChevronDown, ChevronUp } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 
 const testimonials = [
   {
@@ -52,10 +54,72 @@ const testimonials = [
     rating: 5,
     comment: 'Hızlı ödeme ve sorunsuz teslimat. Kesinlikle tavsiye ederim.',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face'
+  },
+  {
+    id: 7,
+    name: 'Emre Şahin',
+    location: 'Trabzon',
+    rating: 5,
+    comment: 'Karadeniz\'de bile hizmet verdiler. Çok memnun kaldım.',
+    avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face'
+  },
+  {
+    id: 8,
+    name: 'Selin Korkmaz',
+    location: 'Gaziantep',
+    rating: 5,
+    comment: 'Araç değerlendirmesi çok detaylı ve adil. Teşekkürler CarSite.',
+    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'
+  },
+  {
+    id: 9,
+    name: 'Okan Yıldız',
+    location: 'Konya',
+    rating: 5,
+    comment: 'Ekspertiz raporu çok profesyonel. Güvenle işlem yaptım.',
+    avatar: 'https://images.unsplash.com/photo-1507591064344-4c6ce005b128?w=100&h=100&fit=crop&crop=face'
+  },
+  {
+    id: 10,
+    name: 'Elif Öztürk',
+    location: 'Eskişehir',
+    rating: 5,
+    comment: 'Müşteri temsilcisi çok yardımcı oldu. Süreç çok kolaydı.',
+    avatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face'
+  },
+  {
+    id: 11,
+    name: 'Burak Çakır',
+    location: 'Samsun',
+    rating: 5,
+    comment: 'Araç satış süreci çok hızlıydı. 3 günde tamamlandı.',
+    avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop&crop=face'
+  },
+  {
+    id: 12,
+    name: 'Deniz Aydın',
+    location: 'Mersin',
+    rating: 5,
+    comment: 'Ödeme çok hızlı geldi. Hiç beklemedim. Teşekkürler.',
+    avatar: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100&h=100&fit=crop&crop=face'
   }
 ]
 
 export default function Testimonials() {
+  const [visibleCount, setVisibleCount] = useState(6)
+  const ITEMS_PER_PAGE = 6
+
+  const visibleTestimonials = testimonials.slice(0, visibleCount)
+  const hasMore = visibleCount < testimonials.length
+
+  const loadMore = () => {
+    setVisibleCount(prev => Math.min(prev + ITEMS_PER_PAGE, testimonials.length))
+  }
+
+  const showLess = () => {
+    setVisibleCount(6)
+  }
+
   return (
     <section className="py-16 sm:py-20 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,7 +154,7 @@ export default function Testimonials() {
 
         {/* Testimonials Grid */}
         <div className="grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((testimonial, index) => (
+          {visibleTestimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
               initial={{ opacity: 0, y: 20 }}
@@ -138,6 +202,41 @@ export default function Testimonials() {
             </motion.div>
           ))}
         </div>
+
+        {/* Load More Button */}
+        {testimonials.length > 6 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-8 sm:mt-12 text-center"
+          >
+            {hasMore ? (
+              <Button
+                onClick={loadMore}
+                className="px-8 py-3 text-base font-semibold bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <ChevronDown className="mr-2 h-5 w-5" />
+                Daha Fazla Yorum Yükle
+              </Button>
+            ) : (
+              <div className="space-y-4">
+                <Button
+                  onClick={showLess}
+                  variant="outline"
+                  className="px-8 py-3 text-base font-semibold border-primary text-primary hover:bg-primary hover:text-white rounded-lg transition-all duration-300"
+                >
+                  <ChevronUp className="mr-2 h-5 w-5" />
+                  Daha Az Göster
+                </Button>
+                <p className="text-sm text-gray-600">
+                  Tüm {testimonials.length} yorumu görüntülüyorsunuz
+                </p>
+              </div>
+            )}
+          </motion.div>
+        )}
 
         {/* Stats */}
         <motion.div
