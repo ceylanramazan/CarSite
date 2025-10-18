@@ -144,8 +144,8 @@ export default function TestimonialsPage() {
             </p>
             
             {/* Google Rating */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              {/* Google Logo */}
+            <div className="flex flex-col items-center justify-center gap-2 mb-8">
+              {/* Google Logo + Text */}
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
                   <svg width="24" height="24" viewBox="0 0 24 24" className="w-6 h-6">
