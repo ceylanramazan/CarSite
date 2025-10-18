@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Shield, Zap, HeartHandshake } from 'lucide-react'
+import { Shield, Zap, HeartHandshake, MapPin } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const features = [
@@ -22,6 +22,12 @@ const features = [
     title: 'Müşteri Memnuniyeti',
     description:
       'Binlerce mutlu müşterimiz var. Sizde onlardan biri olun.',
+  },
+  {
+    icon: MapPin,
+    title: 'Yerinde Ekspertiz',
+    description:
+      'Türkiye\'nin neresinde olursanız olun, yerinde ekspertiz hizmetiyle yanınızdayız.',
   },
 ]
 
@@ -44,7 +50,7 @@ export default function WhyUs() {
           </p>
         </motion.div>
 
-        <div className="mt-10 sm:mt-12 md:mt-16 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 sm:mt-12 md:mt-16 grid gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
