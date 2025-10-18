@@ -161,12 +161,11 @@ export default function TestimonialsPage() {
               {/* Rating Display */}
               <div className="text-center">
                 <div className="flex items-center justify-center gap-2 mb-1">
-                  <div className="text-3xl font-bold text-orange-500">4.8</div>
+                  <div className="text-3xl font-bold text-orange-500">4.9</div>
                   <div className="flex items-center gap-0.5">
-                    {[...Array(4)].map((_, i) => (
+                    {[...Array(5)].map((_, i) => (
                       <Star key={i} className="h-5 w-5 fill-orange-500 text-orange-500" />
                     ))}
-                    <Star className="h-5 w-5 fill-orange-500/50 text-orange-500/50" />
                   </div>
                 </div>
                 <div className="text-sm text-gray-600">Tüm değerlendirmeler</div>
