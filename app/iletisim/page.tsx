@@ -66,17 +66,10 @@ export default function IletisimPage() {
       color: 'from-blue-500 to-cyan-500',
     },
     {
-      icon: MessageCircle,
-      title: 'WhatsApp',
-      content: '0544 927 53 28',
-      subcontent: 'Hafta içi her gün',
-      color: 'from-green-500 to-emerald-500',
-    },
-    {
       icon: Phone,
-      title: 'Telefon',
-      content: '0216 567 80 88',
-      subcontent: 'Sabit hat',
+      title: 'İletişim',
+      content: '0544 927 53 28',
+      subcontent: '0216 567 80 88',
       color: 'from-green-500 to-emerald-500',
     },
     {
@@ -131,12 +124,31 @@ export default function IletisimPage() {
               <h3 className="mb-1 text-xs font-bold uppercase tracking-wide text-gray-500">
                 {info.title}
               </h3>
-              <p className="mb-1 text-sm sm:text-base font-bold text-secondary break-words">
-                {info.content}
-              </p>
-              <p className="text-xs sm:text-sm text-gray-600">
-                {info.subcontent}
-              </p>
+              {info.title === 'İletişim' ? (
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="h-4 w-4 text-green-600" />
+                    <p className="text-sm sm:text-base font-bold text-secondary break-words">
+                      {info.content}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Phone className="h-4 w-4 text-green-600" />
+                    <p className="text-sm sm:text-base font-bold text-secondary break-words">
+                      {info.subcontent}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <p className="mb-1 text-sm sm:text-base font-bold text-secondary break-words">
+                    {info.content}
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-600">
+                    {info.subcontent}
+                  </p>
+                </>
+              )}
             </motion.div>
           ))}
         </div>
