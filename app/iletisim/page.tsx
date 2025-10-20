@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { MapPin, Phone, Mail, Clock, Loader2, Send } from 'lucide-react'
+import { MapPin, Phone, Mail, Clock, Loader2, Send, MessageCircle } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 interface ContactFormData {
@@ -66,10 +66,17 @@ export default function IletisimPage() {
       color: 'from-blue-500 to-cyan-500',
     },
     {
+      icon: MessageCircle,
+      title: 'WhatsApp',
+      content: '0544 927 53 28',
+      subcontent: 'Hafta içi her gün',
+      color: 'from-green-500 to-emerald-500',
+    },
+    {
       icon: Phone,
       title: 'Telefon',
-      content: '0544 927 53 28',
-      subcontent: '0216 567 80 88',
+      content: '0216 567 80 88',
+      subcontent: 'Sabit hat',
       color: 'from-green-500 to-emerald-500',
     },
     {
