@@ -143,8 +143,8 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center space-x-2 text-sm text-gray-300">
                   <Phone className="h-4 w-4 text-primary" />
-                  <a href="tel:+905551234567" className="hover:text-primary">
-                    +90 555 123 45 67
+                  <a href="tel:+905449275328" className="hover:text-primary">
+                    0544 927 53 28
                   </a>
                 </li>
                 <li className="flex items-center space-x-2 text-sm text-gray-300">
@@ -286,8 +286,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2 text-xs sm:text-sm text-gray-300">
                 <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                <a href="tel:+905551234567" className="hover:text-primary">
-                  +90 555 123 45 67
+                <a href="tel:+905449275328" className="hover:text-primary">
+                  0544 927 53 28
                 </a>
               </li>
               <li className="flex items-center space-x-2 text-xs sm:text-sm text-gray-300">

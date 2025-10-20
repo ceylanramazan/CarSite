@@ -77,7 +77,7 @@ export default function KVKKPage() {
             <h2>6. İletişim</h2>
             <p>
               Yukarıda belirtilen haklarınızı kullanmak için info@carsite.com
-              adresine e-posta gönderebilir veya +90 555 123 45 67 numaralı
+              adresine e-posta gönderebilir veya 0544 927 53 28 numaralı
               telefondan bize ulaşabilirsiniz.
             </p>
           </section>

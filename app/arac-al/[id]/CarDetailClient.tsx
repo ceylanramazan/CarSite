@@ -502,15 +502,15 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
                   <h3 className="text-lg font-bold mb-4 text-gray-900">İletişim Bilgileri</h3>
                   
                   {/* Phone Button */}
-                  <a href="tel:+905521896803">
+                  <a href="tel:+905449275328">
                     <Button className="w-full mb-3 bg-primary hover:bg-primary/90 text-white h-12">
                       <Phone className="mr-2 h-5 w-5" />
-                      0 (552) 189 68 03
+                      0544 927 53 28
                     </Button>
                   </a>
 
                   {/* WhatsApp Button */}
-                  <a href="https://wa.me/905521896803" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/905449275328" target="_blank" rel="noopener noreferrer">
                     <Button className="w-full bg-green-500 hover:bg-green-600 text-white h-12">
                       <MessageCircle className="mr-2 h-5 w-5" />
                       Whatsapp

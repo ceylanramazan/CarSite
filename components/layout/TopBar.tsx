@@ -8,11 +8,11 @@ export default function TopBar() {
           {/* Left: Contact Info */}
           <div className="flex items-center space-x-6">
             <a 
-              href="tel:+905551234567" 
+              href="tel:+905449275328" 
               className="flex items-center space-x-2 text-sm hover:text-primary transition-colors"
             >
               <Phone className="h-4 w-4" />
-              <span>Bize Ulaşın: 0 (552) 189 68 03</span>
+              <span>Bize Ulaşın: 0544 927 53 28</span>
             </a>
             <a 
               href="mailto:info@carsite.com" 

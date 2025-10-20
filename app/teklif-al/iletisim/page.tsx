@@ -106,7 +106,7 @@ export default function IletisimPage() {
                 <Input
                   id="phone"
                   type="tel"
-                  placeholder="+90 555 123 45 67"
+                  placeholder="0544 927 53 28"
                   {...register('phone')}
                   className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />

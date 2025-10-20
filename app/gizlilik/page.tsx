@@ -123,7 +123,7 @@ export default function GizlilikPage() {
             </p>
             <ul>
               <li>E-posta: info@carsite.com</li>
-              <li>Telefon: +90 555 123 45 67</li>
+              <li>Telefon: 0544 927 53 28</li>
               <li>Adres: Levent Mahallesi, Cömert Sokak No:1, Beşiktaş, İstanbul</li>
             </ul>
           </section>

@@ -68,7 +68,7 @@ export default function IletisimPage() {
     {
       icon: Phone,
       title: 'Telefon',
-      content: '+90 555 123 45 67',
+      content: '0544 927 53 28',
       subcontent: 'Hafta içi her gün',
       color: 'from-green-500 to-emerald-500',
     },
@@ -205,7 +205,7 @@ export default function IletisimPage() {
                     <Input
                       id="phone"
                       type="tel"
-                      placeholder="+90 555 123 45 67"
+                      placeholder="0544 927 53 28"
                       className="h-10 sm:h-11 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
                       {...register('phone')}
                     />

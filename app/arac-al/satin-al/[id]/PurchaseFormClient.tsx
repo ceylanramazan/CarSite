@@ -105,7 +105,7 @@ export function PurchaseFormClient({ car }: { car: CarBuyDTO }) {
                     <Input
                       id="buyer_phone"
                       type="tel"
-                      placeholder="+90 555 123 45 67"
+                      placeholder="0544 927 53 28"
                       {...register('buyer_phone')}
                     />
                     {errors.buyer_phone && (
