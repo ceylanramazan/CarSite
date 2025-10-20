@@ -125,15 +125,15 @@ export default function IletisimPage() {
                 {info.title}
               </h3>
               {info.title === 'İletişim' ? (
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <MessageCircle className="h-4 w-4 text-green-600" />
+                    <MessageCircle className="h-3 w-3 text-green-600" />
                     <p className="text-sm sm:text-base font-bold text-secondary break-words">
                       {info.content}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-green-600" />
+                    <Phone className="h-3 w-3 text-green-600" />
                     <p className="text-sm sm:text-base font-bold text-secondary break-words">
                       {info.subcontent}
                     </p>
