@@ -46,7 +46,7 @@ export default function WhyUs() {
             Neden Biz?
           </h2>
           <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 px-4">
-            CarSite ile araç alım satımınız güvende
+            Any 2. El ile araç alım satımınız güvende
           </p>
         </motion.div>
 

@@ -1,6 +1,6 @@
 # 🚀 Deployment Guide
 
-Bu dokümantasyon CarSite projesini farklı platformlara deploy etmek için adım adım rehber sunar.
+Bu dokümantasyon Any 2. El projesini farklı platformlara deploy etmek için adım adım rehber sunar.
 
 ## 📋 Ön Hazırlık
 
@@ -127,7 +127,7 @@ Tüm platformlarda şu environment değişkenlerini ayarlayın:
 |----------|-------------|---------|
 | `NEXT_PUBLIC_API_BASE_URL` | API base URL | `https://api.example.com/v1` |
 | `NEXT_PUBLIC_SITE_URL` | Site URL | `https://carsite.com` |
-| `NEXT_PUBLIC_SITE_NAME` | Site adı | `CarSite` |
+| `NEXT_PUBLIC_SITE_NAME` | Site adı | `Any 2. El` |
 
 ## 🔍 Deploy Sonrası Kontroller
 

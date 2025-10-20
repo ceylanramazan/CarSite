@@ -69,7 +69,7 @@ const testimonials = [
     name: 'Selin Korkmaz',
     location: 'Gaziantep',
     rating: 5,
-    comment: 'Araç değerlendirmesi çok detaylı ve adil. Teşekkürler CarSite.',
+    comment: 'Araç değerlendirmesi çok detaylı ve adil. Teşekkürler Any 2. El.',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'
   },
   {

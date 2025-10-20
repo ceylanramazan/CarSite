@@ -15,7 +15,7 @@ export default function HakkimizdaPage() {
       <div className="mb-12 text-center">
         <h1 className="mb-4 text-4xl font-bold text-secondary">Hakkımızda</h1>
         <p className="mx-auto max-w-2xl text-lg text-gray-600">
-          CarSite olarak, araç alım satım sürecini güvenli, hızlı ve kolay hale
+          Any 2. El olarak, araç alım satım sürecini güvenli, hızlı ve kolay hale
           getiriyoruz.
         </p>
       </div>
@@ -48,7 +48,7 @@ export default function HakkimizdaPage() {
             </h2>
             <div className="space-y-4 text-gray-700">
               <p>
-                CarSite, 2014 yılında araç alım satım sürecini daha şeffaf ve
+                Any 2. El, 2014 yılında araç alım satım sürecini daha şeffaf ve
                 güvenilir hale getirmek amacıyla kuruldu. O günden bu yana
                 binlerce müşterimize hizmet vererek, sektörde güvenilir bir
                 marka haline geldik.

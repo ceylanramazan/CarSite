@@ -43,7 +43,7 @@ export default function BlogDetailPage({
       <p>Düzenli bakım yapılmış araçlar genellikle daha az sorun çıkarır. Bakım kayıtlarını mutlaka isteyin.</p>
 
       <h2>Sonuç</h2>
-      <p>Araç satın alma süreci dikkat ve sabır gerektiren bir süreçtir. Bu ipuçlarını takip ederek, doğru aracı uygun fiyata bulabilirsiniz. CarSite olarak size bu süreçte yardımcı olmak için buradayız!</p>
+      <p>Araç satın alma süreci dikkat ve sabır gerektiren bir süreçtir. Bu ipuçlarını takip ederek, doğru aracı uygun fiyata bulabilirsiniz. Any 2. El olarak size bu süreçte yardımcı olmak için buradayız!</p>
     `,
   }
 

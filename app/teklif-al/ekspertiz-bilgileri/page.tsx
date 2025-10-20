@@ -118,7 +118,7 @@ export default function EkspertizBilgileriPage() {
                     </Label>
                     <Input
                       id="expertise_company"
-                      placeholder="Örn: CarSite Ekspertiz"
+                      placeholder="Örn: Any 2. El Ekspertiz"
                       {...register('expertise_company')}
                       className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
                     />

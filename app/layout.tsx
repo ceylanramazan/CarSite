@@ -9,7 +9,7 @@ import Footer from '@/components/layout/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'CarSite - Araç Alım Satım Platformu',
+  title: 'Any 2. El - Araç Alım Satım Platformu',
   description:
     'Güvenli, hızlı ve kolay araç alım satım platformu. Aracınızı satın veya hayalinizdeki aracı bulun.',
   keywords: 'araç, alım, satım, ikinci el, sıfır araç, otomobil',

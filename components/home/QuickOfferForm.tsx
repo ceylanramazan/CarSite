@@ -42,14 +42,14 @@ export default function QuickOfferForm() {
             <div className="h-3 w-3 rounded-full bg-primary animate-pulse" />
             <div className="absolute inset-0 h-3 w-3 rounded-full bg-primary animate-ping" />
           </div>
-          <span className="text-sm font-bold text-primary">CarSite Güvencesi</span>
+          <span className="text-sm font-bold text-primary">Any 2. El Güvencesi</span>
         </div>
       </div>
 
       {/* Title */}
       <div className="mb-6 text-center">
         <h3 className="text-xl sm:text-2xl font-bold text-secondary mb-2">
-          Aracını CarSite güvencesi ile hemen sat,
+          Aracını Any 2. El güvencesi ile hemen sat,
         </h3>
         <p className="text-base sm:text-lg text-primary font-semibold">
           Paran 15 dakika hesabına gelsin!

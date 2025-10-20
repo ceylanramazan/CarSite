@@ -35,7 +35,7 @@ export default function Header() {
             <div className="rounded-lg sm:rounded-xl bg-primary/10 p-1.5 sm:p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
               <Car className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
             </div>
-            <span className="text-lg sm:text-xl md:text-2xl font-bold text-secondary">CarSite</span>
+            <span className="text-lg sm:text-xl md:text-2xl font-bold text-secondary">Any 2. El</span>
           </Link>
 
           {/* Desktop Navigation */}
