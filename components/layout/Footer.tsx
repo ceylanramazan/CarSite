@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Mail, Phone, MapPin, ChevronDown, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import { Mail, Phone, MapPin, ChevronDown, Facebook, Instagram } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -168,17 +168,11 @@ export default function Footer() {
           <div className="pt-4">
             <h3 className="text-base font-semibold mb-3">Bizi Takip Edin</h3>
             <div className="flex space-x-4">
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
+              <a href="https://www.facebook.com/any2.el/" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
                 <Facebook className="h-5 w-5 text-primary hover:text-white" />
               </a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
-                <Twitter className="h-5 w-5 text-primary hover:text-white" />
-              </a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
+              <a href="https://www.instagram.com/any2.el/" target="_blank" rel="noopener noreferrer" className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
                 <Instagram className="h-5 w-5 text-primary hover:text-white" />
-              </a>
-              <a href="#" className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
-                <Linkedin className="h-5 w-5 text-primary hover:text-white" />
               </a>
             </div>
           </div>
@@ -204,17 +198,11 @@ export default function Footer() {
             </p>
             {/* Social Media - Desktop */}
             <div className="flex space-x-3 pt-2">
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
+              <a href="https://www.facebook.com/any2.el/" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
                 <Facebook className="h-4 w-4 text-primary hover:text-white" />
               </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
-                <Twitter className="h-4 w-4 text-primary hover:text-white" />
-              </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
+              <a href="https://www.instagram.com/any2.el/" target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
                 <Instagram className="h-4 w-4 text-primary hover:text-white" />
-              </a>
-              <a href="#" className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 hover:bg-primary transition-colors">
-                <Linkedin className="h-4 w-4 text-primary hover:text-white" />
               </a>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import { Phone, Mail, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import { Phone, Mail, Facebook, Instagram } from 'lucide-react'
 
 export default function TopBar() {
   return (
@@ -26,7 +26,7 @@ export default function TopBar() {
           {/* Right: Social Media */}
           <div className="flex items-center space-x-3">
             <a 
-              href="#" 
+              href="https://www.facebook.com/any2.el/" 
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
@@ -35,31 +35,13 @@ export default function TopBar() {
               <Facebook className="h-4 w-4" />
             </a>
             <a 
-              href="#" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-              aria-label="Twitter"
-            >
-              <Twitter className="h-4 w-4" />
-            </a>
-            <a 
-              href="#" 
+              href="https://www.instagram.com/any2.el/" 
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-primary transition-colors"
               aria-label="Instagram"
             >
               <Instagram className="h-4 w-4" />
-            </a>
-            <a 
-              href="#" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin className="h-4 w-4" />
             </a>
           </div>
         </div>
