@@ -52,14 +52,6 @@ export default function Footer() {
               <ul className="space-y-2 pb-4">
                 <li>
                   <Link
-                    href="/arac-al"
-                    className="text-sm text-gray-300 hover:text-primary transition-colors inline-block py-1"
-                  >
-                    Araç Al
-                  </Link>
-                </li>
-                <li>
-                  <Link
                     href="/teklif-al/arac-bilgileri"
                     className="text-sm text-gray-300 hover:text-primary transition-colors inline-block py-1"
                   >
@@ -211,14 +203,6 @@ export default function Footer() {
           <div>
             <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-semibold">Hızlı Erişim</h3>
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/arac-al"
-                  className="text-xs sm:text-sm text-gray-300 hover:text-primary transition-colors inline-block py-1"
-                >
-                  Araç Al
-                </Link>
-              </li>
               <li>
                 <Link
                   href="/teklif-al/arac-bilgileri"
