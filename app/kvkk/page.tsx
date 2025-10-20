@@ -76,7 +76,7 @@ export default function KVKKPage() {
           <section>
             <h2>6. İletişim</h2>
             <p>
-              Yukarıda belirtilen haklarınızı kullanmak için info@carsite.com
+              Yukarıda belirtilen haklarınızı kullanmak için anycars34@gmail.com
               adresine e-posta gönderebilir veya 0544 927 53 28 numaralı
               telefondan bize ulaşabilirsiniz.
             </p>

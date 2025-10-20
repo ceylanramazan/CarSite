@@ -122,7 +122,7 @@ export default function GizlilikPage() {
               iletişime geçin:
             </p>
             <ul>
-              <li>E-posta: info@carsite.com</li>
+              <li>E-posta: anycars34@gmail.com</li>
               <li>Telefon: 0544 927 53 28</li>
               <li>Adres: Levent Mahallesi, Cömert Sokak No:1, Beşiktaş, İstanbul</li>
             </ul>

@@ -156,8 +156,8 @@ export default function Footer() {
                 </li>
                 <li className="flex items-center space-x-2 text-sm text-gray-300">
                   <Mail className="h-4 w-4 text-primary" />
-                  <a href="mailto:info@carsite.com" className="break-all hover:text-primary">
-                    info@carsite.com
+                  <a href="mailto:anycars34@gmail.com" className="break-all hover:text-primary">
+                    anycars34@gmail.com
                   </a>
                 </li>
               </ul>
@@ -305,8 +305,8 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2 text-xs sm:text-sm text-gray-300">
                 <Mail className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
-                <a href="mailto:info@carsite.com" className="break-all hover:text-primary">
-                  info@carsite.com
+                <a href="mailto:anycars34@gmail.com" className="break-all hover:text-primary">
+                  anycars34@gmail.com
                 </a>
               </li>
             </ul>

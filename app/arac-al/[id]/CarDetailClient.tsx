@@ -86,7 +86,7 @@ export function CarDetailClient({ car }: { car: CarBuyDTO }) {
     try {
       // Mail gönderme API'si (mock)
       const emailData = {
-        to: 'developer.ramazanceylan@gmail.com',
+        to: 'anycars34@gmail.com',
         subject: `Araç İlgisi - ${car.brand} ${car.model} (#${car.id})`,
         from: data.email,
         name: data.name,

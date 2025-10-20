@@ -75,7 +75,7 @@ export default function IletisimPage() {
     {
       icon: Mail,
       title: 'E-posta',
-      content: 'info@carsite.com',
+      content: 'anycars34@gmail.com',
       subcontent: '7/24 destek',
       color: 'from-purple-500 to-pink-500',
     },

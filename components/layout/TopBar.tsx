@@ -15,11 +15,11 @@ export default function TopBar() {
               <span>Bize Ulaşın: 0544 927 53 28</span>
             </a>
             <a 
-              href="mailto:info@carsite.com" 
+              href="mailto:anycars34@gmail.com" 
               className="flex items-center space-x-2 text-sm hover:text-primary transition-colors"
             >
               <Mail className="h-4 w-4" />
-              <span>info@carsite.com</span>
+              <span>anycars34@gmail.com</span>
             </a>
           </div>
 
