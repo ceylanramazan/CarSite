@@ -64,20 +64,6 @@ export default function HakkimizdaPage() {
         </Card>
       </div>
 
-      {/* Mission */}
-      <div className="grid gap-6">
-        <Card>
-          <CardContent className="p-8">
-            <h2 className="mb-4 text-2xl font-bold text-secondary">
-              Misyonumuz
-            </h2>
-            <p className="text-gray-700">
-              Araç alım satım sürecini teknoloji ile kolaylaştırarak, herkes
-              için güvenli, şeffaf ve adil bir deneyim sunmak.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   )
 }
