@@ -13,7 +13,7 @@ const testimonials = [
     name: 'Ahmet Yılmaz',
     location: 'İstanbul',
     rating: 5,
-    comment: 'Aracımı çok hızlı ve güvenli bir şekilde sattım. CarSite ekibi gerçekten profesyonel.',
+    comment: 'Aracımı çok hızlı ve güvenli bir şekilde sattım. Any 2. El ekibi gerçekten profesyonel.',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
   },
   {

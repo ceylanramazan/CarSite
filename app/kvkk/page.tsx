@@ -13,7 +13,7 @@ export default function KVKKPage() {
             <h2>1. Veri Sorumlusu</h2>
             <p>
               6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;) uyarınca,
-              kişisel verileriniz; veri sorumlusu olarak CarSite tarafından
+              kişisel verileriniz; veri sorumlusu olarak Any 2. El tarafından
               aşağıda açıklanan kapsamda işlenebilecektir.
             </p>
           </section>

@@ -13,7 +13,7 @@ const testimonials = [
     name: 'Ahmet Yılmaz',
     location: 'İstanbul',
     rating: 5,
-    comment: 'Aracımı çok hızlı ve güvenli bir şekilde sattım. CarSite ekibi gerçekten profesyonel.',
+    comment: 'Aracımı çok hızlı ve güvenli bir şekilde sattım. Any 2. El ekibi gerçekten profesyonel.',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face'
   },
   {
@@ -69,7 +69,7 @@ const testimonials = [
     name: 'Selin Korkmaz',
     location: 'Gaziantep',
     rating: 5,
-    comment: 'Araç değerlendirmesi çok detaylı ve adil. Teşekkürler CarSite.',
+    comment: 'Araç değerlendirmesi çok detaylı ve adil. Teşekkürler Any 2. El.',
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face'
   },
   {

@@ -21,7 +21,7 @@ export default function Footer() {
           <div className="pb-4 border-b border-gray-700">
             <Link href="/" className="flex items-center space-x-2 mb-3">
               <Car className="h-7 w-7 text-primary" />
-              <span className="text-lg font-bold">CarSite</span>
+              <span className="text-lg font-bold">Any 2. El</span>
             </Link>
             <p className="text-xs text-gray-300 leading-relaxed">
               Güvenli, hızlı ve kolay araç alım satım platformu.
@@ -183,7 +183,7 @@ export default function Footer() {
           <div className="space-y-3 sm:space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <Car className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
-              <span className="text-lg sm:text-xl font-bold">CarSite</span>
+              <span className="text-lg sm:text-xl font-bold">Any 2. El</span>
             </Link>
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
               Güvenli, hızlı ve kolay araç alım satım platformu. Hayalinizdeki
@@ -303,7 +303,7 @@ export default function Footer() {
         {/* Copyright - Compact on Mobile */}
         <div className="mt-6 sm:mt-8 border-t border-gray-700 pt-4 sm:pt-6 text-center">
           <p className="text-xs sm:text-sm text-gray-400">
-            © {currentYear} CarSite. Tüm hakları saklıdır.
+            © {currentYear} Any 2. El. Tüm hakları saklıdır.
           </p>
         </div>
       </div>

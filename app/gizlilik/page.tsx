@@ -12,7 +12,7 @@ export default function GizlilikPage() {
           <section>
             <h2>1. Giriş</h2>
             <p>
-              CarSite olarak, kullanıcılarımızın gizliliğine önem veriyoruz. Bu
+              Any 2. El olarak, kullanıcılarımızın gizliliğine önem veriyoruz. Bu
               gizlilik politikası, web sitemizi ziyaret ettiğinizde veya
               hizmetlerimizi kullandığınızda kişisel bilgilerinizi nasıl
               topladığımızı, kullandığımızı ve koruduğumuzu açıklamaktadır.

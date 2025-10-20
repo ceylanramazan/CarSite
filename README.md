@@ -1,4 +1,4 @@
-# 🚗 CarSite - Modern Araç Alım Satım Platformu
+# 🚗 Any 2. El - Modern Araç Alım Satım Platformu
 
 Modern, hızlı ve kullanıcı dostu bir araç alım-satım web sitesi. Next.js, TypeScript, Tailwind CSS ve shadcn/ui ile geliştirilmiştir.
 
@@ -49,7 +49,7 @@ cp .env.example .env
 ```env
 NEXT_PUBLIC_API_BASE_URL=https://your-api-url.com/v1
 NEXT_PUBLIC_SITE_URL=https://ceylanramazan.github.io/CarSite
-NEXT_PUBLIC_SITE_NAME=CarSite
+NEXT_PUBLIC_SITE_NAME=Any 2. El
 ```
 
 4. **Geliştirme sunucusunu başlatın:**
@@ -57,7 +57,7 @@ NEXT_PUBLIC_SITE_NAME=CarSite
 npm run dev
 ```
 
-Tarayıcınızda [http://localhost:3000/CarSite](http://localhost:3000/CarSite) adresini açın.
+Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın.
 
 ## 📦 Build & Deploy
 
@@ -86,7 +86,7 @@ Oluşan `out` klasörü GitHub Pages'e otomatik deploy edilir.
 ## 🏗️ Proje Yapısı
 
 ```
-CarSite/
+Any 2. El/
 ├── app/                      # Next.js App Router sayfaları
 │   ├── page.tsx             # Anasayfa
 │   ├── teklif-al/           # Araç Sat akışı (5 adım)

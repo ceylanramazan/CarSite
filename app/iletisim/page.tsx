@@ -353,7 +353,7 @@ export default function IletisimPage() {
                   </div>
                   <div className="min-w-0 flex-1">
                     <h3 className="mb-0.5 sm:mb-1 text-sm sm:text-base font-bold text-secondary truncate">
-                      CarSite Merkez Ofis
+                      Any 2. El Merkez Ofis
                     </h3>
                     <p className="text-xs text-gray-600 line-clamp-1">
                       Merdivenköy, Ressam Salih Erimez Cad 16/B
