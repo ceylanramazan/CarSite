@@ -22,7 +22,7 @@ const testimonials = [
     location: 'Ankara',
     rating: 5,
     comment: 'Yerinde ekspertiz hizmeti sayesinde evden çıkmadan aracımın değerini öğrendim.',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face'
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face'
   },
   {
     id: 3,
