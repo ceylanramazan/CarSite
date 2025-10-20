@@ -20,23 +20,15 @@ export default function CTA() {
             Hemen Başlayın
           </h2>
           <p className="mt-3 sm:mt-4 text-base sm:text-lg text-white/90 px-4">
-            Aracınızı satmak veya yeni bir araç almak için bugün başlayın
+            Aracınızın gerçek değerini öğrenmek ve profesyonel değerlendirme almak için bugün başlayın
           </p>
-          <div className="mt-6 sm:mt-8 flex flex-col gap-3 sm:gap-4 sm:flex-row sm:justify-center">
+          <div className="mt-6 sm:mt-8 flex justify-center">
             <Link href="/teklif-al/arac-bilgileri" className="w-full sm:w-auto">
               <Button
                 variant="outline"
                 className="w-full sm:w-auto px-6 sm:px-8 py-3 text-base font-semibold border-white bg-white text-primary hover:bg-white/90"
               >
                 Ücretsiz Teklif Al
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/arac-al" className="w-full sm:w-auto">
-              <Button
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 text-base font-semibold border-2 border-white bg-transparent text-white hover:bg-white hover:text-primary"
-              >
-                Araçları İncele
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
