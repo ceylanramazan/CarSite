@@ -69,7 +69,7 @@ export default function IletisimPage() {
       icon: Phone,
       title: 'Telefon',
       content: '0544 927 53 28',
-      subcontent: 'Hafta içi her gün',
+      subcontent: '0216 567 80 88',
       color: 'from-green-500 to-emerald-500',
     },
     {
