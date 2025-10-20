@@ -44,32 +44,28 @@ export default function HakkimizdaPage() {
         <Card>
           <CardContent className="p-8">
             <h2 className="mb-6 text-2xl font-bold text-secondary">
-              Hikayemiz
+              Hakkımızda
             </h2>
-            <div className="space-y-4 text-gray-700">
-              <p>
-                Any 2. El, 2014 yılında araç alım satım sürecini daha şeffaf ve
-                güvenilir hale getirmek amacıyla kuruldu. O günden bu yana
-                binlerce müşterimize hizmet vererek, sektörde güvenilir bir
-                marka haline geldik.
+            <div className="space-y-6 text-gray-700 leading-relaxed">
+              <p className="text-lg font-medium text-secondary">
+                Any 2. El ile Güvenli ve Değerinde Araç Satışı Artık Çok Kolay
               </p>
               <p>
-                Uzman ekibimiz, her aracı titizlikle değerlendirir ve
-                müşterilerimize en adil fiyatı sunar. Teknoloji ve
-                deneyimimizi birleştirerek, araç alım satım sürecini herkes
-                için kolay ve güvenli hale getiriyoruz.
+                İkinci el aracınızı satmak gözünüzde büyümesin. Any 2. El olarak, süreci sizin için hızlı, şeffaf ve sorunsuz hale getiriyoruz. Alanında uzman ekibimiz ve sektörle iç içe geçen yılların getirdiği deneyimle, aracınızın gerçek değerini ortaya çıkarıyor, sizi oyalamadan, yormadan en doğru tekliflerle buluşturuyoruz.
               </p>
               <p>
-                Müşteri memnuniyeti bizim için her şeyden önemlidir. Her adımda
-                yanınızdayız ve size en iyi hizmeti sunmak için çalışıyoruz.
+                Yalnızca yerel bilgiyle yetinmiyor, global veri sağlayıcılarıyla iş birliği yaparak piyasa analizlerini gerçek zamanlı takip ediyoruz. Bu sayede aracınızın ederini tam olarak belirliyor, ne alıcının ne de satıcının zarar görmeyeceği, dengeli bir ticaret ortamı oluşturuyoruz.
+              </p>
+              <p>
+                Any 2. El&apos;de amaç sadece araç almak değil, güvenle işlem yapabileceğiniz, profesyonel ve kârlı bir deneyim sunmak. Aracınızı satarken içiniz rahat, kazancınız yerinde olsun.
               </p>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Mission & Vision */}
-      <div className="grid gap-6 md:grid-cols-2">
+      {/* Mission */}
+      <div className="grid gap-6">
         <Card>
           <CardContent className="p-8">
             <h2 className="mb-4 text-2xl font-bold text-secondary">
@@ -78,18 +74,6 @@ export default function HakkimizdaPage() {
             <p className="text-gray-700">
               Araç alım satım sürecini teknoloji ile kolaylaştırarak, herkes
               için güvenli, şeffaf ve adil bir deneyim sunmak.
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardContent className="p-8">
-            <h2 className="mb-4 text-2xl font-bold text-secondary">
-              Vizyonumuz
-            </h2>
-            <p className="text-gray-700">
-              Türkiye&apos;nin en güvenilir ve tercih edilen araç alım satım
-              platformu olmak, müşterilerimize her zaman en iyi hizmeti sunmak.
             </p>
           </CardContent>
         </Card>
