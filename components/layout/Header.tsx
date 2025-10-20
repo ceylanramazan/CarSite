@@ -4,7 +4,8 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Menu, X, Car } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import Image from 'next/image'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -33,7 +34,13 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
             <div className="rounded-lg sm:rounded-xl bg-primary/10 p-1.5 sm:p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
-              <Car className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-primary" />
+              <Image 
+                src="/logo.png" 
+                alt="Any 2. El Logo" 
+                width={32} 
+                height={32} 
+                className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 object-contain"
+              />
             </div>
             <span className="text-lg sm:text-xl md:text-2xl font-bold text-secondary">Any 2. El</span>
           </Link>

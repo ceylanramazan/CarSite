@@ -1,7 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { Car, Mail, Phone, MapPin, ChevronDown, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import { Mail, Phone, MapPin, ChevronDown, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react'
+import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Footer() {
@@ -20,7 +21,13 @@ export default function Footer() {
           {/* Logo & Description - Always visible */}
           <div className="pb-4 border-b border-gray-700">
             <Link href="/" className="flex items-center space-x-2 mb-3">
-              <Car className="h-7 w-7 text-primary" />
+              <Image 
+                src="/logo.png" 
+                alt="Any 2. El Logo" 
+                width={28} 
+                height={28} 
+                className="h-7 w-7 object-contain"
+              />
               <span className="text-lg font-bold">Any 2. El</span>
             </Link>
             <p className="text-xs text-gray-300 leading-relaxed">
@@ -182,7 +189,13 @@ export default function Footer() {
           {/* Logo & About */}
           <div className="space-y-3 sm:space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Car className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
+              <Image 
+                src="/logo.png" 
+                alt="Any 2. El Logo" 
+                width={32} 
+                height={32} 
+                className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
+              />
               <span className="text-lg sm:text-xl font-bold">Any 2. El</span>
             </Link>
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
