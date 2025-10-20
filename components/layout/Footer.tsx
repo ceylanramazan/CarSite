@@ -139,7 +139,7 @@ export default function Footer() {
               <ul className="space-y-2.5 pb-4">
                 <li className="flex items-start space-x-2 text-sm text-gray-300">
                   <MapPin className="h-4 w-4 flex-shrink-0 text-primary mt-0.5" />
-                  <span>Merdivenköy, Ressam Salih Erimez Cad 16/B<br />Kadıköy, İstanbul 34732</span>
+                  <span>Merdivenköy, Ressam Salih Erimez Cad 16/B<br />Kadıköy, İstanbul</span>
                 </li>
                 <li className="flex items-center space-x-2 text-sm text-gray-300">
                   <Phone className="h-4 w-4 text-primary" />
@@ -282,7 +282,7 @@ export default function Footer() {
             <ul className="space-y-2.5 sm:space-y-3">
               <li className="flex items-start space-x-2 text-xs sm:text-sm text-gray-300">
                 <MapPin className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 text-primary mt-0.5" />
-                <span>Merdivenköy, Ressam Salih Erimez Cad 16/B<br />Kadıköy, İstanbul 34732</span>
+                <span>Merdivenköy, Ressam Salih Erimez Cad 16/B<br />Kadıköy, İstanbul</span>
               </li>
               <li className="flex items-center space-x-2 text-xs sm:text-sm text-gray-300">
                 <Phone className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
