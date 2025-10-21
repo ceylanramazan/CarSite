@@ -8,7 +8,7 @@ import Image from 'next/image'
 
 export default function CTA() {
   return (
-    <section className="relative py-8 sm:py-10 md:py-12 overflow-hidden">
+    <section className="relative py-12 sm:py-16 md:py-20 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -18,7 +18,8 @@ export default function CTA() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#48C9B0]/20 via-transparent to-transparent"></div>
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -29,17 +30,17 @@ export default function CTA() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl drop-shadow-lg">
             Hemen Başlayın
           </h2>
-          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-white/90 px-4">
+          <p className="mt-4 sm:mt-6 text-lg sm:text-xl text-white/95 px-4 drop-shadow-md">
             Aracınızın gerçek değerini öğrenin ve aracınızı 1 günde satın, ödemenizi anında alın.
           </p>
           <div className="mt-6 sm:mt-8 flex justify-center">
             <Link href="/teklif-al/arac-bilgileri" className="w-full sm:w-auto">
               <Button
                 variant="outline"
-                className="w-full sm:w-auto px-6 sm:px-8 py-3 text-base font-semibold border-white bg-white/10 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm"
+                className="w-full sm:w-auto px-8 sm:px-10 py-4 text-lg font-bold border-2 border-white/30 bg-white/15 text-white hover:bg-white hover:text-gray-900 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
               >
                 Ücretsiz Teklif Al
                 <ArrowRight className="ml-2 h-4 w-4" />
