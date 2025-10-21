@@ -16,7 +16,7 @@ export default function Hero() {
           src="/CarSite/hero-background.jpg"
           alt="Hero Background"
           fill
-          className="object-cover object-top"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"></div>
@@ -33,24 +33,21 @@ export default function Hero() {
             className="w-full max-w-4xl"
           >
             <QuickOfferForm />
-          </motion.div>
-
-          {/* Motorunuzu Satın Butonu */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-8 text-center"
-          >
-            <Link href="/teklif-al/arac-bilgileri">
-              <Button className="px-8 py-4 text-lg font-bold bg-white/15 border-2 border-white/30 text-white hover:bg-white hover:text-gray-800 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
-                Motorunuzu Satın
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
-            <p className="mt-3 text-white/90 text-sm">
-              Motosiklet, ATV, tekne ve diğer motorlu araçlarınızı da değerlendiriyoruz
-            </p>
+            
+            {/* Motorunuzu Satın Butonu - Beyaz alanın altında */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-6 text-center"
+            >
+              <Link href="/teklif-al/arac-bilgileri">
+                <Button className="px-8 py-4 text-lg font-bold bg-white/15 border-2 border-white/30 text-white hover:bg-white hover:text-gray-800 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                  Motorunuzu Satın
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </motion.div>
           </motion.div>
 
           {/* Sol Alt Köşe - Telefon İkonu */}
