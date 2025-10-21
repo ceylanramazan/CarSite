@@ -16,12 +16,13 @@ export default function QuickOfferForm() {
   const [formData, setFormData] = useState({
     brand: '',
     year: '',
+    model: '',
   })
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Form verilerini local storage'a kaydet
-    if (formData.brand || formData.year) {
+    if (formData.brand || formData.year || formData.model) {
       localStorage.setItem('quickOfferData', JSON.stringify(formData))
     }
     // Araç bilgileri sayfasına yönlendir
@@ -48,44 +49,69 @@ export default function QuickOfferForm() {
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Model Yılı */}
-        <div>
-          <label htmlFor="year" className="mb-3 block text-sm font-semibold text-gray-700">
-            Yıl
-          </label>
-          <Select
-            id="year"
-            value={formData.year}
-            onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-            className="h-12 text-base border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
-          >
-            <option value="">Yıl Seçiniz</option>
-            {YEARS.map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </Select>
-        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {/* Model Yılı */}
+          <div>
+            <label htmlFor="year" className="mb-3 block text-sm font-semibold text-gray-700">
+              Yıl
+            </label>
+            <Select
+              id="year"
+              value={formData.year}
+              onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+              className="h-12 text-base border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="">Yıl Seçiniz</option>
+              {YEARS.map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </Select>
+          </div>
 
-        {/* Marka */}
-        <div>
-          <label htmlFor="brand" className="mb-3 block text-sm font-semibold text-gray-700">
-            Marka
-          </label>
-          <Select
-            id="brand"
-            value={formData.brand}
-            onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-            className="h-12 text-base border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
-          >
-            <option value="">Marka Seçiniz</option>
-            {BRANDS.map((brand) => (
-              <option key={brand} value={brand}>
-                {brand}
-              </option>
-            ))}
-          </Select>
+          {/* Marka */}
+          <div>
+            <label htmlFor="brand" className="mb-3 block text-sm font-semibold text-gray-700">
+              Marka
+            </label>
+            <Select
+              id="brand"
+              value={formData.brand}
+              onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+              className="h-12 text-base border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="">Marka Seçiniz</option>
+              {BRANDS.map((brand) => (
+                <option key={brand} value={brand}>
+                  {brand}
+                </option>
+              ))}
+            </Select>
+          </div>
+
+          {/* Model */}
+          <div>
+            <label htmlFor="model" className="mb-3 block text-sm font-semibold text-gray-700">
+              Model
+            </label>
+            <Select
+              id="model"
+              value={formData.model}
+              onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+              className="h-12 text-base border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+            >
+              <option value="">Model Seçiniz</option>
+              <option value="Sedan">Sedan</option>
+              <option value="Hatchback">Hatchback</option>
+              <option value="SUV">SUV</option>
+              <option value="Station Wagon">Station Wagon</option>
+              <option value="Coupe">Coupe</option>
+              <option value="Cabrio">Cabrio</option>
+              <option value="Pickup">Pickup</option>
+              <option value="Van">Van</option>
+            </Select>
+          </div>
         </div>
 
         {/* Submit Button */}

@@ -9,7 +9,7 @@ import Image from 'next/image'
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden py-16 sm:py-20 md:py-28 lg:py-32">
+    <section className="relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
@@ -19,12 +19,12 @@ export default function Hero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/70"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#48C9B0]/10 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#48C9B0]/5 via-transparent to-transparent"></div>
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex justify-center items-center min-h-[80vh]">
+        <div className="flex justify-center items-center min-h-[60vh]">
           {/* Centered Form */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
