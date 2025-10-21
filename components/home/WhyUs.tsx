@@ -7,15 +7,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 const features = [
   {
     icon: Shield,
-    title: 'Güvenli İşlem',
+    title: 'Güvenli İşlem ve Ön Fiyat',
     description:
-      'Tüm işlemleriniz SSL sertifikası ile korunur. Verileriniz güvende.',
+      'Tüm bilgileri eksiksiz girin, aracınızın değeri için ön fiyat alın.',
   },
   {
     icon: Zap,
     title: 'Hızlı Süreç',
     description:
-      'Aracınızı satmak veya almak için gereken süreç sadece birkaç dakika.',
+      'Aracınızı satmak için gereken süreç birkaç dakika.',
   },
   {
     icon: HeartHandshake,
@@ -46,7 +46,7 @@ export default function WhyUs() {
             Neden Biz?
           </h2>
           <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-600 px-4">
-            Any 2. El ile araç alım satımınız güvende
+            Any 2. El ile araç alımınız güvende!
           </p>
         </motion.div>
 
