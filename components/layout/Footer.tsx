@@ -20,13 +20,13 @@ export default function Footer() {
         <div className="lg:hidden space-y-4">
           {/* Logo & Description - Always visible */}
           <div className="pb-4 border-b border-white/20">
-            <Link href="/" className="flex items-center space-x-2 mb-3">
+            <Link href="/" className="flex items-center space-x-3 mb-3">
               <Image 
                 src="/CarSite/logo.png" 
                 alt="Any 2. El Logo" 
-                width={28} 
-                height={28} 
-                className="h-7 w-7 object-contain"
+                width={36} 
+                height={36} 
+                className="h-9 w-9 object-contain"
               />
               <span className="text-lg font-bold">Any 2. El</span>
             </Link>
@@ -174,13 +174,13 @@ export default function Footer() {
         <div className="hidden lg:grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Logo & About */}
           <div className="space-y-3 sm:space-y-4">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-3">
               <Image 
                 src="/CarSite/logo.png" 
                 alt="Any 2. El Logo" 
-                width={32} 
-                height={32} 
-                className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
+                width={40} 
+                height={40} 
+                className="h-10 w-10 sm:h-11 sm:w-11 object-contain"
               />
               <span className="text-lg sm:text-xl font-bold">Any 2. El</span>
             </Link>

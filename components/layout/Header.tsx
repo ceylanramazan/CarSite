@@ -32,13 +32,13 @@ export default function Header() {
         <div className="flex h-16 sm:h-18 md:h-20 items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
-            <div className="rounded-lg sm:rounded-xl bg-primary/10 p-1.5 sm:p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
+            <div className="rounded-lg sm:rounded-xl bg-primary/10 p-2 sm:p-3 transition-all group-hover:bg-primary/20 group-hover:scale-110">
               <Image 
                 src="/CarSite/logo.png" 
                 alt="Any 2. El Logo" 
-                width={32} 
-                height={32} 
-                className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 object-contain"
+                width={40} 
+                height={40} 
+                className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 object-contain"
               />
             </div>
             <span className="text-lg sm:text-xl md:text-2xl font-bold text-secondary">Any 2. El</span>
