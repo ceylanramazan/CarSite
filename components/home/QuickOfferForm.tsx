@@ -52,7 +52,7 @@ export default function QuickOfferForm() {
           Aracını Any 2. El güvencesi ile hemen sat,
         </h3>
         <p className="text-base sm:text-lg text-primary font-semibold">
-          Paran 15 dakika hesabına gelsin!
+          Paran 15 dakikada hesabına gelsin!
         </p>
       </div>
 
