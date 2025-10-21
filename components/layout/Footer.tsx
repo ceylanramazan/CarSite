@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="pb-4 border-b border-gray-700">
             <Link href="/" className="flex items-center space-x-2 mb-3">
               <Image 
-                src="/logo.png" 
+                src="/CarSite/logo.png" 
                 alt="Any 2. El Logo" 
                 width={28} 
                 height={28} 
@@ -176,7 +176,7 @@ export default function Footer() {
           <div className="space-y-3 sm:space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <Image 
-                src="/logo.png" 
+                src="/CarSite/logo.png" 
                 alt="Any 2. El Logo" 
                 width={32} 
                 height={32} 

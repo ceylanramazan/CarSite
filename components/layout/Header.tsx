@@ -34,7 +34,7 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
             <div className="rounded-lg sm:rounded-xl bg-primary/10 p-1.5 sm:p-2 transition-all group-hover:bg-primary/20 group-hover:scale-110">
               <Image 
-                src="/logo.png" 
+                src="/CarSite/logo.png" 
                 alt="Any 2. El Logo" 
                 width={32} 
                 height={32} 
