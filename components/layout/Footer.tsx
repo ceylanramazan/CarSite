@@ -31,7 +31,7 @@ export default function Footer() {
               <span className="text-lg font-bold">Any 2. El</span>
             </Link>
             <p className="text-xs text-gray-300 leading-relaxed">
-              Güvenli, hızlı ve kolay araç alım satım platformu.
+              Güvenli, hızlı ve kolay araç alım deneyimi. Aracınızı ücretsiz değerlendir.
             </p>
           </div>
 
@@ -185,8 +185,7 @@ export default function Footer() {
               <span className="text-lg sm:text-xl font-bold">Any 2. El</span>
             </Link>
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-              Güvenli, hızlı ve kolay araç alım satım platformu. Hayalinizdeki
-              aracı bulun veya aracınızı satın.
+              Güvenli, hızlı ve kolay araç alım deneyimi. Aracınızı ücretsiz değerlendir.
             </p>
             {/* Social Media - Desktop */}
             <div className="flex space-x-3 pt-2">

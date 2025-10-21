@@ -20,7 +20,7 @@ export default function CTA() {
             Hemen Başlayın
           </h2>
           <p className="mt-3 sm:mt-4 text-base sm:text-lg text-white/90 px-4">
-            Aracınızın gerçek değerini öğrenmek ve profesyonel değerlendirme almak için bugün başlayın
+            Aracınızın gerçek değerini öğrenin ve aracınızı 1 günde satın, ödemenizi anında alın.
           </p>
           <div className="mt-6 sm:mt-8 flex justify-center">
             <Link href="/teklif-al/arac-bilgileri" className="w-full sm:w-auto">

@@ -13,7 +13,7 @@ export default function Header() {
 
   const navigation = [
     { name: 'Anasayfa', href: '/' },
-    { name: 'Araç Sat', href: '/teklif-al/arac-bilgileri' },
+    { name: 'Aracınızı Satın', href: '/teklif-al/arac-bilgileri' },
     { name: 'Hakkımızda', href: '/hakkimizda' },
     { name: 'Blog', href: '/blog' },
     { name: 'İletişim', href: '/iletisim' },
@@ -77,7 +77,7 @@ export default function Header() {
           {/* CTA Buttons */}
           <div className="hidden items-center space-x-2 lg:space-x-3 lg:flex">
             <Link href="/teklif-al/arac-bilgileri">
-              <Button size="lg" className="font-semibold shadow-lg hover:shadow-xl">Araç Sat</Button>
+              <Button size="lg" className="font-semibold shadow-lg hover:shadow-xl">Aracınızı Satın</Button>
             </Link>
           </div>
 
@@ -129,7 +129,7 @@ export default function Header() {
               <div className="flex flex-col space-y-3 pt-4 border-t border-gray-100 mt-2">
                 <Link href="/teklif-al/arac-bilgileri" onClick={() => setMobileMenuOpen(false)}>
                   <Button size="lg" className="w-full h-12 text-base font-semibold shadow-lg">
-                    Araç Sat
+                    Aracınızı Satın
                   </Button>
                 </Link>
               </div>

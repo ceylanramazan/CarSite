@@ -28,7 +28,7 @@ export default function Hero() {
             <div className="mt-8 sm:mt-10 flex flex-col gap-3 sm:gap-4 sm:flex-row sm:justify-center lg:justify-start">
               <Link href="/teklif-al/arac-bilgileri" className="w-full sm:w-auto">
                 <Button className="w-full sm:w-auto px-6 sm:px-8 py-3 text-base font-semibold">
-                  Aracını Sat
+                  Aracınızı Satın
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>

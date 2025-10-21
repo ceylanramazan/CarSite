@@ -323,7 +323,7 @@ export default function Testimonials() {
           className="mt-12 sm:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8"
         >
           <div className="text-center">
-            <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">5000+</div>
+            <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">3493+</div>
             <div className="text-sm sm:text-base text-gray-600">Mutlu Müşteri</div>
           </div>
           <div className="text-center">
