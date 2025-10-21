@@ -8,6 +8,7 @@ import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
 import YandexMetrika from '@/components/analytics/YandexMetrika'
+import CookieConsent from '@/components/ui/CookieConsent'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -33,14 +34,15 @@ export default function RootLayout({
             <main className="flex-1">{children}</main>
             <Footer />
             <WhatsAppButton />
+            <CookieConsent />
           </div>
         </Providers>
-        {/* Google Analytics - Only load if measurement ID is provided */}
+        {/* Google Analytics - Only load if measurement ID is provided and user consented */}
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}
         
-        {/* Yandex Metrika - Only load if counter ID is provided */}
+        {/* Yandex Metrika - Only load if counter ID is provided and user consented */}
         {process.env.NEXT_PUBLIC_YANDEX_COUNTER_ID && (
           <YandexMetrika counterId={process.env.NEXT_PUBLIC_YANDEX_COUNTER_ID} />
         )}

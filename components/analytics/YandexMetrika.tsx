@@ -1,12 +1,25 @@
 'use client'
 
 import Script from 'next/script'
+import { isAnalyticsAccepted } from '@/lib/cookie-consent'
+import { useEffect, useState } from 'react'
 
 interface YandexMetrikaProps {
   counterId: string
 }
 
 export default function YandexMetrika({ counterId }: YandexMetrikaProps) {
+  const [canLoad, setCanLoad] = useState(false)
+
+  useEffect(() => {
+    // Check if user has consented to analytics
+    if (isAnalyticsAccepted()) {
+      setCanLoad(true)
+    }
+  }, [])
+
+  if (!canLoad) return null
+
   return (
     <>
       <Script id="yandex-metrika" strategy="afterInteractive">
@@ -21,7 +34,8 @@ export default function YandexMetrika({ counterId }: YandexMetrikaProps) {
                clickmap:true,
                trackLinks:true,
                accurateTrackBounce:true,
-               webvisor:true
+               webvisor:true,
+               defer:true
           });
         `}
       </Script>
