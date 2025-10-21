@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Phone } from 'lucide-react'
 import QuickOfferForm from './QuickOfferForm'
 import Image from 'next/image'
 
@@ -16,7 +16,7 @@ export default function Hero() {
           src="/CarSite/hero-background.jpg"
           alt="Hero Background"
           fill
-          className="object-cover object-center"
+          className="object-cover object-top"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"></div>
@@ -24,7 +24,7 @@ export default function Hero() {
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex justify-center items-start pt-16 sm:pt-20 md:pt-24">
+        <div className="flex justify-center items-start pt-12 sm:pt-16 md:pt-20">
           {/* Centered Form */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -33,6 +33,40 @@ export default function Hero() {
             className="w-full max-w-4xl"
           >
             <QuickOfferForm />
+          </motion.div>
+
+          {/* Motorunuzu Satın Butonu */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-8 text-center"
+          >
+            <Link href="/teklif-al/arac-bilgileri">
+              <Button className="px-8 py-4 text-lg font-bold bg-white/15 border-2 border-white/30 text-white hover:bg-white hover:text-gray-800 backdrop-blur-sm shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300">
+                Motorunuzu Satın
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <p className="mt-3 text-white/90 text-sm">
+              Motosiklet, ATV, tekne ve diğer motorlu araçlarınızı da değerlendiriyoruz
+            </p>
+          </motion.div>
+
+          {/* Sol Alt Köşe - Telefon İkonu */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="absolute bottom-8 left-8 flex items-center space-x-3 text-white/90"
+          >
+            <div className="flex items-center justify-center w-12 h-12 bg-white/20 rounded-full backdrop-blur-sm">
+              <Phone className="h-6 w-6" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold">Hemen teklif almak için</p>
+              <p className="text-xs">formu doldurun</p>
+            </div>
           </motion.div>
         </div>
       </div>
