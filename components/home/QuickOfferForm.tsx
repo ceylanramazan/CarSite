@@ -43,7 +43,7 @@ export default function QuickOfferForm() {
           Arabanızı aynı gün değerinde satın!
         </h3>
         <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-          Araba satmanın tüm zorluklarını unutun. Arabanızı 1 günde harika bir fiyata satın, ödemesini aynı gün alın.
+          Güvenli, hızlı ve kolay araç alım deneyimi. Aracınızı ücretsiz değerlendir.
         </p>
       </div>
 
@@ -59,7 +59,7 @@ export default function QuickOfferForm() {
               id="year"
               value={formData.year}
               onChange={(e) => setFormData({ ...formData, year: e.target.value })}
-              className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 pr-8"
             >
               <option value="">Yıl Seçiniz</option>
               {YEARS.map((year) => (
@@ -79,7 +79,7 @@ export default function QuickOfferForm() {
               id="brand"
               value={formData.brand}
               onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-              className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 pr-8"
             >
               <option value="">Marka Seçiniz</option>
               {BRANDS.map((brand) => (
@@ -99,7 +99,7 @@ export default function QuickOfferForm() {
               id="model"
               value={formData.model}
               onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-              className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
+              className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 pr-8"
             >
               <option value="">Model Seçiniz</option>
               <option value="Sedan">Sedan</option>
