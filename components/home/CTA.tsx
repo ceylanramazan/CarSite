@@ -18,8 +18,8 @@ export default function CTA() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-black/50"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#48C9B0]/20 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-black/20 via-black/10 to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#48C9B0]/10 via-transparent to-transparent"></div>
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
