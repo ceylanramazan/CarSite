@@ -9,14 +9,14 @@ export default function TopBar() {
           <div className="flex items-center space-x-6">
             <a 
               href="tel:+905449275328" 
-              className="flex items-center space-x-2 text-sm hover:text-primary transition-colors"
+              className="flex items-center space-x-2 text-sm hover:text-white/80 transition-colors"
             >
               <Phone className="h-4 w-4" />
               <span>Bize Ulaşın: 0544 927 53 28</span>
             </a>
             <a 
               href="mailto:anycars34@gmail.com" 
-              className="flex items-center space-x-2 text-sm hover:text-primary transition-colors"
+              className="flex items-center space-x-2 text-sm hover:text-white/80 transition-colors"
             >
               <Mail className="h-4 w-4" />
               <span>anycars34@gmail.com</span>
@@ -29,7 +29,7 @@ export default function TopBar() {
               href="https://www.facebook.com/any2.el/" 
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
+              className="hover:text-white/80 transition-colors"
               aria-label="Facebook"
             >
               <Facebook className="h-4 w-4" />
@@ -38,7 +38,7 @@ export default function TopBar() {
               href="https://www.instagram.com/any2.el/" 
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary transition-colors"
+              className="hover:text-white/80 transition-colors"
               aria-label="Instagram"
             >
               <Instagram className="h-4 w-4" />
