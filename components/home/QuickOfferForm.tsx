@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { motion } from 'framer-motion'
-import { Car, Calendar } from 'lucide-react'
+import { Car, Calendar, Phone } from 'lucide-react'
 import { BRANDS } from '@/lib/constants'
 
 const YEARS = Array.from({ length: 25 }, (_, i) => new Date().getFullYear() - i)
@@ -123,6 +123,12 @@ export default function QuickOfferForm() {
           >
             Ön fiyat teklifi al
           </Button>
+        </div>
+
+        {/* Info Text */}
+        <div className="flex items-center justify-center mt-4 text-gray-500">
+          <Phone className="h-4 w-4 mr-2" />
+          <span className="text-sm">Hemen teklif almak için formu doldurun</span>
         </div>
       </form>
 

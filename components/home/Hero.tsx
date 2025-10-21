@@ -50,21 +50,6 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Sol Alt Köşe - Telefon İkonu */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="absolute bottom-8 left-8 flex items-center space-x-3 text-white/90"
-          >
-            <div className="flex items-center justify-center w-12 h-12 bg-white/20 rounded-full backdrop-blur-sm">
-              <Phone className="h-6 w-6" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold">Hemen teklif almak için</p>
-              <p className="text-xs">formu doldurun</p>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>
