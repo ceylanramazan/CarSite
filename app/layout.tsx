@@ -7,6 +7,7 @@ import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import GoogleAnalytics from '@/components/analytics/GoogleAnalytics'
+import YandexMetrika from '@/components/analytics/YandexMetrika'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -37,6 +38,11 @@ export default function RootLayout({
         {/* Google Analytics - Only load if measurement ID is provided */}
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
+        
+        {/* Yandex Metrika - Only load if counter ID is provided */}
+        {process.env.NEXT_PUBLIC_YANDEX_COUNTER_ID && (
+          <YandexMetrika counterId={process.env.NEXT_PUBLIC_YANDEX_COUNTER_ID} />
         )}
       </body>
     </html>
