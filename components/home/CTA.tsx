@@ -4,16 +4,19 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 
 export default function CTA() {
   return (
     <section className="relative py-8 sm:py-10 md:py-12 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/cta-background.jpg"
+        <Image
+          src="/CarSite/cta-background.jpg"
           alt="CTA Background"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
         />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
