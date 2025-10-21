@@ -3,7 +3,7 @@ import { Shield, Users, TrendingUp, Award } from 'lucide-react'
 
 export default function HakkimizdaPage() {
   const stats = [
-    { icon: Users, label: 'Mutlu Müşteri', value: '5000+' },
+    { icon: Users, label: 'Mutlu Müşteri', value: '3493+' },
     { icon: TrendingUp, label: 'Başarı Oranı', value: '%98' },
     { icon: Award, label: 'Yıllık Tecrübe', value: '10+' },
     { icon: Shield, label: 'Güvenli İşlem', value: '%100' },
@@ -13,9 +13,8 @@ export default function HakkimizdaPage() {
     <div className="container mx-auto px-4 py-12">
       {/* Hero */}
       <div className="mb-12 text-center">
-        <h1 className="mb-4 text-4xl font-bold text-secondary">Hakkımızda</h1>
         <p className="mx-auto max-w-2xl text-lg text-gray-600">
-          Any 2. El olarak, araç alım satım sürecini güvenli, hızlı ve kolay hale
+          Any 2. El olarak, araç alım sürecini güvenli, hızlı ve kolay hale
           getiriyoruz.
         </p>
       </div>
@@ -43,9 +42,6 @@ export default function HakkimizdaPage() {
       <div className="mb-16">
         <Card>
           <CardContent className="p-8">
-            <h2 className="mb-6 text-2xl font-bold text-secondary">
-              Hakkımızda
-            </h2>
             <div className="space-y-6 text-gray-700 leading-relaxed">
               <p className="text-lg font-medium text-secondary">
                 Any 2. El ile Güvenli ve Değerinde Araç Satışı Artık Çok Kolay
