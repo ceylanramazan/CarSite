@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react'
 
 export default function CTA() {
   return (
-    <section className="bg-gradient-to-r from-primary to-primary/80 py-12 sm:py-16 md:py-20">
+    <section className="bg-gradient-to-r from-gray-800 to-gray-900 py-8 sm:py-10 md:py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

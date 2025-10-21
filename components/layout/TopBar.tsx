@@ -2,7 +2,7 @@ import { Phone, Mail, Facebook, Instagram } from 'lucide-react'
 
 export default function TopBar() {
   return (
-    <div className="hidden lg:block bg-secondary text-white py-2.5 border-b border-gray-700">
+    <div className="hidden lg:block bg-gradient-to-r from-[#48C9B0] to-[#48C9B0]/90 text-white py-2.5 border-b border-[#48C9B0]/20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Left: Contact Info */}
