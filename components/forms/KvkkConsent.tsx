@@ -38,7 +38,7 @@ export default function KvkkConsent({ onAccept, onReject }: KvkkConsentProps) {
 
       <div className="space-y-4 mb-6">
         <p className="text-sm text-gray-700 leading-relaxed">
-          Any 2. El olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında, 
+          Any 2. El olarak, 6698 sayılı Kişisel Verilerin Korunması Kanunu (&quot;KVKK&quot;) kapsamında, 
           kişisel verilerinizin işlenmesi konusunda aşağıdaki bilgilendirmeyi yapmaktayız.
         </p>
 

@@ -1,32 +1,199 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
 import { motion } from 'framer-motion'
-import { Car, Calendar, Phone } from 'lucide-react'
+import { Car, Calendar, Phone, Loader2, AlertCircle } from 'lucide-react'
 import { BRANDS } from '@/lib/constants'
 
 const YEARS = Array.from({ length: 25 }, (_, i) => new Date().getFullYear() - i)
 
 export default function QuickOfferForm() {
   const router = useRouter()
-  const [formData, setFormData] = useState({
-    brand: '',
+  const [formData, setFormData] = useState<{
+    year: string
+    brandId: string
+    modelId: string
+    brandName: string
+    modelName: string
+  }>({
     year: '',
-    model: '',
+    brandId: '',
+    modelId: '',
+    brandName: '',
+    modelName: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Form verilerini local storage'a kaydet
-    if (formData.brand || formData.year || formData.model) {
-      localStorage.setItem('quickOfferData', JSON.stringify(formData))
+  const [smartIQData, setSmartIQData] = useState<{
+    years: number[]
+    brands: Array<{id: number, name: string}>
+    models: Array<{id: number, name: string}>
+    bodyTypes: Array<{id: number, name: string}>
+    transmissionTypes: Array<{id: number, name: string}>
+    fuelTypes: Array<{id: number, name: string}>
+    versions: Array<{id: number, name: string}>
+  }>({
+    years: [],
+    brands: [],
+    models: [],
+    bodyTypes: [],
+    transmissionTypes: [],
+    fuelTypes: [],
+    versions: []
+  })
+
+  const [loading, setLoading] = useState({
+    years: false,
+    brands: false,
+    models: false,
+    pricing: false
+  })
+
+  const [pricingResult, setPricingResult] = useState(null)
+  const [error, setError] = useState<string | null>(null)
+
+  // Load years on component mount
+  useEffect(() => {
+    loadYears()
+  }, [])
+
+  const loadYears = async () => {
+    setLoading(prev => ({ ...prev, years: true }))
+    try {
+      const response = await fetch('/api/smartiq/years')
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, years: data.data }))
+      } else {
+        setError(data.error)
+      }
+    } catch (error) {
+      setError('Yıllar yüklenirken hata oluştu')
+    } finally {
+      setLoading(prev => ({ ...prev, years: false }))
     }
-    // Araç bilgileri sayfasına yönlendir
-    router.push('/teklif-al/arac-bilgileri')
+  }
+
+  const loadBrands = async (year: string) => {
+    if (!year) return
+    setLoading(prev => ({ ...prev, brands: true }))
+    try {
+      const response = await fetch('/api/smartiq/brands', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ year: parseInt(year) })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, brands: data.data }))
+      } else {
+        setError(data.error)
+      }
+    } catch (error) {
+      setError('Markalar yüklenirken hata oluştu')
+    } finally {
+      setLoading(prev => ({ ...prev, brands: false }))
+    }
+  }
+
+  const loadModels = async (year: string, brandId: string) => {
+    if (!year || !brandId) return
+    setLoading(prev => ({ ...prev, models: true }))
+    try {
+      const response = await fetch('/api/smartiq/models', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ year: parseInt(year), brandId: parseInt(brandId) })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, models: data.data }))
+      } else {
+        setError(data.error)
+      }
+    } catch (error) {
+      setError('Modeller yüklenirken hata oluştu')
+    } finally {
+      setLoading(prev => ({ ...prev, models: false }))
+    }
+  }
+
+  const handleFieldChange = (field: 'year' | 'brandId' | 'modelId' | 'brandName' | 'modelName', value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+    setError(null)
+
+    if (field === 'year') {
+      setFormData(prev => ({ 
+        ...prev, 
+        brandId: '', modelId: '', brandName: '', modelName: ''
+      }))
+      setSmartIQData(prev => ({ 
+        ...prev, 
+        brands: [], models: []
+      }))
+      if (value) loadBrands(value)
+    } else if (field === 'brandId') {
+      setFormData(prev => ({ 
+        ...prev, 
+        modelId: '', modelName: ''
+      }))
+      setSmartIQData(prev => ({ 
+        ...prev, 
+        models: []
+      }))
+      if (value && formData.year) loadModels(formData.year, value)
+    }
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    if (!formData.year || !formData.brandId || !formData.modelId) {
+      setError('Lütfen tüm alanları doldurun')
+      return
+    }
+
+    setLoading(prev => ({ ...prev, pricing: true }))
+    setError(null)
+
+    try {
+      // SmartIQ API ile fiyatlandırma yap
+      const response = await fetch('/api/smartiq/pricing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          year: parseInt(formData.year),
+          brandId: parseInt(formData.brandId),
+          modelId: parseInt(formData.modelId),
+          bodyTypeId: 67, // Default sedan
+          transmissionTypeId: 12, // Default manuel
+          fuelTypeId: 11, // Default benzin
+          versionId: 1, // Default version
+          kilometer: 50000 // Default km
+        })
+      })
+
+      const data = await response.json()
+      if (data.success) {
+        setPricingResult(data.data.data.prediction)
+        // Form verilerini local storage'a kaydet
+        localStorage.setItem('quickOfferData', JSON.stringify({
+          ...formData,
+          pricing: data.data.data.prediction
+        }))
+        // Araç bilgileri sayfasına yönlendir
+        router.push('/teklif-al/arac-bilgileri')
+      } else {
+        setError(data.error)
+      }
+    } catch (error) {
+      setError('Fiyatlandırma yapılırken hata oluştu')
+    } finally {
+      setLoading(prev => ({ ...prev, pricing: false }))
+    }
   }
 
   return (
@@ -58,70 +225,100 @@ export default function QuickOfferForm() {
             <Select
               id="year"
               value={formData.year}
-              onChange={(e) => setFormData({ ...formData, year: e.target.value })}
+              onChange={(e) => handleFieldChange('year', e.target.value)}
               className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 pr-8"
             >
               <option value="">Yıl Seçiniz</option>
-              {YEARS.map((year) => (
+              {smartIQData.years.map((year) => (
                 <option key={year} value={year}>
                   {year}
                 </option>
               ))}
             </Select>
+            {loading.years && <Loader2 className="h-4 w-4 animate-spin mt-1" />}
           </div>
 
           {/* Marka */}
           <div>
-            <label htmlFor="brand" className="mb-2 block text-sm font-semibold text-gray-700">
+            <label htmlFor="brandId" className="mb-2 block text-sm font-semibold text-gray-700">
               Marka
             </label>
             <Select
-              id="brand"
-              value={formData.brand}
-              onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
+              id="brandId"
+              value={formData.brandId}
+              onChange={(e) => {
+                const selectedBrand = smartIQData.brands.find(b => b.id.toString() === e.target.value)
+                handleFieldChange('brandId', e.target.value)
+                if (selectedBrand) {
+                  setFormData(prev => ({ ...prev, brandName: selectedBrand.name }))
+                }
+              }}
               className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 pr-8"
+              disabled={!formData.year}
             >
               <option value="">Marka Seçiniz</option>
-              {BRANDS.map((brand) => (
-                <option key={brand} value={brand}>
-                  {brand}
+              {smartIQData.brands.map((brand) => (
+                <option key={brand.id} value={brand.id}>
+                  {brand.name}
                 </option>
               ))}
             </Select>
+            {loading.brands && <Loader2 className="h-4 w-4 animate-spin mt-1" />}
           </div>
 
           {/* Model */}
           <div>
-            <label htmlFor="model" className="mb-2 block text-sm font-semibold text-gray-700">
+            <label htmlFor="modelId" className="mb-2 block text-sm font-semibold text-gray-700">
               Model
             </label>
             <Select
-              id="model"
-              value={formData.model}
-              onChange={(e) => setFormData({ ...formData, model: e.target.value })}
+              id="modelId"
+              value={formData.modelId}
+              onChange={(e) => {
+                const selectedModel = smartIQData.models.find(m => m.id.toString() === e.target.value)
+                handleFieldChange('modelId', e.target.value)
+                if (selectedModel) {
+                  setFormData(prev => ({ ...prev, modelName: selectedModel.name }))
+                }
+              }}
               className="h-10 text-sm border border-gray-300 rounded-lg transition-all hover:border-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20 pr-8"
+              disabled={!formData.brandId}
             >
               <option value="">Model Seçiniz</option>
-              <option value="Sedan">Sedan</option>
-              <option value="Hatchback">Hatchback</option>
-              <option value="SUV">SUV</option>
-              <option value="Station Wagon">Station Wagon</option>
-              <option value="Coupe">Coupe</option>
-              <option value="Cabrio">Cabrio</option>
-              <option value="Pickup">Pickup</option>
-              <option value="Van">Van</option>
+              {smartIQData.models.map((model) => (
+                <option key={model.id} value={model.id}>
+                  {model.name}
+                </option>
+              ))}
             </Select>
+            {loading.models && <Loader2 className="h-4 w-4 animate-spin mt-1" />}
           </div>
         </div>
+
+        {/* Error Display */}
+        {error && (
+          <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 rounded-lg">
+            <AlertCircle className="h-4 w-4" />
+            <span className="text-sm">{error}</span>
+          </div>
+        )}
 
         {/* Submit Button */}
         <div className="flex justify-end">
           <Button
             type="submit"
             size="lg"
-            className="px-6 py-2 text-sm font-semibold bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all"
+            disabled={loading.pricing || !formData.year || !formData.brandId || !formData.modelId}
+            className="px-6 py-2 text-sm font-semibold bg-primary hover:bg-primary/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Ön fiyat teklifi al
+            {loading.pricing ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                Fiyatlandırılıyor...
+              </>
+            ) : (
+              'Ön fiyat teklifi al'
+            )}
           </Button>
         </div>
 
@@ -135,4 +332,5 @@ export default function QuickOfferForm() {
     </motion.div>
   )
 }
+
 

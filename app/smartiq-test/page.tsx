@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import SmartIQForm from '@/components/smartiq/SmartIQForm'
+import SmartIQFormSimple from '@/components/smartiq/SmartIQFormSimple'
 
 export const metadata: Metadata = {
   title: 'SmartIQ API Test - Any 2. El',
@@ -17,12 +17,7 @@ export default function SmartIQTestPage() {
         </p>
       </div>
 
-      <SmartIQForm 
-        onPricingResult={(result) => {
-          console.log('Pricing result:', result)
-          // Burada sonuçları işleyebilirsiniz
-        }} 
-      />
+      <SmartIQFormSimple />
     </div>
   )
 }
