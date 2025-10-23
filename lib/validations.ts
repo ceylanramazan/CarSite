@@ -7,7 +7,7 @@ export const vehicleSchema = z.object({
     .number()
     .min(1990, 'Yıl 1990 veya sonrası olmalıdır')
     .max(new Date().getFullYear() + 1, 'Geçerli bir yıl giriniz'),
-  km: z.number().min(0, 'Kilometre 0 veya daha fazla olmalıdır'),
+  km: z.number().min(0, 'Kilometre bilgisi zorunludur ve 0\'dan küçük olamaz'),
   city: z.string().min(1, 'Şehir seçimi zorunludur'),
   plate: z.string().optional(),
   // SmartIQ API fields - these are now the main fields
@@ -31,7 +31,7 @@ export const expertiseSchema = z.object({
   has_expertise: z.boolean(),
   expertise_company: z.string().optional(),
   expertise_date: z.string().optional(),
-  expertise_score: z.number().min(0).max(100).optional(),
+  expertise_score: z.number().min(0, 'Ekspertiz puanı 0\'dan küçük olamaz').max(100, 'Ekspertiz puanı 100\'den büyük olamaz').optional(),
   expertise_report: z.string().optional(),
   tramer_check: z.boolean(),
   maintenance_records: z.boolean(),

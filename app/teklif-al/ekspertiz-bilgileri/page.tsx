@@ -12,7 +12,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Checkbox } from '@/components/ui/checkbox'
 import ProgressStepper from '@/components/stepper/ProgressStepper'
 import { motion } from 'framer-motion'
-import { FileCheck, Calendar, Shield, Wrench } from 'lucide-react'
+import { FileCheck, Calendar, Shield, Wrench, Upload, X, FileText, Image } from 'lucide-react'
+import { useState } from 'react'
 import type { ExpertiseDTO } from '@/types'
 
 const steps = [
@@ -26,6 +27,11 @@ const steps = [
 export default function EkspertizBilgileriPage() {
   const router = useRouter()
   const { formData, updateFormData } = useOfferForm()
+  
+  // File upload states
+  const [expertiseFiles, setExpertiseFiles] = useState<File[]>([])
+  const [tramerFiles, setTramerFiles] = useState<File[]>([])
+  const [maintenanceFiles, setMaintenanceFiles] = useState<File[]>([])
 
   const {
     register,
@@ -44,8 +50,63 @@ export default function EkspertizBilgileriPage() {
 
   const hasExpertise = watch('has_expertise')
 
+  // File upload handlers
+  const handleFileUpload = (files: FileList | null, type: 'expertise' | 'tramer' | 'maintenance') => {
+    if (!files) return
+    
+    const newFiles = Array.from(files)
+    const maxSize = 10 * 1024 * 1024 // 10MB
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+    
+    const validFiles = newFiles.filter(file => {
+      if (file.size > maxSize) {
+        alert(`${file.name} dosyası çok büyük. Maksimum 10MB olmalıdır.`)
+        return false
+      }
+      if (!allowedTypes.includes(file.type)) {
+        alert(`${file.name} dosya formatı desteklenmiyor. Sadece JPG, PNG, GIF, PDF, DOC, DOCX formatları kabul edilir.`)
+        return false
+      }
+      return true
+    })
+    
+    switch (type) {
+      case 'expertise':
+        setExpertiseFiles(prev => [...prev, ...validFiles])
+        break
+      case 'tramer':
+        setTramerFiles(prev => [...prev, ...validFiles])
+        break
+      case 'maintenance':
+        setMaintenanceFiles(prev => [...prev, ...validFiles])
+        break
+    }
+  }
+
+  const removeFile = (index: number, type: 'expertise' | 'tramer' | 'maintenance') => {
+    switch (type) {
+      case 'expertise':
+        setExpertiseFiles(prev => prev.filter((_, i) => i !== index))
+        break
+      case 'tramer':
+        setTramerFiles(prev => prev.filter((_, i) => i !== index))
+        break
+      case 'maintenance':
+        setMaintenanceFiles(prev => prev.filter((_, i) => i !== index))
+        break
+    }
+  }
+
   const onSubmit = (data: ExpertiseDTO) => {
-    updateFormData({ expertise: data })
+    // Add file information to the data
+    const dataWithFiles = {
+      ...data,
+      expertiseFiles: expertiseFiles.map(f => ({ name: f.name, size: f.size, type: f.type })),
+      tramerFiles: tramerFiles.map(f => ({ name: f.name, size: f.size, type: f.type })),
+      maintenanceFiles: maintenanceFiles.map(f => ({ name: f.name, size: f.size, type: f.type }))
+    }
+    
+    updateFormData({ expertise: dataWithFiles })
     router.push('/teklif-al/iletisim')
   }
 
@@ -189,6 +250,61 @@ export default function EkspertizBilgileriPage() {
                     className="text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </motion.div>
+
+                {/* Ekspertiz Raporu Dosya Yükleme */}
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  <Label className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                    <Upload className="mr-2 h-5 w-5 text-primary" />
+                    Ekspertiz Raporu Yükle
+                  </Label>
+                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary transition-colors">
+                    <input
+                      type="file"
+                      multiple
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
+                      onChange={(e) => handleFileUpload(e.target.files, 'expertise')}
+                      className="hidden"
+                      id="expertise-file-upload"
+                    />
+                    <label htmlFor="expertise-file-upload" className="cursor-pointer">
+                      <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                      <p className="text-sm text-gray-600 mb-2">
+                        Dosyaları buraya sürükleyin veya tıklayarak seçin
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        PDF, DOC, DOCX, JPG, PNG, GIF (Max 10MB)
+                      </p>
+                    </label>
+                  </div>
+                  
+                  {/* Yüklenen Dosyalar */}
+                  {expertiseFiles.length > 0 && (
+                    <div className="mt-4 space-y-2">
+                      {expertiseFiles.map((file, index) => (
+                        <div key={index} className="flex items-center justify-between bg-gray-50 p-3 rounded-lg">
+                          <div className="flex items-center space-x-2">
+                            <FileText className="h-4 w-4 text-gray-500" />
+                            <span className="text-sm text-gray-700">{file.name}</span>
+                            <span className="text-xs text-gray-500">
+                              ({(file.size / 1024 / 1024).toFixed(2)} MB)
+                            </span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index, 'expertise')}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
               </>
             )}
 
@@ -223,6 +339,54 @@ export default function EkspertizBilgileriPage() {
                     </p>
                   </div>
                 </div>
+                
+                {/* Tramer Dosya Yükleme */}
+                <div className="mt-4">
+                  <Label className="mb-2 flex items-center text-sm font-semibold text-gray-700">
+                    <Upload className="mr-2 h-4 w-4 text-blue-600" />
+                    Tramer Raporu Yükle
+                  </Label>
+                  <div className="border-2 border-dashed border-blue-300 rounded-lg p-4 text-center hover:border-blue-400 transition-colors">
+                    <input
+                      type="file"
+                      multiple
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
+                      onChange={(e) => handleFileUpload(e.target.files, 'tramer')}
+                      className="hidden"
+                      id="tramer-file-upload"
+                    />
+                    <label htmlFor="tramer-file-upload" className="cursor-pointer">
+                      <Upload className="mx-auto h-8 w-8 text-blue-400 mb-2" />
+                      <p className="text-xs text-gray-600 mb-1">
+                        Tramer raporu yükle
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        PDF, DOC, JPG, PNG (Max 10MB)
+                      </p>
+                    </label>
+                  </div>
+                  
+                  {/* Yüklenen Tramer Dosyalar */}
+                  {tramerFiles.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      {tramerFiles.map((file, index) => (
+                        <div key={index} className="flex items-center justify-between bg-blue-100 p-2 rounded-lg">
+                          <div className="flex items-center space-x-2">
+                            <FileText className="h-3 w-3 text-blue-600" />
+                            <span className="text-xs text-blue-800">{file.name}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index, 'tramer')}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </motion.div>
 
               <motion.div
@@ -253,6 +417,54 @@ export default function EkspertizBilgileriPage() {
                       Düzenli bakım yapıldı
                     </p>
                   </div>
+                </div>
+                
+                {/* Bakım Kayıtları Dosya Yükleme */}
+                <div className="mt-4">
+                  <Label className="mb-2 flex items-center text-sm font-semibold text-gray-700">
+                    <Upload className="mr-2 h-4 w-4 text-purple-600" />
+                    Bakım Kayıtları Yükle
+                  </Label>
+                  <div className="border-2 border-dashed border-purple-300 rounded-lg p-4 text-center hover:border-purple-400 transition-colors">
+                    <input
+                      type="file"
+                      multiple
+                      accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
+                      onChange={(e) => handleFileUpload(e.target.files, 'maintenance')}
+                      className="hidden"
+                      id="maintenance-file-upload"
+                    />
+                    <label htmlFor="maintenance-file-upload" className="cursor-pointer">
+                      <Upload className="mx-auto h-8 w-8 text-purple-400 mb-2" />
+                      <p className="text-xs text-gray-600 mb-1">
+                        Bakım kayıtları yükle
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        PDF, DOC, JPG, PNG (Max 10MB)
+                      </p>
+                    </label>
+                  </div>
+                  
+                  {/* Yüklenen Bakım Dosyalar */}
+                  {maintenanceFiles.length > 0 && (
+                    <div className="mt-3 space-y-2">
+                      {maintenanceFiles.map((file, index) => (
+                        <div key={index} className="flex items-center justify-between bg-purple-100 p-2 rounded-lg">
+                          <div className="flex items-center space-x-2">
+                            <FileText className="h-3 w-3 text-purple-600" />
+                            <span className="text-xs text-purple-800">{file.name}</span>
+                          </div>
+                          <button
+                            type="button"
+                            onClick={() => removeFile(index, 'maintenance')}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </motion.div>
             </div>

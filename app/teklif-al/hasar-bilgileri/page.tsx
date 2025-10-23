@@ -6,6 +6,7 @@ import { useOfferForm } from '@/contexts/OfferFormContext'
 import { Button } from '@/components/ui/button'
 import ProgressStepper from '@/components/stepper/ProgressStepper'
 import { motion } from 'framer-motion'
+import { Car } from 'lucide-react'
 import type { DamageDTO } from '@/types'
 
 const steps = [
@@ -93,6 +94,39 @@ export default function HasarBilgileriPage() {
               Aracınızın her parçasının durumunu belirtin
             </p>
           </div>
+
+          {/* Araç Bilgileri Özeti */}
+          {formData.vehicle && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200"
+            >
+              <h3 className="text-base font-semibold text-gray-800 mb-3 flex items-center">
+                <Car className="mr-2 h-4 w-4 text-blue-600" />
+                Araç Bilgileri
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                <div>
+                  <span className="text-gray-600">Marka:</span>
+                  <p className="font-medium text-gray-800">{formData.vehicle.brand}</p>
+                </div>
+                <div>
+                  <span className="text-gray-600">Model:</span>
+                  <p className="font-medium text-gray-800">{formData.vehicle.model}</p>
+                </div>
+                <div>
+                  <span className="text-gray-600">Yıl:</span>
+                  <p className="font-medium text-gray-800">{formData.vehicle.year}</p>
+                </div>
+                <div>
+                  <span className="text-gray-600">Kilometre:</span>
+                  <p className="font-medium text-gray-800">{formData.vehicle.km?.toLocaleString()} km</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           {/* Grid - 2 columns on large screens, 1 on mobile */}
           <div className="grid lg:grid-cols-2 gap-4 md:gap-6">

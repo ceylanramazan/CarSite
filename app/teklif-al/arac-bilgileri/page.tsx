@@ -392,14 +392,6 @@ export default function AracBilgileriPage() {
         >
           {/* Header */}
           <div className="mb-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-2xl mb-4"
-            >
-              <Car className="h-8 w-8 text-primary" />
-            </motion.div>
             <h1 className="mb-3 text-4xl font-bold text-gray-800">
               Araç Bilgileri
             </h1>
