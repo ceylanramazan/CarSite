@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/CarSite',
+  // Vercel için static export kaldırıldı
   images: {
     unoptimized: true
   }

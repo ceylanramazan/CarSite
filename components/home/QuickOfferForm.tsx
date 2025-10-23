@@ -68,11 +68,9 @@ export default function QuickOfferForm() {
       if (data.success) {
         setSmartIQData(prev => ({ ...prev, years: data.data }))
       } else {
-        // Kullanıcı dostu hata mesajı
         setError('Araç bilgileri yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.')
       }
     } catch (error) {
-      // Kullanıcı dostu hata mesajı
       setError('Araç bilgileri yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.')
     } finally {
       setLoading(prev => ({ ...prev, years: false }))
