@@ -371,8 +371,6 @@ export default function AracBilgileriPage() {
   }
 
   const onSubmit = (data: VehicleDTO) => {
-    console.log('Form submitted!', data)
-    
     // Add display names to the data
     const dataWithNames = {
       ...data,
@@ -384,9 +382,7 @@ export default function AracBilgileriPage() {
       versionName: smartIQData.versions.find(v => v.id.toString() === data.version)?.name || data.version,
     }
     
-    console.log('Data with names:', dataWithNames)
     updateFormData({ vehicle: dataWithNames })
-    console.log('Navigating to hasar-bilgileri...')
     router.push('/teklif-al/hasar-bilgileri')
   }
 
@@ -425,9 +421,7 @@ export default function AracBilgileriPage() {
             )}
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit, (errors) => {
-          console.log('Form validation errors:', errors)
-        })} className="space-y-8">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {/* Step 1: Year, Brand, Model */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -723,7 +717,10 @@ export default function AracBilgileriPage() {
                     id="km"
                     type="number"
                     placeholder="Örn: 42000"
-                    {...register('km', { valueAsNumber: true })}
+                    {...register('km', { 
+                      valueAsNumber: true,
+                      setValueAs: (value) => value === '' ? undefined : Number(value)
+                    })}
                     className="h-12 text-base transition-all hover:border-blue-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                   {errors.km && (
