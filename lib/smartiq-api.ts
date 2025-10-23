@@ -134,7 +134,14 @@ export class SmartIQAPI {
 
     if (!response.ok) {
       const errorData = await response.json()
-      throw new Error(`SmartIQ API Error: ${errorData.status_desc || 'Unknown error'}`)
+      console.error('SmartIQ API Error Response:', errorData)
+      
+      // Check if it's an authorization error
+      if (errorData.data && errorData.data.status_code === 'UNAUTHORIZED_USER') {
+        throw new Error('SmartIQ API kimlik bilgileri geçersiz. Lütfen API anahtarlarını kontrol edin.')
+      }
+      
+      throw new Error(`SmartIQ API Error: ${errorData.data?.status_desc || errorData.errorMessage || 'Unknown error'}`)
     }
 
     return response.json()
