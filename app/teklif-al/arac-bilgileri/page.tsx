@@ -75,14 +75,11 @@ export default function AracBilgileriPage() {
 
   // Check if user came from homepage with pre-filled data
   useEffect(() => {
-    console.log('Form data from context:', formData.vehicle)
-    
     // localStorage'dan verileri oku
     const savedData = localStorage.getItem('vehicleFormData')
     if (savedData) {
       try {
         const vehicleData = JSON.parse(savedData)
-        console.log('Data from localStorage:', vehicleData)
         
         if (vehicleData.year || vehicleData.brand || vehicleData.model) {
           setIsFromHomepage(true)
@@ -111,7 +108,6 @@ export default function AracBilgileriPage() {
     // Context'ten de kontrol et
     if (formData.vehicle && (formData.vehicle.year || formData.vehicle.brand || formData.vehicle.model)) {
       setIsFromHomepage(true)
-      console.log('Pre-filled data from context:', formData.vehicle)
       
       // Set form values if they exist
       if (formData.vehicle.year) {
