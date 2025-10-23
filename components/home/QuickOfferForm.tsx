@@ -8,11 +8,13 @@ import { Select } from '@/components/ui/select'
 import { motion } from 'framer-motion'
 import { Car, Calendar, Phone, Loader2, AlertCircle } from 'lucide-react'
 import { BRANDS } from '@/lib/constants'
+import { useOfferForm } from '@/contexts/OfferFormContext'
 
 const YEARS = Array.from({ length: 25 }, (_, i) => new Date().getFullYear() - i)
 
 export default function QuickOfferForm() {
   const router = useRouter()
+  const { updateFormData } = useOfferForm()
   const [formData, setFormData] = useState<{
     year: string
     brandId: string
@@ -184,6 +186,15 @@ export default function QuickOfferForm() {
           ...formData,
           pricing: data.data.data.prediction
         }))
+        // Form verilerini context'e kaydet (sadece mevcut alanlar)
+        updateFormData({
+          vehicle: {
+            year: parseInt(formData.year),
+            brand: formData.brandName,
+            model: formData.modelName,
+          } as any // Geçici çözüm - diğer alanlar formda doldurulacak
+        })
+        
         // Araç bilgileri sayfasına yönlendir
         router.push('/teklif-al/arac-bilgileri')
       } else {
