@@ -81,7 +81,8 @@ export default function AracBilgileriPage() {
       try {
         const vehicleData = JSON.parse(savedData)
         
-        if (vehicleData.year || vehicleData.brand || vehicleData.model) {
+        // Sadece ana sayfadan gelen verileri kontrol et
+        if (vehicleData.brand || vehicleData.model) {
           setIsFromHomepage(true)
           
           // Set form values if they exist (YIL DA TAŞI!)
@@ -151,47 +152,47 @@ export default function AracBilgileriPage() {
     loadYears()
   }, [])
 
-  // Load brands when year changes
+  // Load brands when year changes (sadece yıl seçildiğinde)
   useEffect(() => {
-    if (watchedYear) {
+    if (watchedYear && !isFromHomepage) {
       loadBrands(watchedYear.toString())
     }
-  }, [watchedYear])
+  }, [watchedYear, isFromHomepage])
 
-  // Load models when brand changes
+  // Load models when brand changes (sadece marka seçildiğinde)
   useEffect(() => {
-    if (watchedYear && watchedBrand) {
+    if (watchedYear && watchedBrand && !isFromHomepage) {
       loadModels(watchedYear.toString(), watchedBrand)
     }
-  }, [watchedYear, watchedBrand])
+  }, [watchedYear, watchedBrand, isFromHomepage])
 
-  // Load body types when model changes
+  // Load body types when model changes (sadece model seçildiğinde)
   useEffect(() => {
-    if (watchedYear && watchedBrand && watchedModel) {
+    if (watchedYear && watchedBrand && watchedModel && !isFromHomepage) {
       loadBodyTypes(watchedYear.toString(), watchedBrand, watchedModel)
     }
-  }, [watchedYear, watchedBrand, watchedModel])
+  }, [watchedYear, watchedBrand, watchedModel, isFromHomepage])
 
-  // Load transmission types when body type changes
+  // Load transmission types when body type changes (sadece kasa tipi seçildiğinde)
   useEffect(() => {
-    if (watchedYear && watchedBrand && watchedModel && watchedBodyType) {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && !isFromHomepage) {
       loadTransmissionTypes(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType)
     }
-  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType])
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, isFromHomepage])
 
-  // Load fuel types when transmission type changes
+  // Load fuel types when transmission type changes (sadece vites tipi seçildiğinde)
   useEffect(() => {
-    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType) {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType && !isFromHomepage) {
       loadFuelTypes(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType)
     }
-  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType])
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, isFromHomepage])
 
-  // Load versions when fuel type changes
+  // Load versions when fuel type changes (sadece yakıt tipi seçildiğinde)
   useEffect(() => {
-    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType && watchedFuelType) {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType && watchedFuelType && !isFromHomepage) {
       loadVersions(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType)
     }
-  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType])
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType, isFromHomepage])
 
   // Load equipments when version changes
   useEffect(() => {
@@ -219,6 +220,7 @@ export default function AracBilgileriPage() {
 
   const loadBrands = async (year: string) => {
     setLoading(prev => ({ ...prev, brands: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/brands', {
         method: 'POST',
@@ -240,6 +242,7 @@ export default function AracBilgileriPage() {
 
   const loadModels = async (year: string, brandId: string) => {
     setLoading(prev => ({ ...prev, models: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/models', {
         method: 'POST',
@@ -261,6 +264,7 @@ export default function AracBilgileriPage() {
 
   const loadBodyTypes = async (year: string, brandId: string, modelId: string) => {
     setLoading(prev => ({ ...prev, bodyTypes: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/body-types', {
         method: 'POST',
@@ -286,6 +290,7 @@ export default function AracBilgileriPage() {
 
   const loadTransmissionTypes = async (year: string, brandId: string, modelId: string, bodyTypeId: string) => {
     setLoading(prev => ({ ...prev, transmissionTypes: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/transmission-types', {
         method: 'POST',
@@ -312,6 +317,7 @@ export default function AracBilgileriPage() {
 
   const loadFuelTypes = async (year: string, brandId: string, modelId: string, bodyTypeId: string, transmissionTypeId: string) => {
     setLoading(prev => ({ ...prev, fuelTypes: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/fuel-types', {
         method: 'POST',
@@ -339,6 +345,7 @@ export default function AracBilgileriPage() {
 
   const loadVersions = async (year: string, brandId: string, modelId: string, bodyTypeId: string, transmissionTypeId: string, fuelTypeId: string) => {
     setLoading(prev => ({ ...prev, versions: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/versions', {
         method: 'POST',
@@ -367,6 +374,7 @@ export default function AracBilgileriPage() {
 
   const loadEquipments = async (year: string, brandId: string, modelId: string, bodyTypeId: string, transmissionTypeId: string, fuelTypeId: string, versionId: string) => {
     setLoading(prev => ({ ...prev, equipments: true }))
+    setError(null) // Hata temizle
     try {
       const response = await fetch('/api/smartiq/equipments', {
         method: 'POST',
@@ -418,9 +426,6 @@ export default function AracBilgileriPage() {
       fuelTypeName: smartIQData.fuelTypes.find(ft => ft.id.toString() === data.fuelType)?.name || data.fuelType,
       versionName: smartIQData.versions.find(v => v.id.toString() === data.version)?.name || data.version,
     }
-    
-    console.log('🚀 Data with names:', dataWithNames)
-    console.log('🚀 Updating form data...')
     
     updateFormData({ vehicle: dataWithNames })
     

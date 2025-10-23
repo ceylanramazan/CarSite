@@ -46,12 +46,10 @@ export function OfferFormProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (Object.keys(formData).length > 0) {
       localStorage.setItem('offerFormData', JSON.stringify(formData))
-      console.log('💾 Form data saved to localStorage:', formData)
     }
   }, [formData])
 
   const updateFormData = (data: Partial<OfferFormData>) => {
-    console.log('🔄 Updating form data:', data)
     setFormData((prev) => ({ ...prev, ...data }))
   }
 
