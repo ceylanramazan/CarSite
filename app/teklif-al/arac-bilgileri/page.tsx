@@ -75,19 +75,46 @@ export default function AracBilgileriPage() {
 
   // Check if user came from homepage with pre-filled data
   useEffect(() => {
-    // localStorage'ı temizle
-    localStorage.removeItem('vehicleFormData')
+    // URL parametrelerini kontrol et
+    const urlParams = new URLSearchParams(window.location.search)
+    const year = urlParams.get('year')
+    const brand = urlParams.get('brand')
+    const model = urlParams.get('model')
+    const brandName = urlParams.get('brandName')
+    const modelName = urlParams.get('modelName')
     
-    // Context'te veri var mı kontrol et
-    if (formData.vehicle && (formData.vehicle.brand || formData.vehicle.model)) {
+    if (year && brand && model) {
       // Ana sayfadan gelen veriler var
       setIsFromHomepage(true)
+      
+      // Form değerlerini set et
+      setValue('year', parseInt(year))
+      setValue('brand', brand)
+      setValue('model', model)
+      
+      // Context'e kaydet
+      updateFormData({
+        vehicle: {
+          year: parseInt(year),
+          brand: brand,
+          model: model,
+          km: 0, // Varsayılan değer
+          fuel_type: '', // Varsayılan değer
+          gearbox: '', // Varsayılan değer
+          city: '', // Varsayılan değer
+          brandName: brandName || '',
+          modelName: modelName || ''
+        }
+      })
+      
+      // URL'yi temizle
+      window.history.replaceState({}, document.title, window.location.pathname)
     } else {
       // Menüden gidildiğinde boş başla
       setIsFromHomepage(false)
     }
     
-  }, [formData.vehicle])
+  }, [setValue, updateFormData])
 
   // Ana sayfadan gelen verileri kontrol et (sadece Context'te veri varsa)
   useEffect(() => {
