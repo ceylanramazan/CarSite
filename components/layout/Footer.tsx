@@ -20,7 +20,14 @@ export default function Footer() {
         <div className="lg:hidden space-y-4">
           {/* Logo & Description - Always visible */}
           <div className="pb-4 border-b border-white/20">
-            <Link href="/" className="flex items-center space-x-3 mb-3">
+            <Link 
+              href="/" 
+              onClick={(e) => {
+                e.preventDefault()
+                window.location.href = '/'
+              }}
+              className="flex items-center space-x-3 mb-3"
+            >
               <Image 
                 src="/logo.png" 
                 alt="Any 2. El Logo" 
@@ -174,7 +181,14 @@ export default function Footer() {
         <div className="hidden lg:grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Logo & About */}
           <div className="space-y-3 sm:space-y-4">
-            <Link href="/" className="flex items-center space-x-3">
+            <Link 
+              href="/" 
+              onClick={(e) => {
+                e.preventDefault()
+                window.location.href = '/'
+              }}
+              className="flex items-center space-x-3"
+            >
               <Image 
                 src="/logo.png" 
                 alt="Any 2. El Logo" 

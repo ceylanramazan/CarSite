@@ -37,7 +37,14 @@ export default function Header() {
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 sm:h-18 md:h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2 sm:space-x-3 group">
+          <Link 
+            href="/" 
+            onClick={(e) => {
+              e.preventDefault()
+              handleNavigationClick('/')
+            }}
+            className="flex items-center space-x-2 sm:space-x-3 group"
+          >
             <div className="rounded-lg sm:rounded-xl bg-primary/10 p-2 sm:p-3 transition-all group-hover:bg-primary/20 group-hover:scale-110">
               <Image 
                 src="/logo.png" 
