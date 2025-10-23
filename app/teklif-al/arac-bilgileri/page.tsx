@@ -81,7 +81,7 @@ export default function AracBilgileriPage() {
       try {
         const vehicleData = JSON.parse(savedData)
         
-        // Sadece ana sayfadan gelen verileri kontrol et
+        // Sadece ana sayfadan gelen verileri kontrol et (marka/model var mı?)
         if (vehicleData.brand || vehicleData.model) {
           setIsFromHomepage(true)
           
@@ -100,10 +100,20 @@ export default function AracBilgileriPage() {
           updateFormData({
             vehicle: vehicleData as any
           })
+        } else {
+          // Menüden gidildiğinde localStorage'ı temizle
+          localStorage.removeItem('vehicleFormData')
+          setIsFromHomepage(false)
         }
       } catch (error) {
         console.error('Error parsing localStorage data:', error)
+        // Hata durumunda da temizle
+        localStorage.removeItem('vehicleFormData')
+        setIsFromHomepage(false)
       }
+    } else {
+      // localStorage'da veri yoksa menüden gidilmiş
+      setIsFromHomepage(false)
     }
     
     // Context'ten de kontrol et (YIL DA TAŞI!)
