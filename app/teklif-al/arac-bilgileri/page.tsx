@@ -75,49 +75,11 @@ export default function AracBilgileriPage() {
 
   // Check if user came from homepage with pre-filled data
   useEffect(() => {
-    // localStorage'dan verileri oku
-    const savedData = localStorage.getItem('vehicleFormData')
-    if (savedData) {
-      try {
-        const vehicleData = JSON.parse(savedData)
-        
-        // Sadece ana sayfadan gelen verileri kontrol et (marka/model var mı?)
-        if (vehicleData.brand || vehicleData.model) {
-          setIsFromHomepage(true)
-          
-          // Set form values if they exist (YIL DA TAŞI!)
-          if (vehicleData.year) {
-            setValue('year', vehicleData.year)
-          }
-          if (vehicleData.brand) {
-            setValue('brand', vehicleData.brand.toString())
-          }
-          if (vehicleData.model) {
-            setValue('model', vehicleData.model.toString())
-          }
-          
-          // Context'e de kaydet
-          updateFormData({
-            vehicle: vehicleData as any
-          })
-        } else {
-          // Menüden gidildiğinde localStorage'ı temizle
-          localStorage.removeItem('vehicleFormData')
-          setIsFromHomepage(false)
-        }
-      } catch (error) {
-        console.error('Error parsing localStorage data:', error)
-        // Hata durumunda da temizle
-        localStorage.removeItem('vehicleFormData')
-        setIsFromHomepage(false)
-      }
-    } else {
-      // localStorage'da veri yoksa menüden gidilmiş
-      setIsFromHomepage(false)
-    }
+    // localStorage'ı tamamen temizle
+    localStorage.removeItem('vehicleFormData')
     
-    // Context'ten de kontrol et (YIL DA TAŞI!)
-    if (formData.vehicle && (formData.vehicle.year || formData.vehicle.brand || formData.vehicle.model)) {
+    // Sadece Context'ten gelen verileri kontrol et
+    if (formData.vehicle && (formData.vehicle.brand || formData.vehicle.model)) {
       setIsFromHomepage(true)
       
       // Set form values if they exist (YIL DA TAŞI!)
@@ -130,7 +92,11 @@ export default function AracBilgileriPage() {
       if (formData.vehicle.model) {
         setValue('model', formData.vehicle.model.toString())
       }
+    } else {
+      // Menüden gidilmiş veya Context'te veri yok
+      setIsFromHomepage(false)
     }
+    
   }, [formData.vehicle, setValue, updateFormData])
 
   // Clear localStorage on page refresh to allow fresh start
