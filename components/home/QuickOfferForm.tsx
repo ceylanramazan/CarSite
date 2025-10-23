@@ -68,10 +68,12 @@ export default function QuickOfferForm() {
       if (data.success) {
         setSmartIQData(prev => ({ ...prev, years: data.data }))
       } else {
-        setError('SmartIQ API kimlik bilgileri geçersiz. Lütfen API anahtarlarını kontrol edin.')
+        // Kullanıcı dostu hata mesajı
+        setError('Araç bilgileri yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.')
       }
     } catch (error) {
-      setError('SmartIQ API kimlik bilgileri geçersiz. Lütfen API anahtarlarını kontrol edin.')
+      // Kullanıcı dostu hata mesajı
+      setError('Araç bilgileri yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.')
     } finally {
       setLoading(prev => ({ ...prev, years: false }))
     }
@@ -90,10 +92,10 @@ export default function QuickOfferForm() {
       if (data.success) {
         setSmartIQData(prev => ({ ...prev, brands: data.data }))
       } else {
-        setError(data.error)
+        setError('Markalar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
       }
     } catch (error) {
-      setError('Markalar yüklenirken hata oluştu')
+      setError('Markalar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
     } finally {
       setLoading(prev => ({ ...prev, brands: false }))
     }
@@ -112,10 +114,10 @@ export default function QuickOfferForm() {
       if (data.success) {
         setSmartIQData(prev => ({ ...prev, models: data.data }))
       } else {
-        setError(data.error)
+        setError('Modeller yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
       }
     } catch (error) {
-      setError('Modeller yüklenirken hata oluştu')
+      setError('Modeller yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
     } finally {
       setLoading(prev => ({ ...prev, models: false }))
     }
@@ -187,10 +189,10 @@ export default function QuickOfferForm() {
         // Araç bilgileri sayfasına yönlendir
         router.push('/teklif-al/arac-bilgileri')
       } else {
-        setError(data.error)
+        setError('Fiyatlandırma yapılırken bir sorun oluştu. Lütfen tekrar deneyin.')
       }
     } catch (error) {
-      setError('Fiyatlandırma yapılırken hata oluştu')
+      setError('Fiyatlandırma yapılırken bir sorun oluştu. Lütfen tekrar deneyin.')
     } finally {
       setLoading(prev => ({ ...prev, pricing: false }))
     }
