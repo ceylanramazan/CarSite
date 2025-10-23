@@ -132,6 +132,20 @@ export default function AracBilgileriPage() {
     return () => window.removeEventListener('beforeunload', handleBeforeUnload)
   }, [])
 
+  // Allow year change by clearing pre-filled data when year changes
+  useEffect(() => {
+    if (watchedYear && isFromHomepage) {
+      // User changed year, clear pre-filled data
+      setIsFromHomepage(false)
+      setValue('brand', '')
+      setValue('model', '')
+      setValue('bodyType', '')
+      setValue('transmissionType', '')
+      setValue('fuelType', '')
+      setValue('version', '')
+    }
+  }, [watchedYear, isFromHomepage, setValue])
+
   // Load years on mount
   useEffect(() => {
     loadYears()

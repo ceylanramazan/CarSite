@@ -34,6 +34,9 @@ export default function OzetPage() {
     setError(null)
 
     try {
+      console.log('🚀 SmartIQ Pricing API çağrısı başlatılıyor...')
+      console.log('🚀 Form data:', formData)
+      
       // SmartIQ Pricing API çağrısı
       const pricingResponse = await fetch('/api/smartiq/pricing', {
         method: 'POST',
@@ -84,9 +87,10 @@ export default function OzetPage() {
       })
 
       const pricingData = await pricingResponse.json()
+      console.log('🚀 Pricing API Response:', pricingData)
       
       if (!pricingData.success) {
-        console.error('Pricing API Error:', pricingData)
+        console.error('❌ Pricing API Error:', pricingData)
         throw new Error(pricingData.error || pricingData.message || 'Fiyat hesaplanırken bir hata oluştu')
       }
 

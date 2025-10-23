@@ -144,22 +144,6 @@ export default function BasariliPage() {
                   </div>
                 </div>
 
-                {/* Ek Bilgiler */}
-                <div className="bg-gradient-to-r from-primary/5 to-blue-50 rounded-lg p-6">
-                  <h4 className="font-semibold text-gray-800 mb-3">Değerlendirme Detayları</h4>
-                  <div className="grid md:grid-cols-2 gap-4 text-sm">
-                    <div className="flex items-center">
-                      <Clock className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-gray-600">Değerlendirme Tarihi:</span>
-                      <span className="ml-2 font-medium">{new Date().toLocaleDateString('tr-TR')}</span>
-                    </div>
-                    <div className="flex items-center">
-                      <MapPin className="h-4 w-4 text-gray-500 mr-2" />
-                      <span className="text-gray-600">Bölge:</span>
-                      <span className="ml-2 font-medium">İstanbul</span>
-                    </div>
-                  </div>
-                </div>
               </CardContent>
             </Card>
           </motion.div>
