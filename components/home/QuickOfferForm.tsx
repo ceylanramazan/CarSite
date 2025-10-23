@@ -68,10 +68,10 @@ export default function QuickOfferForm() {
       if (data.success) {
         setSmartIQData(prev => ({ ...prev, years: data.data }))
       } else {
-        setError(data.error)
+        setError('SmartIQ API kimlik bilgileri geçersiz. Lütfen API anahtarlarını kontrol edin.')
       }
     } catch (error) {
-      setError('Yıllar yüklenirken hata oluştu')
+      setError('SmartIQ API kimlik bilgileri geçersiz. Lütfen API anahtarlarını kontrol edin.')
     } finally {
       setLoading(prev => ({ ...prev, years: false }))
     }

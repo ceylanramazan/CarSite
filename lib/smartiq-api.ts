@@ -4,7 +4,7 @@
 const SMARTIQ_BASE_URL = 'https://qa.smartiq.io/mars/autoPricingAPI'
 
 const API_USER = 'anycarsfiyatlamaapisi@info.com'
-const API_KEY = '159357'
+const API_KEY = 'API_zuDcLuL9K8U9235u'
 
 // Types
 export interface SmartIQResponse<T> {
