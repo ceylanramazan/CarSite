@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Vercel için static export kaldırıldı
+  output: 'export',
+  trailingSlash: true,
+  basePath: '',
   images: {
     unoptimized: true
   }
