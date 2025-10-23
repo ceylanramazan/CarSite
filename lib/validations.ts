@@ -15,6 +15,7 @@ export const vehicleSchema = z.object({
   transmissionType: z.string().min(1, 'Vites tipi seçimi zorunludur'),
   fuelType: z.string().min(1, 'Yakıt tipi seçimi zorunludur'),
   version: z.string().min(1, 'Versiyon seçimi zorunludur'),
+  equipments: z.array(z.string()).optional(),
   // Legacy fields for backward compatibility
   fuel_type: z.string().optional(),
   gearbox: z.string().optional(),

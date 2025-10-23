@@ -14,6 +14,7 @@ export interface VehicleDTO {
   transmissionType?: string
   fuelType?: string
   version?: string
+  equipments?: string[]
 }
 
 export interface DamageDTO {

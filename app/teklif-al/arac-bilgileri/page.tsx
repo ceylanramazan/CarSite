@@ -173,6 +173,13 @@ export default function AracBilgileriPage() {
     }
   }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType])
 
+  // Load equipments when version changes
+  useEffect(() => {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType && watchedFuelType && watchedVersion) {
+      loadEquipments(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType, watchedVersion)
+    }
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType, watchedVersion])
+
   const loadYears = async () => {
     setLoading(prev => ({ ...prev, years: true }))
     try {
@@ -335,6 +342,35 @@ export default function AracBilgileriPage() {
       setError('Versiyonlar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
     } finally {
       setLoading(prev => ({ ...prev, versions: false }))
+    }
+  }
+
+  const loadEquipments = async (year: string, brandId: string, modelId: string, bodyTypeId: string, transmissionTypeId: string, fuelTypeId: string, versionId: string) => {
+    setLoading(prev => ({ ...prev, equipments: true }))
+    try {
+      const response = await fetch('/api/smartiq/equipments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          year: parseInt(year), 
+          brandId: parseInt(brandId), 
+          modelId: parseInt(modelId),
+          bodyTypeId: parseInt(bodyTypeId),
+          transmissionTypeId: parseInt(transmissionTypeId),
+          fuelTypeId: parseInt(fuelTypeId),
+          versionId: parseInt(versionId)
+        })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, equipments: data.data }))
+      } else {
+        setError('Ekipmanlar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch (error) {
+      setError('Ekipmanlar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setLoading(prev => ({ ...prev, equipments: false }))
     }
   }
 
@@ -625,6 +661,38 @@ export default function AracBilgileriPage() {
                   )}
                 </div>
               </div>
+
+              {/* Ekipmanlar Bölümü */}
+              {smartIQData.equipments.length > 0 && (
+                <div className="mt-8">
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                    <Settings className="mr-2 h-5 w-5 text-green-500" />
+                    Araç Ekipmanları
+                  </h4>
+                  <div className="grid gap-4 md:grid-cols-2">
+                    {smartIQData.equipments.map((equipment) => (
+                      <div key={equipment.id} className="flex items-center space-x-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-green-300 transition-colors">
+                        <input
+                          type="checkbox"
+                          id={`equipment-${equipment.id}`}
+                          value={equipment.id}
+                          {...register('equipments')}
+                          className="h-4 w-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                        />
+                        <label htmlFor={`equipment-${equipment.id}`} className="flex-1 cursor-pointer">
+                          <div className="font-medium text-gray-800">{equipment.name}</div>
+                          <div className="text-sm text-gray-500">{equipment.type}</div>
+                        </label>
+                        {equipment.isOptional && (
+                          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                            Opsiyonel
+                          </span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
 
             {/* Step 3: Additional Details */}
