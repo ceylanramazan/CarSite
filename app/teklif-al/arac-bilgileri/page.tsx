@@ -122,6 +122,16 @@ export default function AracBilgileriPage() {
     }
   }, [formData.vehicle, setValue, updateFormData])
 
+  // Clear localStorage on page refresh to allow fresh start
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.removeItem('vehicleFormData')
+    }
+    
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [])
+
   // Load years on mount
   useEffect(() => {
     loadYears()
