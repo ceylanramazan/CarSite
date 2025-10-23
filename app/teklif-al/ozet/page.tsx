@@ -46,12 +46,12 @@ export default function OzetPage() {
           transmissionTypeId: parseInt(formData.vehicle.transmissionType || '0'),
           fuelTypeId: parseInt(formData.vehicle.fuelType || '0'),
           versionId: parseInt(formData.vehicle.version || '0'),
-          cityCode: formData.vehicle.city,
-          km: formData.vehicle.km,
-          // Hasar bilgileri
+          cityCode: parseInt(formData.vehicle.city || '34'), // String'i integer'a çevir
+          kilometer: formData.vehicle.km, // km yerine kilometer kullan
+          // Hasar bilgileri - SmartIQ formatına uygun
           damages: Object.entries(formData.damage.part_status || {}).map(([part, status]) => ({
-            part,
-            status
+            sectionType: part,
+            state: status
           }))
         })
       })
@@ -156,11 +156,11 @@ export default function OzetPage() {
                   <dl className="grid gap-4 sm:grid-cols-2">
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Marka</dt>
-                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.brand}</dd>
+                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.brandName || formData.vehicle.brand}</dd>
                     </div>
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Model</dt>
-                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.model}</dd>
+                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.modelName || formData.vehicle.model}</dd>
                     </div>
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Yıl</dt>
