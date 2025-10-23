@@ -374,6 +374,15 @@ export default function AracBilgileriPage() {
     console.log('🚀 onSubmit called with data:', data)
     console.log('🚀 Form validation errors:', errors)
     console.log('🚀 SmartIQ data:', smartIQData)
+    console.log('🚀 Current form values:', {
+      year: watchedYear,
+      brand: watchedBrand,
+      model: watchedModel,
+      bodyType: watchedBodyType,
+      transmissionType: watchedTransmissionType,
+      fuelType: watchedFuelType,
+      version: watchedVersion
+    })
     
     // Add display names to the data
     const dataWithNames = {
@@ -433,6 +442,9 @@ export default function AracBilgileriPage() {
           <form onSubmit={handleSubmit(onSubmit, (errors) => {
             console.log('❌ Form validation failed:', errors)
             console.log('❌ Form errors:', errors)
+            console.log('❌ Detailed errors:', JSON.stringify(errors, null, 2))
+            console.log('❌ Error keys:', Object.keys(errors))
+            console.log('❌ Error values:', Object.values(errors))
           })} className="space-y-8">
             {/* Step 1: Year, Brand, Model */}
             <motion.div
