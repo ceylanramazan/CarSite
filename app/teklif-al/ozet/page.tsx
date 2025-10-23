@@ -115,7 +115,7 @@ export default function OzetPage() {
     }
   }
 
-  if (!formData.vehicle || !formData.contact) {
+  if (!formData.vehicle || !formData.damage || !formData.expertise || !formData.contact) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary/5 py-12">
         <div className="container mx-auto max-w-3xl px-4">
