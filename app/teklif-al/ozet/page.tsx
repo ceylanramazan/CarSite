@@ -219,7 +219,7 @@ export default function OzetPage() {
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Kilometre</dt>
                       <dd className="mt-1 text-base font-semibold text-gray-900">
-                        {formData.vehicle.km.toLocaleString()} km
+                        {formData.vehicle.km ? formData.vehicle.km.toLocaleString() : 'Belirtilmemiş'} km
                       </dd>
                     </div>
                     <div className="rounded-lg bg-gray-50 p-3">

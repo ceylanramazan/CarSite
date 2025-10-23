@@ -106,7 +106,9 @@ export default function BasariliPage() {
                       </div>
                       <div>
                         <span className="text-gray-600">Kilometre:</span>
-                        <p className="font-medium text-gray-800">{formData.vehicle.km?.toLocaleString()} km</p>
+                        <p className="font-medium text-gray-800">
+                          {formData.vehicle.km ? formData.vehicle.km.toLocaleString() : 'Belirtilmemiş'} km
+                        </p>
                       </div>
                     </div>
                   </div>
