@@ -78,7 +78,16 @@ export default function AracBilgileriPage() {
     // localStorage'ı tamamen temizle
     localStorage.removeItem('vehicleFormData')
     
-    // Sadece Context'ten gelen verileri kontrol et
+    // Context'i de temizle
+    updateFormData({ vehicle: undefined })
+    
+    // Menüden gidildiğinde her zaman boş başla
+    setIsFromHomepage(false)
+    
+  }, [updateFormData])
+
+  // Ana sayfadan gelen verileri kontrol et (sadece Context'te veri varsa)
+  useEffect(() => {
     if (formData.vehicle && (formData.vehicle.brand || formData.vehicle.model)) {
       setIsFromHomepage(true)
       
@@ -92,12 +101,8 @@ export default function AracBilgileriPage() {
       if (formData.vehicle.model) {
         setValue('model', formData.vehicle.model.toString())
       }
-    } else {
-      // Menüden gidilmiş veya Context'te veri yok
-      setIsFromHomepage(false)
     }
-    
-  }, [formData.vehicle, setValue, updateFormData])
+  }, [formData.vehicle, setValue])
 
   // Clear localStorage on page refresh to allow fresh start
   useEffect(() => {
