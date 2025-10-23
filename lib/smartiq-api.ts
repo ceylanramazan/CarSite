@@ -1,7 +1,7 @@
 // SmartIQ API Integration
 // Vehicle Pricing API for Any 2. El
 
-const SMARTIQ_BASE_URL = 'https://qa.smartiq.io/mars/autoPricingAPI'
+const SMARTIQ_BASE_URL = 'https://api.smartiq.io/mars/autoPricingAPI'
 
 const API_USER = 'anycarsfiyatlamaapisi@info.com'
 const API_KEY = 'API_zuDcLuL9K8U9235u'
