@@ -112,6 +112,15 @@ export default function AracBilgileriPage() {
     } else {
       // Menüden gidildiğinde boş başla
       setIsFromHomepage(false)
+      
+      // Form alanlarını temizle
+      setValue('year', 0)
+      setValue('brand', '')
+      setValue('model', '')
+      setValue('bodyType', '')
+      setValue('transmissionType', '')
+      setValue('fuelType', '')
+      setValue('version', '')
     }
     
   }, [setValue, updateFormData])
