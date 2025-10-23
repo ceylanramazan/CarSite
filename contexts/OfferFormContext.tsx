@@ -7,6 +7,7 @@ interface OfferFormContextType {
   formData: OfferFormData
   updateFormData: (data: Partial<OfferFormData>) => void
   resetFormData: () => void
+  isLoaded: boolean
 }
 
 const OfferFormContext = createContext<OfferFormContextType | undefined>(
@@ -15,19 +16,30 @@ const OfferFormContext = createContext<OfferFormContextType | undefined>(
 
 export function OfferFormProvider({ children }: { children: React.ReactNode }) {
   const [formData, setFormData] = useState<OfferFormData>({})
+  const [isLoaded, setIsLoaded] = useState(false)
 
   // Load form data from localStorage on mount
   useEffect(() => {
-    const savedData = localStorage.getItem('offerFormData')
-    if (savedData) {
+    const loadData = () => {
       try {
-        const parsedData = JSON.parse(savedData)
-        setFormData(parsedData)
-        console.log('📦 Form data loaded from localStorage:', parsedData)
+        const savedData = localStorage.getItem('offerFormData')
+        if (savedData) {
+          const parsedData = JSON.parse(savedData)
+          setFormData(parsedData)
+          console.log('📦 Form data loaded from localStorage:', parsedData)
+        } else {
+          console.log('📦 No saved data in localStorage')
+        }
       } catch (error) {
         console.error('Error parsing localStorage data:', error)
+      } finally {
+        setIsLoaded(true)
       }
     }
+
+    // Delay to ensure localStorage is available
+    const timer = setTimeout(loadData, 100)
+    return () => clearTimeout(timer)
   }, [])
 
   // Save form data to localStorage whenever it changes
@@ -51,7 +63,7 @@ export function OfferFormProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <OfferFormContext.Provider
-      value={{ formData, updateFormData, resetFormData }}
+      value={{ formData, updateFormData, resetFormData, isLoaded }}
     >
       {children}
     </OfferFormContext.Provider>

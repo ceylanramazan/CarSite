@@ -35,7 +35,7 @@ type PartStatus = 'O' | 'LB' | 'B' | 'D'
 
 export default function HasarBilgileriPage() {
   const router = useRouter()
-  const { formData, updateFormData } = useOfferForm()
+  const { formData, updateFormData, isLoaded } = useOfferForm()
   
   const [partStatus, setPartStatus] = useState<Record<string, PartStatus>>(
     formData.damage?.part_status || 
@@ -73,6 +73,22 @@ export default function HasarBilgileriPage() {
       currentStatus === 'LB' ? 'B' :
       currentStatus === 'B' ? 'D' : 'O'
     handlePartStatusChange(partId, nextStatus)
+  }
+
+  // Show loading if context is not loaded yet
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-primary/5 py-8">
+        <div className="container mx-auto max-w-6xl px-4">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+              <p className="text-gray-600">Form verileri yükleniyor...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
