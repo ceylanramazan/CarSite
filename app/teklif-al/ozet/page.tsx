@@ -85,8 +85,6 @@ export default function OzetPage() {
 
       const pricingData = await pricingResponse.json()
       
-      console.log('Pricing API Response:', pricingData)
-      
       if (!pricingData.success) {
         console.error('Pricing API Error:', pricingData)
         throw new Error(pricingData.error || pricingData.message || 'Fiyat hesaplanırken bir hata oluştu')

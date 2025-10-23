@@ -176,8 +176,6 @@ export default function QuickOfferForm() {
       // localStorage'a da kaydet (kalıcılık için)
       localStorage.setItem('vehicleFormData', JSON.stringify(vehicleData))
       
-      console.log('Saving to context:', vehicleData)
-      
       // Araç bilgileri sayfasına yönlendir
       router.push('/teklif-al/arac-bilgileri')
     } catch (error) {

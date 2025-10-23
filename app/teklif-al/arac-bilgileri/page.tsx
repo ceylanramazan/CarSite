@@ -372,7 +372,7 @@ export default function AracBilgileriPage() {
 
   const onSubmit = (data: VehicleDTO) => {
     // Form validation kontrolü
-    if (!data.year || !data.brand || !data.model || !data.bodyType || !data.transmissionType || !data.fuelType || !data.version) {
+    if (!data.year || !data.brand || !data.model || !data.bodyType || !data.transmissionType || !data.fuelType || !data.version || !data.km || !data.city) {
       setError('Lütfen tüm zorunlu alanları doldurun')
       return
     }
