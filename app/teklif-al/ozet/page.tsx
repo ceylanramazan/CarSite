@@ -92,6 +92,9 @@ export default function OzetPage() {
         throw new Error(pricingData.error || pricingData.message || 'Fiyat hesaplanırken bir hata oluştu')
       }
 
+      // Pricing sonucunu localStorage'a kaydet
+      localStorage.setItem('smartiq-pricing-result', JSON.stringify(pricingData.data))
+      
       // Pricing sonucunu form data'ya ekle
       const payload = {
         vehicle: formData.vehicle,
