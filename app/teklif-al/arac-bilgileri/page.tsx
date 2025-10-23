@@ -63,11 +63,23 @@ export default function AracBilgileriPage() {
 
   // Check if user came from homepage with pre-filled data
   useEffect(() => {
+    console.log('Form data from context:', formData.vehicle)
     if (formData.vehicle && (formData.vehicle.year || formData.vehicle.brand || formData.vehicle.model)) {
       setIsFromHomepage(true)
       console.log('Pre-filled data from homepage:', formData.vehicle)
+      
+      // Set form values if they exist
+      if (formData.vehicle.year) {
+        setValue('year', formData.vehicle.year)
+      }
+      if (formData.vehicle.brand) {
+        setValue('brand', formData.vehicle.brand.toString())
+      }
+      if (formData.vehicle.model) {
+        setValue('model', formData.vehicle.model.toString())
+      }
     }
-  }, [formData.vehicle])
+  }, [formData.vehicle, setValue])
 
   // Load years on mount
   useEffect(() => {

@@ -162,13 +162,19 @@ export default function QuickOfferForm() {
     setError(null)
 
     try {
-      // Form verilerini context'e kaydet (sadece mevcut alanlar)
+      // Form verilerini context'e kaydet (ID'leri string olarak kaydet)
       updateFormData({
         vehicle: {
           year: parseInt(formData.year),
-          brand: formData.brandName,
-          model: formData.modelName,
+          brand: formData.brandId, // ID'yi kaydet
+          model: formData.modelId, // ID'yi kaydet
         } as any // Geçici çözüm - diğer alanlar formda doldurulacak
+      })
+      
+      console.log('Saving to context:', {
+        year: parseInt(formData.year),
+        brand: formData.brandId,
+        model: formData.modelId
       })
       
       // Araç bilgileri sayfasına yönlendir
