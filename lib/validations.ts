@@ -8,15 +8,16 @@ export const vehicleSchema = z.object({
     .min(1990, 'Yıl 1990 veya sonrası olmalıdır')
     .max(new Date().getFullYear() + 1, 'Geçerli bir yıl giriniz'),
   km: z.number().min(0, 'Kilometre 0 veya daha fazla olmalıdır'),
-  fuel_type: z.string().min(1, 'Yakıt tipi seçimi zorunludur'),
-  gearbox: z.string().min(1, 'Vites tipi seçimi zorunludur'),
   city: z.string().min(1, 'Şehir seçimi zorunludur'),
   plate: z.string().optional(),
-  // SmartIQ API fields
-  bodyType: z.string().optional(),
-  transmissionType: z.string().optional(),
-  fuelType: z.string().optional(),
-  version: z.string().optional(),
+  // SmartIQ API fields - these are now the main fields
+  bodyType: z.string().min(1, 'Kasa tipi seçimi zorunludur'),
+  transmissionType: z.string().min(1, 'Vites tipi seçimi zorunludur'),
+  fuelType: z.string().min(1, 'Yakıt tipi seçimi zorunludur'),
+  version: z.string().min(1, 'Versiyon seçimi zorunludur'),
+  // Legacy fields for backward compatibility
+  fuel_type: z.string().optional(),
+  gearbox: z.string().optional(),
 })
 
 export const damageSchema = z.object({
