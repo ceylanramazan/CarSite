@@ -225,17 +225,6 @@ export default function AracBilgileriPage() {
               Aracınızın temel bilgilerini giriniz
             </p>
             
-            {/* Pre-filled data indicator */}
-            {isFromHomepage && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="inline-flex items-center px-4 py-2 bg-green-50 border border-green-200 rounded-full text-green-700 text-sm font-medium"
-              >
-                <CheckCircle className="h-4 w-4 mr-2" />
-                Ana sayfadan gelen bilgiler otomatik dolduruldu
-              </motion.div>
-            )}
 
             {error && (
               <motion.div 
