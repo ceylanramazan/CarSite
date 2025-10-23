@@ -401,7 +401,10 @@ export default function AracBilgileriPage() {
     updateFormData({ vehicle: dataWithNames })
     
     console.log('🚀 Navigating to hasar-bilgileri...')
-    router.push('/teklif-al/hasar-bilgileri')
+    
+    // Force navigation with window.location.href
+    console.log('🚀 Using window.location.href for navigation...')
+    window.location.href = '/teklif-al/hasar-bilgileri'
   }
 
   return (
