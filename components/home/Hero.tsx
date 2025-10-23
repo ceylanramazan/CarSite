@@ -13,7 +13,7 @@ export default function Hero() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/CarSite/hero-background.jpg"
+          src="/hero-background.jpg"
           alt="Hero Background"
           fill
           className="object-cover object-center"

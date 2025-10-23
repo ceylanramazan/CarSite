@@ -57,6 +57,11 @@ export default function AracBilgileriPage() {
     defaultValues: formData.vehicle || {},
   })
 
+  // Debug: Form data'yı console'a yazdır
+  useEffect(() => {
+    console.log('Form Data from Context:', formData.vehicle)
+  }, [formData.vehicle])
+
   const watchedYear = watch('year')
   const watchedBrand = watch('brand')
 

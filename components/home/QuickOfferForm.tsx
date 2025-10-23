@@ -301,7 +301,7 @@ export default function QuickOfferForm() {
                 Yönlendiriliyor...
               </>
             ) : (
-              'Aracınızı Satın'
+              'Ön fiyat teklifi al'
             )}
           </Button>
         </div>

@@ -12,7 +12,7 @@ export default function CTA() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/CarSite/cta-background.jpg"
+          src="/cta-background.jpg"
           alt="CTA Background"
           fill
           className="object-cover"
