@@ -128,6 +128,18 @@ export default function HasarBilgileriPage() {
             </motion.div>
           )}
 
+          {/* Debug form data */}
+          {(() => {
+            console.log('🔍 Hasar bilgileri form verileri:', {
+              vehicle: formData.vehicle,
+              brandName: formData.vehicle?.brandName,
+              modelName: formData.vehicle?.modelName,
+              brand: formData.vehicle?.brand,
+              model: formData.vehicle?.model
+            })
+            return null
+          })()}
+
           {/* Grid - 2 columns on large screens, 1 on mobile */}
           <div className="grid lg:grid-cols-2 gap-4 md:gap-6">
             {/* Left Panel: Part Selection */}
