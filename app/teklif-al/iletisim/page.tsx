@@ -149,34 +149,6 @@ export default function IletisimPage() {
               </motion.div>
             </div>
 
-            {/* Şehir */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.25 }}
-            >
-              <Label htmlFor="city" className="mb-2 flex items-center text-base font-semibold text-gray-700">
-                <MapPin className="mr-2 h-5 w-5 text-primary" />
-                Şehir *
-              </Label>
-              <Select id="city" {...register('city')} className="h-12 text-base transition-all hover:border-primary focus:border-primary focus:ring-2 focus:ring-primary/20">
-                <option value="">Şehir Seçiniz</option>
-                {CITIES.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
-                  </option>
-                ))}
-              </Select>
-              {errors.city && (
-                <motion.p
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-2 text-sm text-red-500 flex items-center"
-                >
-                  ⚠️ {errors.city.message}
-                </motion.p>
-              )}
-            </motion.div>
 
             {/* KVKK */}
             <motion.div

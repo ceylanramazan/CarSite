@@ -73,8 +73,8 @@ export default function AracAlPage() {
                 >
                   <option value="">Tümü</option>
                   {CITIES.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
+                    <option key={city.code} value={city.code}>
+                      {city.name}
                     </option>
                   ))}
                 </Select>

@@ -375,7 +375,18 @@ export default function AracBilgileriPage() {
   }
 
   const onSubmit = (data: VehicleDTO) => {
-    updateFormData({ vehicle: data })
+    // Add display names to the data
+    const dataWithNames = {
+      ...data,
+      brandName: smartIQData.brands.find(b => b.id.toString() === data.brand)?.name || data.brand,
+      modelName: smartIQData.models.find(m => m.id.toString() === data.model)?.name || data.model,
+      bodyTypeName: smartIQData.bodyTypes.find(bt => bt.id.toString() === data.bodyType)?.name || data.bodyType,
+      transmissionTypeName: smartIQData.transmissionTypes.find(tt => tt.id.toString() === data.transmissionType)?.name || data.transmissionType,
+      fuelTypeName: smartIQData.fuelTypes.find(ft => ft.id.toString() === data.fuelType)?.name || data.fuelType,
+      versionName: smartIQData.versions.find(v => v.id.toString() === data.version)?.name || data.version,
+    }
+    
+    updateFormData({ vehicle: dataWithNames })
     router.push('/teklif-al/hasar-bilgileri')
   }
 
@@ -733,8 +744,8 @@ export default function AracBilgileriPage() {
                   <Select id="city" {...register('city')} className="h-12 text-base transition-all hover:border-blue-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20">
                     <option value="">Şehir Seçiniz</option>
                     {CITIES.map((city) => (
-                      <option key={city} value={city}>
-                        {city}
+                      <option key={city.code} value={city.code}>
+                        {city.name}
                       </option>
                     ))}
                   </Select>

@@ -44,7 +44,6 @@ export const contactSchema = z.object({
     .min(10, 'Telefon numarası en az 10 karakter olmalıdır')
     .regex(/^[0-9+\s()-]+$/, 'Geçerli bir telefon numarası giriniz'),
   email: z.string().email('Geçerli bir email adresi giriniz'),
-  city: z.string().min(1, 'Şehir seçimi zorunludur'),
   kvkk: z.boolean().refine((val) => val === true, {
     message: 'KVKK metnini onaylamanız gerekmektedir',
   }),

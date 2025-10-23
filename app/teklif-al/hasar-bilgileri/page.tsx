@@ -110,11 +110,11 @@ export default function HasarBilgileriPage() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                 <div>
                   <span className="text-gray-600">Marka:</span>
-                  <p className="font-medium text-gray-800">{formData.vehicle.brand}</p>
+                  <p className="font-medium text-gray-800">{formData.vehicle.brandName || formData.vehicle.brand}</p>
                 </div>
                 <div>
                   <span className="text-gray-600">Model:</span>
-                  <p className="font-medium text-gray-800">{formData.vehicle.model}</p>
+                  <p className="font-medium text-gray-800">{formData.vehicle.modelName || formData.vehicle.model}</p>
                 </div>
                 <div>
                   <span className="text-gray-600">Yıl:</span>

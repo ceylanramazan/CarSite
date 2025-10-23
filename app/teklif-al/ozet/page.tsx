@@ -34,11 +34,41 @@ export default function OzetPage() {
     setError(null)
 
     try {
+      // SmartIQ Pricing API çağrısı
+      const pricingResponse = await fetch('/api/smartiq/pricing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          year: formData.vehicle.year,
+          brandId: parseInt(formData.vehicle.brand),
+          modelId: parseInt(formData.vehicle.model),
+          bodyTypeId: parseInt(formData.vehicle.bodyType || '0'),
+          transmissionTypeId: parseInt(formData.vehicle.transmissionType || '0'),
+          fuelTypeId: parseInt(formData.vehicle.fuelType || '0'),
+          versionId: parseInt(formData.vehicle.version || '0'),
+          cityCode: formData.vehicle.city,
+          km: formData.vehicle.km,
+          // Hasar bilgileri
+          damages: Object.entries(formData.damage.part_status || {}).map(([part, status]) => ({
+            part,
+            status
+          }))
+        })
+      })
+
+      const pricingData = await pricingResponse.json()
+      
+      if (!pricingData.success) {
+        throw new Error(pricingData.message || 'Fiyat hesaplanırken bir hata oluştu')
+      }
+
+      // Pricing sonucunu form data'ya ekle
       const payload = {
         vehicle: formData.vehicle,
         damage: formData.damage,
         expertise: formData.expertise,
         contact: formData.contact,
+        pricing: pricingData.data
       }
 
       await submitOffer(payload)
@@ -46,6 +76,7 @@ export default function OzetPage() {
     } catch (err: any) {
       setError(
         err.response?.data?.message ||
+          err.message ||
           'Bir hata oluştu. Lütfen tekrar deneyin.'
       )
     } finally {
@@ -344,10 +375,6 @@ export default function OzetPage() {
                     <div className="rounded-lg bg-blue-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">E-posta</dt>
                       <dd className="mt-1 text-base font-semibold text-gray-900">{formData.contact.email}</dd>
-                    </div>
-                    <div className="rounded-lg bg-blue-50 p-3">
-                      <dt className="text-sm font-medium text-gray-500">Şehir</dt>
-                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.contact.city}</dd>
                     </div>
                   </dl>
                 </CardContent>

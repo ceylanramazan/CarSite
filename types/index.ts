@@ -15,6 +15,13 @@ export interface VehicleDTO {
   fuelType?: string
   version?: string
   equipments?: string[]
+  // Display names for UI
+  brandName?: string
+  modelName?: string
+  bodyTypeName?: string
+  transmissionTypeName?: string
+  fuelTypeName?: string
+  versionName?: string
 }
 
 export interface DamageDTO {
@@ -38,7 +45,6 @@ export interface ContactDTO {
   name: string
   phone: string
   email: string
-  city: string
   kvkk: boolean
 }
 

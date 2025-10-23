@@ -21,18 +21,18 @@ export const FUEL_TYPES = ['Benzin', 'Dizel', 'LPG', 'Hybrid', 'Elektrik']
 export const GEARBOX_TYPES = ['Manuel', 'Otomatik', 'Yarı Otomatik']
 
 export const CITIES = [
-  'Adana',
-  'Ankara',
-  'Antalya',
-  'Bursa',
-  'Diyarbakır',
-  'Gaziantep',
-  'İstanbul',
-  'İzmir',
-  'Kayseri',
-  'Konya',
-  'Mersin',
-  'Samsun',
+  { name: 'İstanbul', code: '34' },
+  { name: 'Ankara', code: '06' },
+  { name: 'İzmir', code: '35' },
+  { name: 'Bursa', code: '16' },
+  { name: 'Antalya', code: '07' },
+  { name: 'Adana', code: '01' },
+  { name: 'Konya', code: '42' },
+  { name: 'Gaziantep', code: '27' },
+  { name: 'Mersin', code: '33' },
+  { name: 'Diyarbakır', code: '21' },
+  { name: 'Kayseri', code: '38' },
+  { name: 'Samsun', code: '55' },
 ]
 
 export const COMMON_PARTS = [

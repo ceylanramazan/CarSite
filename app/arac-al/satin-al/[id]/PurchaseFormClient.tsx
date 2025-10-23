@@ -137,8 +137,8 @@ export function PurchaseFormClient({ car }: { car: CarBuyDTO }) {
                   <Select id="city" {...register('city')}>
                     <option value="">Şehir Seçiniz</option>
                     {CITIES.map((city) => (
-                      <option key={city} value={city}>
-                        {city}
+                      <option key={city.code} value={city.code}>
+                        {city.name}
                       </option>
                     ))}
                   </Select>
