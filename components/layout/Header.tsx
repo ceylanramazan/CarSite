@@ -26,6 +26,12 @@ export default function Header() {
     return pathname.startsWith(href)
   }
 
+  // Navigation click handler
+  const handleNavigationClick = (href: string) => {
+    // Force navigation even if there are any issues
+    window.location.href = href
+  }
+
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-100">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,6 +58,10 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleNavigationClick(item.href)
+                  }}
                   className={`relative px-3 lg:px-4 py-2 text-sm lg:text-base font-semibold transition-all duration-300 group ${
                     active
                       ? 'text-primary'
@@ -76,9 +86,13 @@ export default function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden items-center space-x-2 lg:space-x-3 lg:flex">
-            <Link href="/teklif-al/arac-bilgileri">
-              <Button size="lg" className="font-semibold shadow-lg hover:shadow-xl">Aracınızı Satın</Button>
-            </Link>
+            <Button 
+              size="lg" 
+              className="font-semibold shadow-lg hover:shadow-xl"
+              onClick={() => handleNavigationClick('/teklif-al/arac-bilgileri')}
+            >
+              Aracınızı Satın
+            </Button>
           </div>
 
           {/* Mobile menu button - bigger for touch */}
@@ -111,7 +125,11 @@ export default function Header() {
                         ? 'text-primary'
                         : 'text-gray-700 hover:text-primary'
                     } active:bg-primary/20`}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setMobileMenuOpen(false)
+                      handleNavigationClick(item.href)
+                    }}
                   >
                     {item.name}
                     
@@ -127,11 +145,16 @@ export default function Header() {
                 )
               })}
               <div className="flex flex-col space-y-3 pt-4 border-t border-gray-100 mt-2">
-                <Link href="/teklif-al/arac-bilgileri" onClick={() => setMobileMenuOpen(false)}>
-                  <Button size="lg" className="w-full h-12 text-base font-semibold shadow-lg">
-                    Aracınızı Satın
-                  </Button>
-                </Link>
+                <Button 
+                  size="lg" 
+                  className="w-full h-12 text-base font-semibold shadow-lg"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    handleNavigationClick('/teklif-al/arac-bilgileri')
+                  }}
+                >
+                  Aracınızı Satın
+                </Button>
               </div>
             </div>
           </div>
