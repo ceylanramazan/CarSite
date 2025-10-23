@@ -162,46 +162,19 @@ export default function QuickOfferForm() {
     setError(null)
 
     try {
-      // SmartIQ API ile fiyatlandırma yap
-      const response = await fetch('/api/smartiq/pricing', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      // Form verilerini context'e kaydet (sadece mevcut alanlar)
+      updateFormData({
+        vehicle: {
           year: parseInt(formData.year),
-          brandId: parseInt(formData.brandId),
-          modelId: parseInt(formData.modelId),
-          bodyTypeId: 67, // Default sedan
-          transmissionTypeId: 12, // Default manuel
-          fuelTypeId: 11, // Default benzin
-          versionId: 1, // Default version
-          kilometer: 50000 // Default km
-        })
+          brand: formData.brandName,
+          model: formData.modelName,
+        } as any // Geçici çözüm - diğer alanlar formda doldurulacak
       })
-
-      const data = await response.json()
-      if (data.success) {
-        setPricingResult(data.data.data.prediction)
-        // Form verilerini local storage'a kaydet
-        localStorage.setItem('quickOfferData', JSON.stringify({
-          ...formData,
-          pricing: data.data.data.prediction
-        }))
-        // Form verilerini context'e kaydet (sadece mevcut alanlar)
-        updateFormData({
-          vehicle: {
-            year: parseInt(formData.year),
-            brand: formData.brandName,
-            model: formData.modelName,
-          } as any // Geçici çözüm - diğer alanlar formda doldurulacak
-        })
-        
-        // Araç bilgileri sayfasına yönlendir
-        router.push('/teklif-al/arac-bilgileri')
-      } else {
-        setError('Fiyatlandırma yapılırken bir sorun oluştu. Lütfen tekrar deneyin.')
-      }
+      
+      // Araç bilgileri sayfasına yönlendir
+      router.push('/teklif-al/arac-bilgileri')
     } catch (error) {
-      setError('Fiyatlandırma yapılırken bir sorun oluştu. Lütfen tekrar deneyin.')
+      setError('Bir sorun oluştu. Lütfen tekrar deneyin.')
     } finally {
       setLoading(prev => ({ ...prev, pricing: false }))
     }
@@ -325,10 +298,10 @@ export default function QuickOfferForm() {
             {loading.pricing ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                Fiyatlandırılıyor...
+                Yönlendiriliyor...
               </>
             ) : (
-              'Ön fiyat teklifi al'
+              'Aracınızı Satın'
             )}
           </Button>
         </div>
