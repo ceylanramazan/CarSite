@@ -163,19 +163,20 @@ export default function QuickOfferForm() {
 
     try {
       // Form verilerini context'e kaydet (ID'leri string olarak kaydet)
+      const vehicleData = {
+        year: parseInt(formData.year),
+        brand: formData.brandId, // ID'yi kaydet
+        model: formData.modelId, // ID'yi kaydet
+      }
+      
       updateFormData({
-        vehicle: {
-          year: parseInt(formData.year),
-          brand: formData.brandId, // ID'yi kaydet
-          model: formData.modelId, // ID'yi kaydet
-        } as any // Geçici çözüm - diğer alanlar formda doldurulacak
+        vehicle: vehicleData as any // Geçici çözüm - diğer alanlar formda doldurulacak
       })
       
-      console.log('Saving to context:', {
-        year: parseInt(formData.year),
-        brand: formData.brandId,
-        model: formData.modelId
-      })
+      // localStorage'a da kaydet (kalıcılık için)
+      localStorage.setItem('vehicleFormData', JSON.stringify(vehicleData))
+      
+      console.log('Saving to context:', vehicleData)
       
       // Araç bilgileri sayfasına yönlendir
       router.push('/teklif-al/arac-bilgileri')

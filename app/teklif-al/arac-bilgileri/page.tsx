@@ -64,9 +64,42 @@ export default function AracBilgileriPage() {
   // Check if user came from homepage with pre-filled data
   useEffect(() => {
     console.log('Form data from context:', formData.vehicle)
+    
+    // localStorage'dan verileri oku
+    const savedData = localStorage.getItem('vehicleFormData')
+    if (savedData) {
+      try {
+        const vehicleData = JSON.parse(savedData)
+        console.log('Data from localStorage:', vehicleData)
+        
+        if (vehicleData.year || vehicleData.brand || vehicleData.model) {
+          setIsFromHomepage(true)
+          
+          // Set form values if they exist
+          if (vehicleData.year) {
+            setValue('year', vehicleData.year)
+          }
+          if (vehicleData.brand) {
+            setValue('brand', vehicleData.brand.toString())
+          }
+          if (vehicleData.model) {
+            setValue('model', vehicleData.model.toString())
+          }
+          
+          // Context'e de kaydet
+          updateFormData({
+            vehicle: vehicleData as any
+          })
+        }
+      } catch (error) {
+        console.error('Error parsing localStorage data:', error)
+      }
+    }
+    
+    // Context'ten de kontrol et
     if (formData.vehicle && (formData.vehicle.year || formData.vehicle.brand || formData.vehicle.model)) {
       setIsFromHomepage(true)
-      console.log('Pre-filled data from homepage:', formData.vehicle)
+      console.log('Pre-filled data from context:', formData.vehicle)
       
       // Set form values if they exist
       if (formData.vehicle.year) {
@@ -79,7 +112,7 @@ export default function AracBilgileriPage() {
         setValue('model', formData.vehicle.model.toString())
       }
     }
-  }, [formData.vehicle, setValue])
+  }, [formData.vehicle, setValue, updateFormData])
 
   // Load years on mount
   useEffect(() => {
