@@ -12,6 +12,11 @@ export const vehicleSchema = z.object({
   gearbox: z.string().min(1, 'Vites tipi seçimi zorunludur'),
   city: z.string().min(1, 'Şehir seçimi zorunludur'),
   plate: z.string().optional(),
+  // SmartIQ API fields
+  bodyType: z.string().optional(),
+  transmissionType: z.string().optional(),
+  fuelType: z.string().optional(),
+  version: z.string().optional(),
 })
 
 export const damageSchema = z.object({

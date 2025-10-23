@@ -211,7 +211,7 @@ export default function QuickOfferForm() {
           {/* Model Yılı */}
           <div>
             <label htmlFor="year" className="mb-2 block text-sm font-semibold text-gray-700">
-              Yıl
+              Model Yılı Seçimi
             </label>
             <Select
               id="year"
@@ -232,7 +232,7 @@ export default function QuickOfferForm() {
           {/* Marka */}
           <div>
             <label htmlFor="brandId" className="mb-2 block text-sm font-semibold text-gray-700">
-              Marka
+              Marka Seçimi
             </label>
             <Select
               id="brandId"
@@ -260,7 +260,7 @@ export default function QuickOfferForm() {
           {/* Model */}
           <div>
             <label htmlFor="modelId" className="mb-2 block text-sm font-semibold text-gray-700">
-              Model
+              Model Seçimi
             </label>
             <Select
               id="modelId"

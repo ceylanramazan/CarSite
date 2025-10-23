@@ -36,12 +36,19 @@ export default function AracBilgileriPage() {
     bodyTypes: [] as { id: number; name: string }[],
     transmissionTypes: [] as { id: number; name: string }[],
     fuelTypes: [] as { id: number; name: string }[],
+    versions: [] as { id: number; name: string }[],
+    equipments: [] as { id: number; name: string; type: string; isOptional: boolean }[],
   })
   
   const [loading, setLoading] = useState({
     years: false,
     brands: false,
     models: false,
+    bodyTypes: false,
+    transmissionTypes: false,
+    fuelTypes: false,
+    versions: false,
+    equipments: false,
   })
   
   const [error, setError] = useState<string | null>(null)
@@ -60,6 +67,11 @@ export default function AracBilgileriPage() {
 
   const watchedYear = watch('year')
   const watchedBrand = watch('brand')
+  const watchedModel = watch('model')
+  const watchedBodyType = watch('bodyType')
+  const watchedTransmissionType = watch('transmissionType')
+  const watchedFuelType = watch('fuelType')
+  const watchedVersion = watch('version')
 
   // Check if user came from homepage with pre-filled data
   useEffect(() => {
@@ -133,6 +145,34 @@ export default function AracBilgileriPage() {
     }
   }, [watchedYear, watchedBrand])
 
+  // Load body types when model changes
+  useEffect(() => {
+    if (watchedYear && watchedBrand && watchedModel) {
+      loadBodyTypes(watchedYear.toString(), watchedBrand, watchedModel)
+    }
+  }, [watchedYear, watchedBrand, watchedModel])
+
+  // Load transmission types when body type changes
+  useEffect(() => {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType) {
+      loadTransmissionTypes(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType)
+    }
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType])
+
+  // Load fuel types when transmission type changes
+  useEffect(() => {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType) {
+      loadFuelTypes(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType)
+    }
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType])
+
+  // Load versions when fuel type changes
+  useEffect(() => {
+    if (watchedYear && watchedBrand && watchedModel && watchedBodyType && watchedTransmissionType && watchedFuelType) {
+      loadVersions(watchedYear.toString(), watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType)
+    }
+  }, [watchedYear, watchedBrand, watchedModel, watchedBodyType, watchedTransmissionType, watchedFuelType])
+
   const loadYears = async () => {
     setLoading(prev => ({ ...prev, years: true }))
     try {
@@ -189,6 +229,112 @@ export default function AracBilgileriPage() {
       setError('Modeller yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
     } finally {
       setLoading(prev => ({ ...prev, models: false }))
+    }
+  }
+
+  const loadBodyTypes = async (year: string, brandId: string, modelId: string) => {
+    setLoading(prev => ({ ...prev, bodyTypes: true }))
+    try {
+      const response = await fetch('/api/smartiq/body-types', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          year: parseInt(year), 
+          brandId: parseInt(brandId), 
+          modelId: parseInt(modelId) 
+        })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, bodyTypes: data.data }))
+      } else {
+        setError('Kasa tipleri yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch (error) {
+      setError('Kasa tipleri yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setLoading(prev => ({ ...prev, bodyTypes: false }))
+    }
+  }
+
+  const loadTransmissionTypes = async (year: string, brandId: string, modelId: string, bodyTypeId: string) => {
+    setLoading(prev => ({ ...prev, transmissionTypes: true }))
+    try {
+      const response = await fetch('/api/smartiq/transmission-types', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          year: parseInt(year), 
+          brandId: parseInt(brandId), 
+          modelId: parseInt(modelId),
+          bodyTypeId: parseInt(bodyTypeId)
+        })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, transmissionTypes: data.data }))
+      } else {
+        setError('Vites tipleri yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch (error) {
+      setError('Vites tipleri yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setLoading(prev => ({ ...prev, transmissionTypes: false }))
+    }
+  }
+
+  const loadFuelTypes = async (year: string, brandId: string, modelId: string, bodyTypeId: string, transmissionTypeId: string) => {
+    setLoading(prev => ({ ...prev, fuelTypes: true }))
+    try {
+      const response = await fetch('/api/smartiq/fuel-types', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          year: parseInt(year), 
+          brandId: parseInt(brandId), 
+          modelId: parseInt(modelId),
+          bodyTypeId: parseInt(bodyTypeId),
+          transmissionTypeId: parseInt(transmissionTypeId)
+        })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, fuelTypes: data.data }))
+      } else {
+        setError('Yakıt tipleri yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch (error) {
+      setError('Yakıt tipleri yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setLoading(prev => ({ ...prev, fuelTypes: false }))
+    }
+  }
+
+  const loadVersions = async (year: string, brandId: string, modelId: string, bodyTypeId: string, transmissionTypeId: string, fuelTypeId: string) => {
+    setLoading(prev => ({ ...prev, versions: true }))
+    try {
+      const response = await fetch('/api/smartiq/versions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          year: parseInt(year), 
+          brandId: parseInt(brandId), 
+          modelId: parseInt(modelId),
+          bodyTypeId: parseInt(bodyTypeId),
+          transmissionTypeId: parseInt(transmissionTypeId),
+          fuelTypeId: parseInt(fuelTypeId)
+        })
+      })
+      const data = await response.json()
+      if (data.success) {
+        setSmartIQData(prev => ({ ...prev, versions: data.data }))
+      } else {
+        setError('Versiyonlar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+      }
+    } catch (error) {
+      setError('Versiyonlar yüklenirken bir sorun oluştu. Lütfen tekrar deneyin.')
+    } finally {
+      setLoading(prev => ({ ...prev, versions: false }))
     }
   }
 
@@ -346,15 +492,150 @@ export default function AracBilgileriPage() {
               </div>
             </motion.div>
 
-            {/* Step 2: Additional Details */}
+            {/* Step 2: Technical Details */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200"
+            >
+              <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+                <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
+                Teknik Özellikler
+              </h3>
+              
+              <div className="grid gap-6 md:grid-cols-2">
+                {/* Kasa Tipi */}
+                <div>
+                  <Label htmlFor="bodyType" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                    <Car className="mr-2 h-5 w-5 text-green-500" />
+                    Kasa Tipi *
+                  </Label>
+                  <Select 
+                    id="bodyType" 
+                    {...register('bodyType')} 
+                    className="h-12 text-base transition-all hover:border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                    disabled={loading.bodyTypes || !watchedModel}
+                  >
+                    <option value="">{loading.bodyTypes ? 'Kasa tipleri yükleniyor...' : !watchedModel ? 'Önce model seçiniz' : 'Kasa Tipi Seçiniz'}</option>
+                    {smartIQData.bodyTypes.map((bodyType) => (
+                      <option key={bodyType.id} value={bodyType.id}>
+                        {bodyType.name}
+                      </option>
+                    ))}
+                  </Select>
+                  {errors.bodyType && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-red-500 flex items-center"
+                    >
+                      ⚠️ {errors.bodyType.message}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Vites Tipi */}
+                <div>
+                  <Label htmlFor="transmissionType" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                    <Settings className="mr-2 h-5 w-5 text-green-500" />
+                    Vites Tipi *
+                  </Label>
+                  <Select 
+                    id="transmissionType" 
+                    {...register('transmissionType')} 
+                    className="h-12 text-base transition-all hover:border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                    disabled={loading.transmissionTypes || !watchedBodyType}
+                  >
+                    <option value="">{loading.transmissionTypes ? 'Vites tipleri yükleniyor...' : !watchedBodyType ? 'Önce kasa tipi seçiniz' : 'Vites Tipi Seçiniz'}</option>
+                    {smartIQData.transmissionTypes.map((transmissionType) => (
+                      <option key={transmissionType.id} value={transmissionType.id}>
+                        {transmissionType.name}
+                      </option>
+                    ))}
+                  </Select>
+                  {errors.transmissionType && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-red-500 flex items-center"
+                    >
+                      ⚠️ {errors.transmissionType.message}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Yakıt Tipi */}
+                <div>
+                  <Label htmlFor="fuelType" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                    <Fuel className="mr-2 h-5 w-5 text-green-500" />
+                    Yakıt Tipi *
+                  </Label>
+                  <Select 
+                    id="fuelType" 
+                    {...register('fuelType')} 
+                    className="h-12 text-base transition-all hover:border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                    disabled={loading.fuelTypes || !watchedTransmissionType}
+                  >
+                    <option value="">{loading.fuelTypes ? 'Yakıt tipleri yükleniyor...' : !watchedTransmissionType ? 'Önce vites tipi seçiniz' : 'Yakıt Tipi Seçiniz'}</option>
+                    {smartIQData.fuelTypes.map((fuelType) => (
+                      <option key={fuelType.id} value={fuelType.id}>
+                        {fuelType.name}
+                      </option>
+                    ))}
+                  </Select>
+                  {errors.fuelType && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-red-500 flex items-center"
+                    >
+                      ⚠️ {errors.fuelType.message}
+                    </motion.p>
+                  )}
+                </div>
+
+                {/* Versiyon */}
+                <div>
+                  <Label htmlFor="version" className="mb-2 flex items-center text-base font-semibold text-gray-700">
+                    <Car className="mr-2 h-5 w-5 text-green-500" />
+                    Versiyon *
+                  </Label>
+                  <Select 
+                    id="version" 
+                    {...register('version')} 
+                    className="h-12 text-base transition-all hover:border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                    disabled={loading.versions || !watchedFuelType}
+                  >
+                    <option value="">{loading.versions ? 'Versiyonlar yükleniyor...' : !watchedFuelType ? 'Önce yakıt tipi seçiniz' : 'Versiyon Seçiniz'}</option>
+                    {smartIQData.versions.map((version) => (
+                      <option key={version.id} value={version.id}>
+                        {version.name}
+                      </option>
+                    ))}
+                  </Select>
+                  {errors.version && (
+                    <motion.p 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2 text-sm text-red-500 flex items-center"
+                    >
+                      ⚠️ {errors.version.message}
+                    </motion.p>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Step 3: Additional Details */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
               className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200"
             >
               <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">2</div>
+                <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
                 Ek Bilgiler
               </h3>
               
@@ -410,96 +691,6 @@ export default function AracBilgileriPage() {
               </div>
             </motion.div>
 
-            {/* Step 3: Technical Details */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200"
-            >
-              <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">3</div>
-                Teknik Özellikler
-              </h3>
-              
-              <div className="grid gap-6 md:grid-cols-2">
-                {/* Yakıt Tipi */}
-                <div>
-                  <Label htmlFor="fuel_type" className="mb-2 flex items-center text-base font-semibold text-gray-700">
-                    <Fuel className="mr-2 h-5 w-5 text-green-500" />
-                    Yakıt Tipi *
-                  </Label>
-                  <Select id="fuel_type" {...register('fuel_type')} className="h-12 text-base transition-all hover:border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20">
-                    <option value="">Yakıt Tipi Seçiniz</option>
-                    {FUEL_TYPES.map((fuel) => (
-                      <option key={fuel} value={fuel}>
-                        {fuel}
-                      </option>
-                    ))}
-                  </Select>
-                  {errors.fuel_type && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-2 text-sm text-red-500 flex items-center"
-                    >
-                      ⚠️ {errors.fuel_type.message}
-                    </motion.p>
-                  )}
-                </div>
-
-                {/* Vites */}
-                <div>
-                  <Label htmlFor="gearbox" className="mb-2 flex items-center text-base font-semibold text-gray-700">
-                    <Settings className="mr-2 h-5 w-5 text-green-500" />
-                    Vites *
-                  </Label>
-                  <Select id="gearbox" {...register('gearbox')} className="h-12 text-base transition-all hover:border-green-500 focus:border-green-500 focus:ring-2 focus:ring-green-500/20">
-                    <option value="">Vites Tipi Seçiniz</option>
-                    {GEARBOX_TYPES.map((gearbox) => (
-                      <option key={gearbox} value={gearbox}>
-                        {gearbox}
-                      </option>
-                    ))}
-                  </Select>
-                  {errors.gearbox && (
-                    <motion.p 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-2 text-sm text-red-500 flex items-center"
-                    >
-                      ⚠️ {errors.gearbox.message}
-                    </motion.p>
-                  )}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Step 4: Optional Details */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
-              className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-200"
-            >
-              <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-                <div className="w-8 h-8 bg-gray-500 text-white rounded-full flex items-center justify-center text-sm font-bold mr-3">4</div>
-                Ek Bilgiler (Opsiyonel)
-              </h3>
-              
-              <div>
-                <Label htmlFor="plate" className="mb-2 flex items-center text-base font-semibold text-gray-700">
-                  <Hash className="mr-2 h-5 w-5 text-gray-500" />
-                  Plaka
-                </Label>
-                <Input
-                  id="plate"
-                  placeholder="Örn: 34ABC123"
-                  {...register('plate')}
-                  className="h-12 text-base transition-all hover:border-gray-400 focus:border-gray-400 focus:ring-2 focus:ring-gray-400/20"
-                />
-              </div>
-            </motion.div>
 
             {/* Submit Button */}
             <motion.div 

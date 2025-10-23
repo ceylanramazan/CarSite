@@ -9,6 +9,11 @@ export interface VehicleDTO {
   city: string
   plate?: string
   photos?: string[]
+  // SmartIQ API fields
+  bodyType?: string
+  transmissionType?: string
+  fuelType?: string
+  version?: string
 }
 
 export interface DamageDTO {
