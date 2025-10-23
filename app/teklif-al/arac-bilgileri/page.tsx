@@ -81,13 +81,10 @@ export default function AracBilgileriPage() {
       try {
         const vehicleData = JSON.parse(savedData)
         
-        if (vehicleData.year || vehicleData.brand || vehicleData.model) {
+        if (vehicleData.brand || vehicleData.model) {
           setIsFromHomepage(true)
           
-          // Set form values if they exist
-          if (vehicleData.year) {
-            setValue('year', vehicleData.year)
-          }
+          // Set form values if they exist (YIL ALANINI TAŞIMA!)
           if (vehicleData.brand) {
             setValue('brand', vehicleData.brand.toString())
           }
@@ -105,14 +102,11 @@ export default function AracBilgileriPage() {
       }
     }
     
-    // Context'ten de kontrol et
-    if (formData.vehicle && (formData.vehicle.year || formData.vehicle.brand || formData.vehicle.model)) {
+    // Context'ten de kontrol et (YIL ALANINI TAŞIMA!)
+    if (formData.vehicle && (formData.vehicle.brand || formData.vehicle.model)) {
       setIsFromHomepage(true)
       
-      // Set form values if they exist
-      if (formData.vehicle.year) {
-        setValue('year', formData.vehicle.year)
-      }
+      // Set form values if they exist (YIL ALANINI TAŞIMA!)
       if (formData.vehicle.brand) {
         setValue('brand', formData.vehicle.brand.toString())
       }
