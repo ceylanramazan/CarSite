@@ -1,12 +1,10 @@
 // SmartIQ API Integration
 // Vehicle Pricing API for Any 2. El
 
-const SMARTIQ_BASE_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://api.smartiq.io/mars/autoPricingAPI'
-  : 'https://qa.smartiq.io/mars/autoPricingAPI'
+const SMARTIQ_BASE_URL = 'https://api.smartiq.io/mars/autoPricingAPI'
 
-const API_USER = process.env.SMARTIQ_API_USER
-const API_KEY = process.env.SMARTIQ_API_KEY
+const API_USER = 'anycarsfiyatlamaapisi@info.com'
+const API_KEY = '159357'
 
 // Types
 export interface SmartIQResponse<T> {
