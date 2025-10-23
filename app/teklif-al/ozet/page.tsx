@@ -58,8 +58,11 @@ export default function OzetPage() {
 
       const pricingData = await pricingResponse.json()
       
+      console.log('Pricing API Response:', pricingData)
+      
       if (!pricingData.success) {
-        throw new Error(pricingData.message || 'Fiyat hesaplanırken bir hata oluştu')
+        console.error('Pricing API Error:', pricingData)
+        throw new Error(pricingData.error || pricingData.message || 'Fiyat hesaplanırken bir hata oluştu')
       }
 
       // Pricing sonucunu form data'ya ekle
@@ -174,11 +177,11 @@ export default function OzetPage() {
                     </div>
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Yakıt</dt>
-                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.fuel_type}</dd>
+                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.fuelTypeName || formData.vehicle.fuel_type || 'Belirtilmemiş'}</dd>
                     </div>
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Vites</dt>
-                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.gearbox}</dd>
+                      <dd className="mt-1 text-base font-semibold text-gray-900">{formData.vehicle.transmissionTypeName || formData.vehicle.gearbox || 'Belirtilmemiş'}</dd>
                     </div>
                     <div className="rounded-lg bg-gray-50 p-3">
                       <dt className="text-sm font-medium text-gray-500">Şehir</dt>

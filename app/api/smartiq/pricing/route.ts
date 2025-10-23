@@ -5,11 +5,14 @@ export async function POST(request: NextRequest) {
   try {
     const pricingRequest = await request.json()
     
+    console.log('Pricing API Request:', JSON.stringify(pricingRequest, null, 2))
+    
     // Validate required fields
     const requiredFields = ['year', 'brandId', 'modelId', 'bodyTypeId', 'transmissionTypeId', 'fuelTypeId', 'versionId', 'kilometer']
     const missingFields = requiredFields.filter(field => !pricingRequest[field])
     
     if (missingFields.length > 0) {
+      console.error('Missing required fields:', missingFields)
       return NextResponse.json(
         { success: false, error: `Missing required fields: ${missingFields.join(', ')}` },
         { status: 400 }
