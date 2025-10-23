@@ -49,10 +49,37 @@ export default function OzetPage() {
           cityCode: parseInt(formData.vehicle.city || '34'), // String'i integer'a çevir
           kilometer: formData.vehicle.km, // km yerine kilometer kullan
           // Hasar bilgileri - SmartIQ formatına uygun
-          damages: Object.entries(formData.damage.part_status || {}).map(([part, status]) => ({
-            sectionType: part,
-            state: status
-          }))
+          damages: Object.entries(formData.damage.part_status || {})
+            .filter(([part, status]) => status && status !== 'O') // Sadece hasarlı parçalar
+            .map(([part, status]) => {
+              // Parça isimlerini SmartIQ formatına çevir
+              const sectionTypeMap: Record<string, string> = {
+                'SolOnCamurluk': 'LEFT_FRONT_FENDER',
+                'SolOnKapi': 'LEFT_FRONT_DOOR',
+                'SolArkaCamurluk': 'LEFT_REAR_FENDER',
+                'SolArkaKapi': 'LEFT_REAR_DOOR',
+                'SagOnCamurluk': 'RIGHT_FRONT_FENDER',
+                'SagOnKapi': 'RIGHT_FRONT_DOOR',
+                'SagArkaCamurluk': 'RIGHT_REAR_FENDER',
+                'SagArkaKapi': 'RIGHT_REAR_DOOR',
+                'Kaput': 'FRONT_HOOD',
+                'Tavan': 'CEILING',
+                'Bagaj': 'REAR_HOOD'
+              }
+              
+              // Durum isimlerini SmartIQ formatına çevir
+              const stateMap: Record<string, string> = {
+                'O': 'ORIGINAL', // Orijinal
+                'LB': 'SCRATCHED', // Lokal Boya -> Çizik
+                'B': 'PAINTED', // Boyalı
+                'D': 'REPLACED' // Değişen
+              }
+              
+              return {
+                sectionType: sectionTypeMap[part] || part,
+                state: stateMap[status] || status
+              }
+            })
         })
       })
 
